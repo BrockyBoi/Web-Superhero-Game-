@@ -44,10 +44,6 @@ public class Player : MonoBehaviour {
 
     public enum Attacks { Short, Medium, Long, AOE };
 
-    
-
-    public SuperPowerController powerController;
-
     int[] availablePowers = new int[4];
     void Awake()
     {
@@ -61,7 +57,7 @@ public class Player : MonoBehaviour {
                                      .2f, 3, 6, 10,
                                      1.5f, 4, 8, 30,
                                      .8f, 3.5f, 6, 20,
-                                     1.5f, 3.5f, 7, 20
+                                     .5f, 3.5f, 7, 20
                                     };
         //Only need to check for short, medium, long, AOE attacks
         attackTimes = new float[4] { 0, 0, 0, 0};
@@ -195,7 +191,7 @@ public class Player : MonoBehaviour {
 
 	void GetPowers()
 	{
-		availablePowers = powerController.GetAvailablePowers();
+		availablePowers = SuperPowerController.controller.GetAvailablePowers();
 	}
 
     void SelectAttack(int attackNum)
@@ -253,7 +249,7 @@ public class Player : MonoBehaviour {
 				RockThrow ();
 				break;
 			case ((int)SuperPowerController.PowerNames.HeatVision):
-				SuperPowerAttack (availablePowers [2], LargeAttackDistance ());
+				SuperPowerAttack (attackNum, LargeAttackDistance ());
 				break;
 			case ((int)SuperPowerController.PowerNames.DashAttack):
 				StartCoroutine (DashAttack ());
@@ -273,16 +269,20 @@ public class Player : MonoBehaviour {
 			case ((int)SuperPowerController.PowerNames.Lightning):
 				break;
 			case ((int)SuperPowerController.PowerNames.Jump):
-				break;
+				StartCoroutine (JumpAttack ());
+				IncreaseAttackTime ((int)Attacks.AOE);
+				return;
 			case ((int)SuperPowerController.PowerNames.MapDash):
 				StartCoroutine (MapDash ());
-				break;
+				IncreaseAttackTime ((int)Attacks.AOE);
+				return;
 			case ((int)SuperPowerController.PowerNames.Grenades):
-				break;
+				GrenadeMove ();
+				IncreaseAttackTime ((int)Attacks.AOE);
+				return;
 			default:
 				break;
 			}
-			Debug.Log(SuperPowerController.controller.IntToPower(availablePowers[3]));
 			SuperPowerAttackBothDirections (attackNum, playerLevel * 2);
 			IncreaseAttackTime ((int)Attacks.AOE);
 			break;
@@ -291,43 +291,6 @@ public class Player : MonoBehaviour {
 		}
 		Debug.Log (SuperPowerController.controller.IntToPower(availablePowers [attackNum]));
 	}
-
-    //void Attack(float j)
-    //{
-    //    if (j == 0 || !canAttack)
-    //        return;
-
-    //    if (!CheckAttackTime(powerController.GetCurrentPower()))
-    //        return;
-
-    //    int power = powerController.GetCurrentPower();
-    //    switch (power)
-    //    {
-    //        case ((int)SuperPowerController.PowerNames.TankMelee):
-    //            SuperPowerAttack(ShortAttackDistance());
-    //            break;
-    //        case ((int)SuperPowerController.PowerNames.Fire):
-    //            SuperPowerAttack(ShortAttackDistance());
-    //            FireAttack();
-    //            break;
-    //        case ((int)SuperPowerController.PowerNames.HeatVision):
-    //            SuperPowerAttack(LargeAttackDistance());
-    //            break;
-    //        case ((int)SuperPowerController.PowerNames.Wave):
-    //            SuperPowerAttack(MediumAttackDistance());
-    //            break;
-    //        case ((int)SuperPowerController.PowerNames.Jump):
-    //            StartCoroutine(JumpAttack());
-    //            break;
-    //        case ((int)SuperPowerController.PowerNames.DashAttack):
-    //            StartCoroutine(DashAttack());
-    //            break;
-    //        default:
-    //            break;
-    //    }
-
-    //    IncreaseAttackTime(power);
-    //}
 
     void EnableCanAttack()
     {
@@ -390,8 +353,8 @@ public class Player : MonoBehaviour {
 
     IEnumerator JumpAttack()
     {
-        canAttack = true;
-        rb2d.AddForce(new Vector2(0, powerController.GetPower(SuperPowerController.PowerNames.Jump) * 6), ForceMode2D.Impulse);
+		canAttack = false;
+		rb2d.AddForce(new Vector2(0, Player.playerSingleton.GetLevel() * 6), ForceMode2D.Impulse);
 
         yield return new WaitForSeconds(1f);
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.down, 1f, LayerMask.GetMask("Default"));
@@ -402,7 +365,7 @@ public class Player : MonoBehaviour {
         }
 
         SuperPowerAttackBothDirections((int)Attacks.AOE,LargeAttackDistance());
-        canAttack = false;
+		canAttack = true;
     }
 
     void IceAttack()
@@ -431,9 +394,26 @@ public class Player : MonoBehaviour {
 
 	IEnumerator MapDash()
 	{
+		Vector3 startingPos = transform.position;
 		canMove = false;
-		//while(trans
-		//Stuff
+		while (CheckIfInBoundaries ()) {
+			rb2d.MovePosition(new Vector2(transform.position.x - 3f, transform.position.y));
+			SuperPowerAttack ((int)Attacks.AOE, -3f);
+			yield return null;
+		}
+		transform.position += new Vector3 (5, 0);
+		while (CheckIfInBoundaries ()) {
+			Debug.Log ("This is run");
+			rb2d.MovePosition(new Vector2(transform.position.x + 3f, transform.position.y));
+			SuperPowerAttack ((int)Attacks.AOE, 3f);
+			yield return null;
+		}
+		while (Vector3.Distance(transform.position, startingPos) > 2) {
+			rb2d.MovePosition(new Vector2(transform.position.x - 3f, transform.position.y));
+			SuperPowerAttack ((int)Attacks.AOE, -3f);
+			yield return null;
+		}
+		canMove = true;
 	}
 
     IEnumerator ShoulderCharge()
@@ -467,6 +447,19 @@ public class Player : MonoBehaviour {
 		wave.GetComponent<Projectile> ().SetVariables (forwardVector, (int)Attacks.Long, playerLevel, (int)LargeAttackDistance ());
 	}
 
+	void GrenadeMove()
+	{
+		for (int i = 0; i < 8; i++) {
+			GameObject grenade = Instantiate (grenadePrefab, transform.position, Quaternion.identity) as GameObject;
+			Rigidbody2D gRb2d = grenade.GetComponent<Rigidbody2D> ();
+
+			Vector2 dir = new Vector2 (Random.Range (-.5f, .5f), 1);
+			float force = Random.Range (500, 750);
+			gRb2d.AddForce (dir * force);
+			gRb2d.AddTorque (dir.x * force);
+		}
+	}
+
     void HeatVisionAttack()
     {
 
@@ -483,7 +476,7 @@ public class Player : MonoBehaviour {
         {
             alive = false;
             Debug.Log("ded");
-            //GAME OVER
+			AchievementSystem.controller.PlayerDeath (SuperPowerController.controller.GetSuperHero ());
         }
     }
 

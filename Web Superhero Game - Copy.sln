@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{211C6876-3020-5FAA-323F-D44C175ECE70}") = "Web Superhero Game - Copy", "Assembly-CSharp.csproj", "{CCEFB0A1-A7EA-ED27-98D8-1DC8AB6CC1C2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CCEFB0A1-A7EA-ED27-98D8-1DC8AB6CC1C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCEFB0A1-A7EA-ED27-98D8-1DC8AB6CC1C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCEFB0A1-A7EA-ED27-98D8-1DC8AB6CC1C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCEFB0A1-A7EA-ED27-98D8-1DC8AB6CC1C2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal

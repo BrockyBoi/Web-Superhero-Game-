@@ -37,39 +37,39 @@ public class XPController : MonoBehaviour {
 
 		switch (level) {
 		case(1):
-			if (currentXp > 15)
+			if (currentXp > 25)
 				canLevelUp = true;
 			break;
 		case(2):
-			if (currentXp > 30)
+			if (currentXp > 50)
 				canLevelUp = true;
 			break;
 		case(3):
-			if (currentXp > 60)
+			if (currentXp > 100)
 				canLevelUp = true;
 			break;
 		case(4):
-			if (currentXp > 120)
+			if (currentXp > 200)
 				canLevelUp = true;
 			break;
 		case(5):
-			if (currentXp > 240)
+			if (currentXp > 400)
 				canLevelUp = true;
 			break;
 		case(6):
-			if (currentXp > 480)
+			if (currentXp > 800)
 				canLevelUp = true;
 			break;
 		case(7):
-			if (currentXp > 960)
+			if (currentXp > 1600)
 				canLevelUp = true;
 			break;
 		case(8):
-			if (currentXp > 1920)
+			if (currentXp > 3200)
 				canLevelUp = true;
 			break;
 		case(9):
-			if (currentXp > 3840)
+			if (currentXp > 6400)
 				canLevelUp = true;
 			break;
 		default:

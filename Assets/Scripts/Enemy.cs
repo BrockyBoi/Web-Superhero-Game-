@@ -247,6 +247,7 @@ public class Enemy : MonoBehaviour {
 				GetHit (50, 75, 20, 30, dir);
 				break;
 			case ((int)SuperPowerController.PowerNames.Grenades):
+				GetHit (20, 25, 30, 35, dir);
 				break;
 			default:
 				break;
@@ -293,6 +294,7 @@ public class Enemy : MonoBehaviour {
 
 		XPController.controller.AddXP (enemyNumber);
         EnemySpawner.controller.SubtractEnemy(enemyNumber);
+		AchievementSystem.controller.AddKill (enemyNumber);
 
         enabled = false;
     }

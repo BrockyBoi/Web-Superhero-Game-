@@ -16,7 +16,7 @@ public class SuperPowerController : MonoBehaviour {
                             SpeedMelee, WindGust, DashAttack, MapDash,
                             Pistol, Shotgun, Sniper, Grenades
                            };
-    public enum SuperHero { Tank = 0, Elementalist = 4, Paragon = 8, Speedster = 12, Vigilantee = 16}
+    public enum SuperHero { Tank, Elementalist, Paragon, Speedster, Vigilantee, HERO_COUNT}
     SuperHero currentHero;
     //First int is simply which power it is, and the second int is how powerful it is
     List<int> superPowers = new List<int>();
@@ -25,16 +25,11 @@ public class SuperPowerController : MonoBehaviour {
 
     void Awake()
     {
-        if (controller == null)
-        {
-            controller = this;
-        }
-        else Destroy(this);
-        DontDestroyOnLoad(this);
+		controller = this;
         InitializePowers();
 
 		//By default the superhero will be a tank
-		SetSuperhero (SuperHero.Speedster);
+		SetSuperHero (SuperHero.Paragon);
     }
 
     // Use this for initialization
@@ -47,15 +42,20 @@ public class SuperPowerController : MonoBehaviour {
 	
 	}
 
-    public void SetSuperhero(SuperHero hero)
+    public void SetSuperHero(SuperHero hero)
     {
         currentHero = hero;
-        int firstPower = (int)hero;
+		int firstPower = (int)hero * 4;
         for(int i = 0; i < 4; i++)
         {
             availablePowers[i] = firstPower + i;
         }
     }
+
+	public int GetSuperHero()
+	{
+		return (int)currentHero;
+	}
 
     public int[] GetAvailablePowers()
     {
@@ -99,6 +99,16 @@ public class SuperPowerController : MonoBehaviour {
     {
         return (PowerNames)num;
     }
+
+	public SuperHero IntToHero(int num)
+	{
+		return (SuperHero)num;
+	}
+
+	public int HeroToInt(SuperHero hero)
+	{
+		return (int)hero;
+	}
 
     public int GetPower(PowerNames power)
     {
