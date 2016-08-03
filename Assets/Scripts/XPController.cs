@@ -5,7 +5,8 @@ public class XPController : MonoBehaviour {
 	public static XPController controller;
 
 
-	public int currentXp = 0;
+	int currentXp = 0;
+	public int[] xpCaps;
 
 
 	void Awake()
@@ -15,7 +16,7 @@ public class XPController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		GameCanvas.controller.LevelUp (xpCaps[1]);
 	}
 	
 	// Update is called once per frame
@@ -33,51 +34,19 @@ public class XPController : MonoBehaviour {
 	void CheckXP()
 	{
 		int level = Player.playerSingleton.GetLevel ();
-		bool canLevelUp = false;
 
-		switch (level) {
-		case(1):
-			if (currentXp > 25)
-				canLevelUp = true;
-			break;
-		case(2):
-			if (currentXp > 50)
-				canLevelUp = true;
-			break;
-		case(3):
-			if (currentXp > 100)
-				canLevelUp = true;
-			break;
-		case(4):
-			if (currentXp > 200)
-				canLevelUp = true;
-			break;
-		case(5):
-			if (currentXp > 400)
-				canLevelUp = true;
-			break;
-		case(6):
-			if (currentXp > 800)
-				canLevelUp = true;
-			break;
-		case(7):
-			if (currentXp > 1600)
-				canLevelUp = true;
-			break;
-		case(8):
-			if (currentXp > 3200)
-				canLevelUp = true;
-			break;
-		case(9):
-			if (currentXp > 6400)
-				canLevelUp = true;
-			break;
-		default:
-			break;
-		}
-
-		if (canLevelUp)
+		if (currentXp >= xpCaps [level]) {
+			currentXp = 0;
 			Player.playerSingleton.LevelUp ();
+			GameCanvas.controller.LevelUp (xpCaps [level + 1]);
+		}	
+	}
+
+	public void SetLevel(int num)
+	{
+		Player.playerSingleton.SetLevel (num);
+		currentXp = 0; 
+		GameCanvas.controller.LevelUp(xpCaps[num]);
 	}
 
 	int CheckEnemyType(int enemyType)
@@ -96,5 +65,10 @@ public class XPController : MonoBehaviour {
 			Debug.Log("You probably did something wrong");
 			return 0;
 		}
+	}
+
+	public int GetCurrentXP()
+	{
+		return currentXp;
 	}
 }

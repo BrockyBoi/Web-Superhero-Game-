@@ -1,14 +1,15 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SuperPowerController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MainMenu.cs">
     <Files>
-      <File FileName="Assets\Scripts\SuperPowerController.cs" Line="32" Column="34" />
-      <File FileName="Assets\Scripts\Enemy.cs" Line="297" Column="52" />
-      <File FileName="Assets\Scripts\Player.cs" Line="479" Column="93" />
-      <File FileName="Assets\Scripts\EnemySpawner.cs" Line="98" Column="49" />
-      <File FileName="Assets\Scripts\MainMenu.cs" Line="16" Column="56" />
-      <File FileName="Assets\Scripts\PlayerInfo.cs" Line="69" Column="3" />
-      <File FileName="Assets\Scripts\AchievementSystem.cs" Line="131" Column="24" />
+      <File FileName="Assets\Scripts\SuperPowerController.cs" Line="41" Column="31" />
+      <File FileName="Assets\Scripts\MainMenu.cs" Line="165" Column="11" />
+      <File FileName="Assets\Scripts\Enemy.cs" Line="169" Column="30" />
+      <File FileName="Assets\Scripts\Player.cs" Line="302" Column="45" />
+      <File FileName="Assets\Scripts\AchievementSystem.cs" Line="21" Column="13" />
+      <File FileName="Assets\Scripts\XPController.cs" Line="49" Column="43" />
+      <File FileName="Assets\Scripts\GameCanvas.cs" Line="81" Column="4" />
+      <File FileName="Assets\Scripts\PlayerInfo.cs" Line="70" Column="21" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

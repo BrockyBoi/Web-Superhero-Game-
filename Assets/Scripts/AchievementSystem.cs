@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 
 public class AchievementSystem : MonoBehaviour {
-	public static AchievementSystem controller;
+	public static AchievementSystem controller = null;
 
 	Dictionary<int, int> totalKills = new Dictionary<int, int>();
 	Dictionary<int, int> enemyTypeKills = new Dictionary<int, int>();
@@ -14,6 +14,15 @@ public class AchievementSystem : MonoBehaviour {
 
 	Dictionary<int, bool> unlockedHeros = new Dictionary<int, bool>();
 
+	//ADD THIS LATER
+	/*
+	 * TOTAL ENEMIES HIT IN ONE ATTACK
+	 * ENEMIES KILLED AT FULL HEALTH
+	 * TOTAL XP
+	 * TOTAL DAMAGE DONE
+	 * TOTAL KILLS (ACROSS ALL HEROES)
+	 * */
+
 	void Awake()
 	{
 		InitializeDictionaries();
@@ -21,8 +30,9 @@ public class AchievementSystem : MonoBehaviour {
 
 		if (controller == null)
 			controller = this;
-		else
+		else if (controller != this) {
 			Destroy (gameObject);
+		}
 	}
 
 	// Use this for initialization
@@ -144,6 +154,10 @@ public class AchievementSystem : MonoBehaviour {
 		case(1):
 			break;
 		case(50):
+			if (hero < unlockedHeros.Count - 1) {
+				Debug.Log ("UNLOCKED NEW HERO");
+				UnlockHero (hero + 1);
+			}
 			break;
 		case(250):
 			break;
@@ -158,6 +172,7 @@ public class AchievementSystem : MonoBehaviour {
 		default:
 			return;
 		}
+		Debug.Log ("Kill achievement: " + totalKills [hero]);
 		UnlockAchievement(hero, GetKillCount(hero));
 	}
 
@@ -169,5 +184,15 @@ public class AchievementSystem : MonoBehaviour {
 	public void UnlockHero(SuperPowerController.SuperHero hero)
 	{
 		unlockedHeros [(int)hero] = true;
+	}
+
+	public void UnlockHero(int num)
+	{
+		unlockedHeros [num] = true;
+	}
+
+	public bool CheckIfUnlocked(int num)
+	{
+		return unlockedHeros [num];
 	}
 }

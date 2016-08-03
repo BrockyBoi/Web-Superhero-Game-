@@ -20,10 +20,11 @@ public class Enemy : MonoBehaviour {
     protected bool invulnerable;
 
     protected bool onFire;
+	protected bool dead;
 
     protected Rigidbody2D rb2d;
 
-    SuperPowerController powerController;
+	protected bool tutorialMode;
 
     protected void Awake()
     {
@@ -37,8 +38,8 @@ public class Enemy : MonoBehaviour {
 
     // Use this for initialization
     protected void Start () {
-        powerController = SuperPowerController.controller;
-        EnemySpawner.controller.AddEnemy(enemyNumber);
+		if(!tutorialMode)
+        	EnemySpawner.controller.AddEnemy(enemyNumber);
     }
 
     // Update is called once per frame
@@ -48,7 +49,7 @@ public class Enemy : MonoBehaviour {
 
     protected void Movement()
     {
-        if (!canMove || !Player.playerSingleton.CheckAlive())
+		if (tutorialMode || !canMove || !Player.playerSingleton.CheckAlive())
             return;
 
         //rb2d.MovePosition(transform.position + forwardDirection * speed * Time.deltaTime);
@@ -117,10 +118,18 @@ public class Enemy : MonoBehaviour {
 
 		ChangeColor (Color.red);
 	}
+
+	public void SetTutorialMode(bool b)
+	{
+		tutorialMode = b;
+	}
 		
 
     protected void Attack(RaycastHit2D hit)
     {
+		if (tutorialMode)
+			return;
+
         DisableCanMove();
 
         hit.collider.gameObject.GetComponent<Player>().TakeDamage(damage);
@@ -157,7 +166,7 @@ public class Enemy : MonoBehaviour {
 
         health -= damageTaken;
 
-        if (health <= 0)
+        if (!tutorialMode && health <= 0)
         {
             Die(damageTaken, powerType, directionHit);
         }
@@ -180,7 +189,8 @@ public class Enemy : MonoBehaviour {
 				GetHit (5, 10, 1, 2, dir);
 				break;
 			case ((int)SuperPowerController.PowerNames.Fire):
-				SetOnFire (dmg, 3);
+				if(!onFire)
+					SetOnFire (dmg, 3);
 				break;
 			case ((int)SuperPowerController.PowerNames.Pistol):
 				GetHit (5, 10, 0, 0, dir);
@@ -266,26 +276,34 @@ public class Enemy : MonoBehaviour {
 		StartCoroutine (Recover ());
 	}
 
+	protected void SetOnFire(float damage, float time)
+	{
+		onFire = true;
+		StartCoroutine(TakeFireDamage(damage, time));
+	}
+
     protected IEnumerator TakeFireDamage(float damage, float timeLeft)
-    {
+	{
         float time = 0;
         while(time < timeLeft)
         {
             time += Time.deltaTime;
-            health -= damage;
+			health -= damage * .05f;
+			if (health <= 0) {
+				Die (0, 0, Vector3.up);
+				StopCoroutine (TakeFireDamage(damage, timeLeft));
+			}
             yield return null;
         }
         onFire = false;
     }
-
-    protected void SetOnFire(float damage, float time)
-    {
-        onFire = true;
-        StartCoroutine(TakeFireDamage(damage, time));
-    }
+		
 
     protected void Die(float dmg, int powerType, Vector3 directionHit)
     {
+		if (dead)
+			return;
+
         rb2d.AddTorque(Random.Range(dmg * directionHit.x * 20, dmg * directionHit.x * 40));
 
         CheckDeathType(powerType);
@@ -296,6 +314,7 @@ public class Enemy : MonoBehaviour {
         EnemySpawner.controller.SubtractEnemy(enemyNumber);
 		AchievementSystem.controller.AddKill (enemyNumber);
 
+		dead = true;
         enabled = false;
     }
 
@@ -306,7 +325,8 @@ public class Enemy : MonoBehaviour {
             case ((int)SuperPowerController.PowerNames.HeatVision):
                 StartCoroutine(Disappear());
                     break;
-            case ((int)SuperPowerController.PowerNames.Fire):
+		case ((int)SuperPowerController.PowerNames.Fire):
+			Debug.Log ("Killed by fire");
                 StartCoroutine(Disappear());
                 break;
             default:
@@ -325,6 +345,9 @@ public class Enemy : MonoBehaviour {
         }
         DisableInvulnerable();
         EnableCanMove();
+
+		if (tutorialMode)
+			Destroy (gameObject);
     }
 
     protected IEnumerator Recover(float time)

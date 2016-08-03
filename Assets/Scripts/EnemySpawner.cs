@@ -46,7 +46,7 @@ public class EnemySpawner : MonoBehaviour {
 		round = 60;
 		CheckRound ();
 
-		for (int j = 0; j < 20; j++) {
+		for (int j = 0; j < 100; j++) {
 			for (int i = 0; i < 4; i++) {
 				AppendSpawnRate (i);
 			}
@@ -92,10 +92,10 @@ public class EnemySpawner : MonoBehaviour {
     {
        
         //Original rates are 3,6,10,30
-        if ((enemyNum == 0 && spawnRates[0] < 1f) || 
-            (enemyNum == 1 && spawnRates[1] < 2) || 
-            (enemyNum == 2 && spawnRates[2] < 4) ||
-            (enemyNum == 3 && spawnRates[3] < 10))
+        if ((enemyNum == 0 && spawnRates[0] < .6f) || 
+            (enemyNum == 1 && spawnRates[1] < 1) || 
+            (enemyNum == 2 && spawnRates[2] < 2) ||
+            (enemyNum == 3 && spawnRates[3] < 5))
             return;
 
         spawnRates[enemyNum] *= .975f;

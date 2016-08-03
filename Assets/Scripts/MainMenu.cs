@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
@@ -11,9 +12,13 @@ public class MainMenu : MonoBehaviour {
 	public Text fxText;
 	public Text musicText;
 
+	public GameObject heroSelect;
+
 	public enum Screens{Title, Option_Achievement_HeroSelect, HeroSelect, Achievements, Options}
 
-	public List<GameObject> heros = new List<GameObject>();
+	public List<Button> heroButtons;
+
+
 
 
 	void Awake()
@@ -25,6 +30,9 @@ public class MainMenu : MonoBehaviour {
 		currentScreen = ScreensToInt (Screens.Title);
 		TurnOffScreens ();
 		ActivateScreen (currentScreen);
+		SetHero ((int)SuperPowerController.SuperHero.Tank);
+
+		CheckUnlockedHeroes ();
 
 	}
 	
@@ -132,5 +140,53 @@ public class MainMenu : MonoBehaviour {
 		screens [currentScreen].gameObject.SetActive (false);
 		currentScreen++;
 		screens [currentScreen].gameObject.SetActive (true);
+	}
+
+	public void SetHero(int num)
+	{
+		switch (num) 
+		{
+		case((int)SuperPowerController.SuperHero.Tank):
+			//Bla bla bla
+			heroSelect.GetComponent<SpriteRenderer>().color = Color.green;
+			break;
+		case((int)SuperPowerController.SuperHero.Elementalist):
+			heroSelect.GetComponent<SpriteRenderer>().color = Color.blue;
+			break;
+		case((int)SuperPowerController.SuperHero.Paragon):
+			heroSelect.GetComponent<SpriteRenderer>().color = Color.red;
+			break;
+		case((int)SuperPowerController.SuperHero.Speedster):
+			heroSelect.GetComponent<SpriteRenderer>().color = Color.yellow;
+			break;
+		case((int)SuperPowerController.SuperHero.Vigilantee):
+			heroSelect.GetComponent<SpriteRenderer>().color = Color.black;
+			break;
+		default:
+			break;
+		}
+		SuperPowerController.controller.SetSuperHero (num);
+	}
+
+	public void StartGame()
+	{
+		if (!PlayerInfo.controller.CheckIfNewPlayer ())
+			SceneManager.LoadScene ("Test Scene");
+		else
+			SceneManager.LoadScene ("Tutorial Scene");
+	}
+
+	public void CheckUnlockedHeroes()
+	{
+		for (int i = 0; i < heroButtons.Count; i++) {
+			bool unlocked = AchievementSystem.controller.CheckIfUnlocked (i);
+			if (!unlocked) {
+				heroButtons [i].GetComponent<Button> ().enabled = false;
+				heroButtons [i].GetComponent<Image> ().color = Color.gray;
+			} else {
+				heroButtons [i].GetComponent<Button> ().enabled = true;
+				heroButtons [i].GetComponent<Image> ().color = Color.white;
+			}
+		}
 	}
 }

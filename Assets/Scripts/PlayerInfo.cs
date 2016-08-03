@@ -7,19 +7,21 @@ using System.IO;
 using UnityEngine.SceneManagement;
 
 public class PlayerInfo : MonoBehaviour {
-	public static PlayerInfo controller; 
+	public static PlayerInfo controller = null; 
 
 	bool useMusic;
 	bool useFX;
 
 	int[] killCounts;
 
+	bool newPlayer;
+
 	void Awake()
 	{
 		if (controller == null)
 			controller = this;
-		else
-			Destroy (this);
+		else if(controller != this)
+			Destroy (gameObject);
 		
 		DontDestroyOnLoad (this);
 	}
@@ -28,6 +30,7 @@ public class PlayerInfo : MonoBehaviour {
 	void Start () {
 		useMusic = true;
 		useFX = true;
+		newPlayer = true;
 	}
 	
 	// Update is called once per frame
@@ -57,6 +60,16 @@ public class PlayerInfo : MonoBehaviour {
 		return useMusic;
 	}
 
+	public bool CheckIfNewPlayer()
+	{
+		return newPlayer;
+	}
+
+	public void NoLongerNewPlayer()
+	{
+		newPlayer = false;
+	}
+
 	public void Save()
 	{
 		BinaryFormatter bf = new BinaryFormatter ();
@@ -74,6 +87,8 @@ public class PlayerInfo : MonoBehaviour {
 		data.totalPlayerDeaths = AchievementSystem.controller.GetTotalPlayerDeaths ();
 
 		data.unlockedHeros = AchievementSystem.controller.GetUnlockedHerosList ();
+
+		data.newPlayer = newPlayer;
 		//For example: data.health = health;
 
 		bf.Serialize (file, data);
@@ -103,6 +118,10 @@ public class PlayerInfo : MonoBehaviour {
 
 			MainMenu.controller.CheckAudioSettings ();
 
+			MainMenu.controller.CheckUnlockedHeroes ();
+
+			newPlayer = data.newPlayer;
+
 			//For example: health = data.health;
 		}
 	}
@@ -120,6 +139,8 @@ public class PlayerInfo : MonoBehaviour {
 		public int totalPlayerDeaths;
 
 		public Dictionary<int, bool> unlockedHeros = new Dictionary<int, bool>();
+
+		public bool newPlayer;
 	}
 }
  

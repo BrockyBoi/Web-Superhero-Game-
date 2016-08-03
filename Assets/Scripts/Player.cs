@@ -25,7 +25,7 @@ public class Player : MonoBehaviour {
     float[] attackTimes;
 
     //Has 3 numbers which represent close range, medium range, and long range attacks
-    public float[] attackDistances;
+    public static float[] attackDistances;
 
     [Range(0,100)]
     int health = 100;
@@ -81,6 +81,7 @@ public class Player : MonoBehaviour {
         canMove = true;
 		canAttack = true;
 		GetPowers ();
+		InitalizeSliders ();
     }
 	
 	// Update is called once per frame
@@ -95,18 +96,24 @@ public class Player : MonoBehaviour {
 
         if(Input.GetKey(KeyCode.Q))
         {
-            SelectAttack(0);
+			if(!GameCanvas.controller.GetTutorialMode() || GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.PressQ))
+            	SelectAttack(0);
         }
         else if (Input.GetKey(KeyCode.W))
         {
+			if(!GameCanvas.controller.GetTutorialMode() || GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.PressW))
             SelectAttack(1);
         }
         else if (Input.GetKey(KeyCode.E))
         {
+			if(!GameCanvas.controller.GetTutorialMode() || GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.PressE))
             SelectAttack(2);
         }
         else if (Input.GetKey(KeyCode.R))
         {
+			if(!GameCanvas.controller.GetTutorialMode() || GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.PressR)
+														|| GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.Lvl1AOE)
+														|| GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.Lvl10AOE))
             SelectAttack(3);
         }
     }
@@ -131,7 +138,7 @@ public class Player : MonoBehaviour {
 
     void Movement(float h, float v)
     {
-        if (!alive || !canMove)
+		if (!alive || !canMove || GameCanvas.controller.GetTutorialMode())
             return;
 
         if (h != 0)
@@ -192,6 +199,18 @@ public class Player : MonoBehaviour {
 	void GetPowers()
 	{
 		availablePowers = SuperPowerController.controller.GetAvailablePowers();
+	}
+
+	void InitalizeSliders()
+	{
+		for (int i = 0; i < 4; i++) {
+			GameCanvas.controller.InitializeSlider (i, attackRates [availablePowers [i]]);
+		}
+	}
+
+	public void FinishRechargingAttack(int num)
+	{
+		attackTimes [num] -= 30;
 	}
 
     void SelectAttack(int attackNum)
@@ -275,10 +294,12 @@ public class Player : MonoBehaviour {
 			case ((int)SuperPowerController.PowerNames.MapDash):
 				StartCoroutine (MapDash ());
 				IncreaseAttackTime ((int)Attacks.AOE);
+				GameCanvas.controller.UpdateAttackSlider (attackNum);
 				return;
 			case ((int)SuperPowerController.PowerNames.Grenades):
 				GrenadeMove ();
 				IncreaseAttackTime ((int)Attacks.AOE);
+				GameCanvas.controller.UpdateAttackSlider (attackNum);
 				return;
 			default:
 				break;
@@ -289,7 +310,7 @@ public class Player : MonoBehaviour {
 		default:
 			break;
 		}
-		Debug.Log (SuperPowerController.controller.IntToPower(availablePowers [attackNum]));
+		GameCanvas.controller.UpdateAttackSlider (attackNum);
 	}
 
     void EnableCanAttack()
@@ -345,12 +366,6 @@ public class Player : MonoBehaviour {
         }
     }
 
-
-    void FireAttack()
-    {
-        
-    }
-
     IEnumerator JumpAttack()
     {
 		canAttack = false;
@@ -366,11 +381,7 @@ public class Player : MonoBehaviour {
 
         SuperPowerAttackBothDirections((int)Attacks.AOE,LargeAttackDistance());
 		canAttack = true;
-    }
-
-    void IceAttack()
-    {
-
+		GameCanvas.controller.UpdateAttackSlider (3);
     }
 
     IEnumerator DashAttack()
@@ -403,7 +414,6 @@ public class Player : MonoBehaviour {
 		}
 		transform.position += new Vector3 (5, 0);
 		while (CheckIfInBoundaries ()) {
-			Debug.Log ("This is run");
 			rb2d.MovePosition(new Vector2(transform.position.x + 3f, transform.position.y));
 			SuperPowerAttack ((int)Attacks.AOE, 3f);
 			yield return null;
@@ -425,9 +435,9 @@ public class Player : MonoBehaviour {
         {
             if (CheckIfInBoundaries())
             {
-				rb2d.MovePosition(new Vector2(transform.position.x + (LargeAttackDistance() / max * forwardVector.x), transform.position.y));
+				rb2d.MovePosition(new Vector2(GetXPos() + (LargeAttackDistance() / max * forwardVector.x), transform.position.y));
             }
-			SuperPowerAttack((int)Attacks.Long, LargeAttackDistance() / max);
+			SuperPowerAttack((int)Attacks.Long, ShortAttackDistance());
             steps++;
             yield return null;
 
@@ -444,7 +454,7 @@ public class Player : MonoBehaviour {
 	void WaveSpawn()
 	{
 		GameObject wave = Instantiate (wavePrefab, transform.position, Quaternion.identity) as GameObject;
-		wave.GetComponent<Projectile> ().SetVariables (forwardVector, (int)Attacks.Long, playerLevel, (int)LargeAttackDistance ());
+		wave.GetComponent<Projectile> ().SetVariables (forwardVector, (int)Attacks.Long, playerLevel, (int)MediumAttackDistance ());
 	}
 
 	void GrenadeMove()
@@ -459,11 +469,6 @@ public class Player : MonoBehaviour {
 			gRb2d.AddTorque (dir.x * force);
 		}
 	}
-
-    void HeatVisionAttack()
-    {
-
-    }
 
     public void TakeDamage(int num)
     {
@@ -480,17 +485,17 @@ public class Player : MonoBehaviour {
         }
     }
 
-    float ShortAttackDistance()
+    public static float ShortAttackDistance()
     {
         return attackDistances[0];
     }
 
-    float MediumAttackDistance()
+	public static float MediumAttackDistance()
     {
         return attackDistances[1];
     }
 
-    float LargeAttackDistance()
+	public static float LargeAttackDistance()
     {
         return attackDistances[2];
     }
@@ -502,8 +507,9 @@ public class Player : MonoBehaviour {
 
     bool CheckAttackTime(int num)
     {
-        if (Time.time < attackTimes[num])
-            return false;
+		if (Time.time < attackTimes [num]) {
+			return false;
+		}
         return true;
     }
 
@@ -531,4 +537,9 @@ public class Player : MonoBehaviour {
     {
         playerLevel++;
     }
+
+	public void SetLevel(int num)
+	{
+		playerLevel = num;
+	}
 }

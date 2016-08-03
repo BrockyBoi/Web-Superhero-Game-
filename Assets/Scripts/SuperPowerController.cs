@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class SuperPowerController : MonoBehaviour {
-    public static SuperPowerController controller;
+	public static SuperPowerController controller = null;
 
     //Superheros are Tank, Elementalist, Paragon, Speedster, Vigilantee
     //Tank = High damage/health/knockback BUT long attack cooldowns
@@ -25,11 +25,20 @@ public class SuperPowerController : MonoBehaviour {
 
     void Awake()
     {
-		controller = this;
+		if (controller == null) 
+		{
+			controller = this;
+			DontDestroyOnLoad (transform.parent);
+			DontDestroyOnLoad (this);
+		} else if (controller != this) 
+		{
+			Destroy (gameObject);
+		}
+		
         InitializePowers();
 
 		//By default the superhero will be a tank
-		SetSuperHero (SuperHero.Paragon);
+		SetSuperHero (SuperHero.Tank);
     }
 
     // Use this for initialization
@@ -51,6 +60,16 @@ public class SuperPowerController : MonoBehaviour {
             availablePowers[i] = firstPower + i;
         }
     }
+
+	public void SetSuperHero(int hero)
+	{
+		currentHero = IntToHero (hero);
+		int firstPower = hero * 4;
+		for(int i = 0; i < 4; i++)
+		{
+			availablePowers[i] = firstPower + i;
+		}
+	}
 
 	public int GetSuperHero()
 	{
