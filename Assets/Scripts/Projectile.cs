@@ -8,6 +8,8 @@ public class Projectile : MonoBehaviour {
 	int level;
 
 	bool hasAllVariables;
+
+	int enemiesHit;
 	// Use this for initialization
 	void Start () {
 
@@ -34,7 +36,11 @@ public class Projectile : MonoBehaviour {
 	{
 		if (c.gameObject.CompareTag ("Enemy"))
 		{
+			if(c.gameObject.GetComponent<Enemy>().CheckIfInvulnerable() == false)
+				enemiesHit++;
 			c.gameObject.GetComponent<Enemy>().TakeDamage(myPower, level, forwardVector);
+
+			Debug.Log (enemiesHit);
 		}
 	}
 
@@ -49,6 +55,7 @@ public class Projectile : MonoBehaviour {
 			steps++;
 			yield return null;
 		}
+		AchievementSystem.controller.CheckMaxHits (enemiesHit);
 		StartCoroutine (Disappear ());
 
 	}

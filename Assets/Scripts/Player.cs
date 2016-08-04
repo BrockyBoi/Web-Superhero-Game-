@@ -29,6 +29,7 @@ public class Player : MonoBehaviour {
 
     [Range(0,100)]
     int health = 100;
+	int maxHealth;
 
     Rigidbody2D rb2d;
 
@@ -82,6 +83,7 @@ public class Player : MonoBehaviour {
 		canAttack = true;
 		GetPowers ();
 		InitalizeSliders ();
+		maxHealth = health;
     }
 	
 	// Update is called once per frame
@@ -246,6 +248,7 @@ public class Player : MonoBehaviour {
 			case ((int)SuperPowerController.PowerNames.Wave):
 				WaveSpawn ();
 				IncreaseAttackTime ((int)Attacks.Medium);
+				GameCanvas.controller.UpdateAttackSlider (attackNum);
 				return;
 			case ((int)SuperPowerController.PowerNames.FreezeBreath):
 				break;
@@ -329,31 +332,67 @@ public class Player : MonoBehaviour {
     }
 
 
-    void SuperPowerAttack(int powerUsed, float attackDistance)
-    {
+	void SuperPowerAttack(int powerUsed, float attackDistance)
+	{
+		int enemiesHit = 0;
+
         RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, forwardVector, attackDistance, LayerMask.GetMask("Enemy"));
         Debug.DrawRay(transform.position, forwardVector, Color.green);
 
         for (int i = 0; i < hit.Length; i++)
         {
-            if (hit[i])
-            {
-                hit[i].collider.gameObject.GetComponent<Enemy>().TakeDamage(powerUsed, playerLevel, forwardVector);
-            }
+			if (hit [i]) {
+				Enemy enemy = hit [i].collider.gameObject.GetComponent<Enemy> ();
+				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
+
+				if (enemy.CheckIfInvulnerable () == false)
+					enemiesHit++;
+			}
         }
+
+		AchievementSystem.controller.CheckMaxHits (hit.Length);
     }
+
+	int SuperPowerAttackGetHits(int powerUsed, float attackDistance)
+	{
+		int enemiesHit = 0;
+
+		RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, forwardVector, attackDistance, LayerMask.GetMask("Enemy"));
+		Debug.DrawRay(transform.position, forwardVector, Color.green);
+
+		for (int i = 0; i < hit.Length; i++)
+		{
+			if (hit[i])
+			{
+				Enemy enemy = hit [i].collider.gameObject.GetComponent<Enemy> ();
+				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
+
+				if (enemy.CheckIfInvulnerable () == false)
+					enemiesHit++;
+			}
+		}
+
+		return enemiesHit;
+	}
 
     void SuperPowerAttackBothDirections(int powerUsed, float attackDistance)
     {
+		int enemiesHit = 0;
+
         RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, forwardVector, attackDistance, LayerMask.GetMask("Enemy"));
         RaycastHit2D[] hit2 = Physics2D.RaycastAll(transform.position, -forwardVector, attackDistance, LayerMask.GetMask("Enemy"));
+
         Debug.DrawRay(transform.position, forwardVector, Color.green);
 
         for (int i = 0; i < hit.Length; i++)
         {
             if (hit[i])
             {
-                hit[i].collider.gameObject.GetComponent<Enemy>().TakeDamage(powerUsed, playerLevel, forwardVector);
+				Enemy enemy = hit [i].collider.gameObject.GetComponent<Enemy> ();
+				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
+
+				if (enemy.CheckIfInvulnerable () == false)
+					enemiesHit++;
             }
         }
 
@@ -361,10 +400,50 @@ public class Player : MonoBehaviour {
         {
             if (hit2[i])
             {
-                hit2[i].collider.gameObject.GetComponent<Enemy>().TakeDamage(powerUsed, playerLevel, -forwardVector);
+				Enemy enemy = hit2 [i].collider.gameObject.GetComponent<Enemy> ();
+				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
+
+				if (enemy.CheckIfInvulnerable () == false)
+					enemiesHit++;
             }
         }
+
+		AchievementSystem.controller.CheckMaxHits (enemiesHit);
     }
+
+	int SuperPowerAttackBothDirectionsGetHits(int powerUsed, float attackDistance)
+	{
+		int enemiesHit = 0;
+
+		RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, forwardVector, attackDistance, LayerMask.GetMask("Enemy"));
+		RaycastHit2D[] hit2 = Physics2D.RaycastAll(transform.position, -forwardVector, attackDistance, LayerMask.GetMask("Enemy"));
+
+		Debug.DrawRay(transform.position, forwardVector, Color.green);
+
+		for (int i = 0; i < hit.Length; i++)
+		{
+			if (hit[i])
+			{
+				Enemy enemy = hit [i].collider.gameObject.GetComponent<Enemy> ();
+				if (enemy.CheckIfInvulnerable () == false)
+					enemiesHit++;
+				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
+			}
+		}
+
+		for(int i = 0; i < hit2.Length; i++)
+		{
+			if (hit2[i])
+			{
+				Enemy enemy = hit2 [i].collider.gameObject.GetComponent<Enemy> ();
+				if (enemy.CheckIfInvulnerable () == false)
+					enemiesHit++;
+				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
+			}
+		}
+
+		return enemiesHit;
+	}
 
     IEnumerator JumpAttack()
     {
@@ -389,45 +468,56 @@ public class Player : MonoBehaviour {
         canMove = false;
         int steps = 0;
 		int max = 20;
+
+		int enemiesHit = 0;
+
         while (steps < max)
         {
             if (CheckIfInBoundaries())
             {
 				rb2d.MovePosition(new Vector2(transform.position.x + (LargeAttackDistance() / max * forwardVector.x), transform.position.y));
             }
-			SuperPowerAttack((int)Attacks.Long, LargeAttackDistance() / max);
+			enemiesHit += SuperPowerAttackGetHits((int)Attacks.Long, LargeAttackDistance() / max);
             steps++;
             yield return null;
             
         }
         canMove = true;
+
+		AchievementSystem.controller.CheckMaxHits (enemiesHit);
     }
 
 	IEnumerator MapDash()
 	{
+		int enemiesHit = 0;
+
 		Vector3 startingPos = transform.position;
 		canMove = false;
 		while (CheckIfInBoundaries ()) {
 			rb2d.MovePosition(new Vector2(transform.position.x - 3f, transform.position.y));
-			SuperPowerAttack ((int)Attacks.AOE, -3f);
+			enemiesHit += SuperPowerAttackGetHits ((int)Attacks.AOE, -3f);
 			yield return null;
 		}
 		transform.position += new Vector3 (5, 0);
 		while (CheckIfInBoundaries ()) {
 			rb2d.MovePosition(new Vector2(transform.position.x + 3f, transform.position.y));
-			SuperPowerAttack ((int)Attacks.AOE, 3f);
+			enemiesHit += SuperPowerAttackGetHits ((int)Attacks.AOE, 3f);
 			yield return null;
 		}
 		while (Vector3.Distance(transform.position, startingPos) > 2) {
 			rb2d.MovePosition(new Vector2(transform.position.x - 3f, transform.position.y));
-			SuperPowerAttack ((int)Attacks.AOE, -3f);
+			enemiesHit += SuperPowerAttackGetHits ((int)Attacks.AOE, -3f);
 			yield return null;
 		}
 		canMove = true;
+
+		AchievementSystem.controller.CheckMaxHits (enemiesHit);
 	}
 
     IEnumerator ShoulderCharge()
     {
+		int enemiesHit = 0;
+
         canMove = false;
         int steps = 0;
 		int max = 60;
@@ -437,12 +527,14 @@ public class Player : MonoBehaviour {
             {
 				rb2d.MovePosition(new Vector2(GetXPos() + (LargeAttackDistance() / max * forwardVector.x), transform.position.y));
             }
-			SuperPowerAttack((int)Attacks.Long, ShortAttackDistance());
+			enemiesHit += SuperPowerAttackGetHits((int)Attacks.Long, ShortAttackDistance());
             steps++;
             yield return null;
 
         }
         canMove = true;
+
+		AchievementSystem.controller.CheckMaxHits (enemiesHit);
     }
 
 	void RockThrow()
@@ -542,4 +634,18 @@ public class Player : MonoBehaviour {
 	{
 		playerLevel = num;
 	}
+
+	public int GetHealth()
+	{
+		return health;
+	}
+
+	public bool AtFullHealth()
+	{
+		if (maxHealth == health)
+			return true;
+
+		return false;
+	}
+	
 }

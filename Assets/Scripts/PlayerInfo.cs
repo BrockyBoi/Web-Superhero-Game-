@@ -16,6 +16,11 @@ public class PlayerInfo : MonoBehaviour {
 
 	bool newPlayer;
 
+	int hitsInOneAttack;
+	int fullHealthKills;
+	int totalDamageDone;
+	int totalKillsAllHeroes;
+
 	void Awake()
 	{
 		if (controller == null)
@@ -91,6 +96,11 @@ public class PlayerInfo : MonoBehaviour {
 		data.newPlayer = newPlayer;
 		//For example: data.health = health;
 
+		data.hitsInOneAttack = AchievementSystem.controller.GetHitsInOneAttack ();
+		data.fullHealthKills = AchievementSystem.controller.GetFullHealthKills ();
+		data.totalDamageDone = AchievementSystem.controller.GetTotalDamageDone ();
+		data.totalKillsAllHeroes = AchievementSystem.controller.GetTotalKillsAllHeroes();
+
 		bf.Serialize (file, data);
 		file.Close ();
 
@@ -120,6 +130,11 @@ public class PlayerInfo : MonoBehaviour {
 
 			MainMenu.controller.CheckUnlockedHeroes ();
 
+			AchievementSystem.controller.SetHitsInOneAttack (data.hitsInOneAttack);
+			AchievementSystem.controller.SetKillsAtFullHealth (data.fullHealthKills);
+			AchievementSystem.controller.SetTotalDamageDone (data.totalDamageDone);
+			AchievementSystem.controller.SetTotalKillsAllHeroes (data.totalKillsAllHeroes);
+
 			newPlayer = data.newPlayer;
 
 			//For example: health = data.health;
@@ -141,6 +156,13 @@ public class PlayerInfo : MonoBehaviour {
 		public Dictionary<int, bool> unlockedHeros = new Dictionary<int, bool>();
 
 		public bool newPlayer;
+
+		public int hitsInOneAttack;
+		public int fullHealthKills;
+		public int totalDamageDone;
+		public int totalKillsAllHeroes;
 	}
+
+
 }
  

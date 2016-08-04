@@ -41,7 +41,7 @@ public class GameCanvas : MonoBehaviour {
 			SetTutorialText (tutorialStrings [0]);
 			Player.playerSingleton.SetLevel (1);
 		} else
-			Disable (tutorialImage);
+			//Disable (tutorialImage);
 
 		StartCoroutine (UpdateXPSlider ());
 	}

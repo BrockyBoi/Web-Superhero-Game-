@@ -1,15 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MainMenu.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameCanvas.cs">
     <Files>
-      <File FileName="Assets\Scripts\SuperPowerController.cs" Line="41" Column="31" />
-      <File FileName="Assets\Scripts\MainMenu.cs" Line="165" Column="11" />
-      <File FileName="Assets\Scripts\Enemy.cs" Line="169" Column="30" />
-      <File FileName="Assets\Scripts\Player.cs" Line="302" Column="45" />
-      <File FileName="Assets\Scripts\AchievementSystem.cs" Line="21" Column="13" />
-      <File FileName="Assets\Scripts\XPController.cs" Line="49" Column="43" />
-      <File FileName="Assets\Scripts\GameCanvas.cs" Line="81" Column="4" />
-      <File FileName="Assets\Scripts\PlayerInfo.cs" Line="70" Column="21" />
+      <File FileName="Assets\Scripts\SuperPowerController.cs" Line="41" Column="34" />
+      <File FileName="Assets\Scripts\Enemy.cs" Line="271" Column="23" />
+      <File FileName="Assets\Scripts\Player.cs" Line="330" Column="6" />
+      <File FileName="Assets\Scripts\AchievementSystem.cs" Line="204" Column="22" />
+      <File FileName="Assets\Scripts\PlayerInfo.cs" Line="102" Column="83" />
+      <File FileName="Assets\Scripts\Projectile.cs" Line="43" Column="27" />
+      <File FileName="Assets\Scripts\Grenade.cs" Line="32" Column="4" />
+      <File FileName="Assets\Scripts\GameCanvas.cs" Line="44" Column="6" />
+      <File FileName="Assets\Scripts\XPController.cs" Line="45" Column="31" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -312,7 +312,7 @@ public class Enemy : MonoBehaviour {
 
 		XPController.controller.AddXP (enemyNumber);
         EnemySpawner.controller.SubtractEnemy(enemyNumber);
-		AchievementSystem.controller.AddKill (enemyNumber);
+		AchievementSystem.controller.KilledEnemy ((int)dmg, enemyNumber);
 
 		dead = true;
         enabled = false;
@@ -367,4 +367,9 @@ public class Enemy : MonoBehaviour {
     {
         rb2d.gravityScale = num;
     }
+
+	public bool CheckIfInvulnerable()
+	{
+		return invulnerable;
+	}
 }

@@ -22,6 +22,11 @@ public class AchievementSystem : MonoBehaviour {
 	 * TOTAL DAMAGE DONE
 	 * TOTAL KILLS (ACROSS ALL HEROES)
 	 * */
+	int hitsInOneAttack;
+	int fullHealthKills;
+	int totalDamageDone;
+	int totalKillsAllHeroes;
+
 
 	void Awake()
 	{
@@ -72,6 +77,16 @@ public class AchievementSystem : MonoBehaviour {
 		unlockedHeros.Add ((int)SuperPowerController.SuperHero.Speedster, false);
 	}
 
+	public void KilledEnemy(int dmg, int enemyType)
+	{
+		AddKill (enemyType);
+		AddToTotalDamageDone (dmg);
+		AddToTotalKillsAllHeroes ();
+
+		if (Player.playerSingleton.AtFullHealth ())
+			AddKillAtFullHealth ();
+	}
+
 	int GetKillCount(int hero)
 	{
 		return totalKills [hero];
@@ -104,6 +119,26 @@ public class AchievementSystem : MonoBehaviour {
 	public Dictionary<int,int> GetPlayerDeathList()
 	{
 		return playerDeaths;
+	}
+
+	public int GetTotalKillsAllHeroes()
+	{
+		return totalKillsAllHeroes;
+	}
+
+	public int GetHitsInOneAttack()
+	{
+		return hitsInOneAttack;
+	}
+
+	public int GetFullHealthKills()
+	{
+		return fullHealthKills;
+	}
+
+	public int GetTotalDamageDone()
+	{
+		return totalDamageDone;
 	}
 
 	public int GetTotalPlayerDeaths()
@@ -139,6 +174,50 @@ public class AchievementSystem : MonoBehaviour {
 	public void SetUnlockedHerosList(Dictionary<int,bool> list)
 	{
 		unlockedHeros = list;
+	}
+
+	public void AddToTotalDamageDone(int num)
+	{
+		totalDamageDone += num;
+	}
+
+	public void SetTotalDamageDone(int num)
+	{
+		totalDamageDone = num;
+	}
+
+	public void AddKillAtFullHealth()
+	{
+		fullHealthKills++;
+	}
+
+	public void SetKillsAtFullHealth(int num)
+	{
+		fullHealthKills = num;
+	}
+
+	public void SetHitsInOneAttack(int num)
+	{
+		hitsInOneAttack = num;
+	}
+
+	public bool CheckMaxHits(int num)
+	{
+		if (num > hitsInOneAttack) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public void AddToTotalKillsAllHeroes()
+	{
+		totalKillsAllHeroes++;
+	}
+
+	public void SetTotalKillsAllHeroes(int num)
+	{
+		totalKillsAllHeroes = num;
 	}
 
 	public void PlayerDeath(int hero)
