@@ -34,6 +34,8 @@ public class MainMenu : MonoBehaviour {
 
 		CheckUnlockedHeroes ();
 
+		PlayerInfo.controller.Load ();
+
 	}
 	
 	// Update is called once per frame

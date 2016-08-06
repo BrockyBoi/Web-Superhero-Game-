@@ -382,8 +382,6 @@ public class Player : MonoBehaviour {
         RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, forwardVector, attackDistance, LayerMask.GetMask("Enemy"));
         RaycastHit2D[] hit2 = Physics2D.RaycastAll(transform.position, -forwardVector, attackDistance, LayerMask.GetMask("Enemy"));
 
-        Debug.DrawRay(transform.position, forwardVector, Color.green);
-
         for (int i = 0; i < hit.Length; i++)
         {
             if (hit[i])
@@ -401,7 +399,7 @@ public class Player : MonoBehaviour {
             if (hit2[i])
             {
 				Enemy enemy = hit2 [i].collider.gameObject.GetComponent<Enemy> ();
-				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
+				enemy.TakeDamage (powerUsed, playerLevel, -forwardVector);
 
 				if (enemy.CheckIfInvulnerable () == false)
 					enemiesHit++;
@@ -417,8 +415,6 @@ public class Player : MonoBehaviour {
 
 		RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, forwardVector, attackDistance, LayerMask.GetMask("Enemy"));
 		RaycastHit2D[] hit2 = Physics2D.RaycastAll(transform.position, -forwardVector, attackDistance, LayerMask.GetMask("Enemy"));
-
-		Debug.DrawRay(transform.position, forwardVector, Color.green);
 
 		for (int i = 0; i < hit.Length; i++)
 		{
@@ -438,7 +434,7 @@ public class Player : MonoBehaviour {
 				Enemy enemy = hit2 [i].collider.gameObject.GetComponent<Enemy> ();
 				if (enemy.CheckIfInvulnerable () == false)
 					enemiesHit++;
-				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
+				enemy.TakeDamage (powerUsed, playerLevel, -forwardVector);
 			}
 		}
 

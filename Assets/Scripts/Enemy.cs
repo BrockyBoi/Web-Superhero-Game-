@@ -326,7 +326,6 @@ public class Enemy : MonoBehaviour {
                 StartCoroutine(Disappear());
                     break;
 		case ((int)SuperPowerController.PowerNames.Fire):
-			Debug.Log ("Killed by fire");
                 StartCoroutine(Disappear());
                 break;
             default:
