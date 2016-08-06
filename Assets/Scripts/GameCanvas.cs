@@ -10,6 +10,9 @@ public class GameCanvas : MonoBehaviour {
 
 	public List<Slider> sliders;
 
+	public Image ESCImage;
+	public Image Options;
+
 	public enum SliderNumbers{ShortAttack,MediumAttack,LargeAttack,AOEAttack,XP}
 	float xpValue;
 	public Text xpText;
@@ -44,12 +47,23 @@ public class GameCanvas : MonoBehaviour {
 			//Disable (tutorialImage);
 
 		StartCoroutine (UpdateXPSlider ());
+
+		Disable (ESCImage);
+		Disable (Options);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		CheckTutorial ();
+		CheckESC ();
 			
+	}
+
+	public void CheckESC()
+	{
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			PressEsc ();
+		}
 	}
 
 	public void PressSave()
@@ -163,7 +177,7 @@ public class GameCanvas : MonoBehaviour {
 
 	void InitializeStrings()
 	{
-		tutorialStrings.Add ("In this game you have two main goals: Level up and stay alive...");
+		tutorialStrings.Add ("In this game you have two main goals: Level up and stay alive (Click to proceed)...");
 		tutorialStrings.Add ("The top left shows your health...");
 		tutorialStrings.Add ("While the top right shows your experience points...");
 		tutorialStrings.Add ("Each superhero has four different attacks...");
@@ -295,5 +309,50 @@ public class GameCanvas : MonoBehaviour {
 		if (currentString == (int)t)
 			return true;
 		return false;
+	}
+
+	public void PressSaveAndQuit()
+	{
+		PlayerInfo.controller.Save ();
+		SceneManager.LoadScene ("Main Menu");
+	}
+
+	public void PressReturnToGame()
+	{
+		Disable (ESCImage);
+		Disable (Options);
+		Time.timeScale = 1;
+	}
+
+	public void PressOptions()
+	{
+		Activate (Options);
+		Disable (ESCImage);
+	}
+
+	public void PressBack()
+	{
+		Disable (Options);
+		Activate (ESCImage);
+	}
+
+	public void ToggleMusic()
+	{
+		PlayerInfo.controller.ClickMusic ();
+	}
+
+	public void ToggleFX()
+	{
+		PlayerInfo.controller.ClickFX ();
+	}
+
+	public void PressEsc()
+	{
+		if (!ESCImage.IsActive ()) {
+			Activate (ESCImage);
+			Time.timeScale = 0;
+		} else {
+			PressReturnToGame ();
+		}
 	}
 }

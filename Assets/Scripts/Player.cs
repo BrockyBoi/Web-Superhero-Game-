@@ -475,7 +475,7 @@ public class Player : MonoBehaviour {
         {
             if (CheckIfInBoundaries())
             {
-				rb2d.MovePosition(new Vector2(transform.position.x + (LargeAttackDistance() / max * forwardVector.x), transform.position.y));
+				rb2d.MovePosition(new Vector2(transform.position.x + ((LargeAttackDistance() + 5) / max * forwardVector.x), transform.position.y));
             }
 			enemiesHit += SuperPowerAttackGetHits((int)Attacks.Long, LargeAttackDistance() / max);
             steps++;
@@ -521,11 +521,12 @@ public class Player : MonoBehaviour {
         canMove = false;
         int steps = 0;
 		int max = 60;
+
         while (steps < max)
         {
             if (CheckIfInBoundaries())
             {
-				rb2d.MovePosition(new Vector2(GetXPos() + (LargeAttackDistance() / max * forwardVector.x), transform.position.y));
+				rb2d.MovePosition(new Vector2(GetXPos() + ((LargeAttackDistance() + 5) / max * forwardVector.x), transform.position.y));
             }
 			enemiesHit += SuperPowerAttackGetHits((int)Attacks.Long, ShortAttackDistance());
             steps++;
