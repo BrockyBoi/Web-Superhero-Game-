@@ -45,6 +45,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\AchievementDataBase.cs" />
+     <Compile Include="Assets\Scripts\AchievementItem.cs" />
      <Compile Include="Assets\Scripts\AchievementSystem.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\EnemySpawner.cs" />

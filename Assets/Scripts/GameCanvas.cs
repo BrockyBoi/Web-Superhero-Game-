@@ -13,9 +13,14 @@ public class GameCanvas : MonoBehaviour {
 	public Image ESCImage;
 	public Image Options;
 
-	public enum SliderNumbers{ShortAttack,MediumAttack,LargeAttack,AOEAttack,XP}
+	public enum SliderNumbers{ShortAttack,MediumAttack,LargeAttack,AOEAttack,XP, Health}
 	float xpValue;
 	public Text xpText;
+
+	public Transform boundary1;
+	public Transform boundary2;
+
+	public List<GameObject> heroPrefabs = new List<GameObject>();
 
 
 	//Tutorial stuff
@@ -31,22 +36,26 @@ public class GameCanvas : MonoBehaviour {
 	void Awake()
 	{
 		controller = this;
-
-		if (SceneManager.GetActiveScene().name == "Tutorial Scene")
-			tutorialMode = true;
 	}
 
 	// Use this for initialization
 	void Start () {
+		if (PlayerInfo.controller.CheckIfNewPlayer())
+			tutorialMode = true;
+
+		SpawnHero ();
+
 		if (tutorialMode) {
 			InitializeStrings ();
 			Activate (tutorialImage);
 			SetTutorialText (tutorialStrings [0]);
 			Player.playerSingleton.SetLevel (1);
+			EnemySpawner.controller.gameObject.SetActive (false);
 		} else
-			//Disable (tutorialImage);
+			Disable (tutorialImage);
 
 		StartCoroutine (UpdateXPSlider ());
+		StartCoroutine (UpdateHealthSlider ());
 
 		Disable (ESCImage);
 		Disable (Options);
@@ -57,6 +66,11 @@ public class GameCanvas : MonoBehaviour {
 		CheckTutorial ();
 		CheckESC ();
 			
+	}
+
+	void SpawnHero()
+	{
+		Instantiate(heroPrefabs[SuperPowerController.controller.GetSuperHero()], Vector3.zero, Quaternion.identity);
 	}
 
 	public void CheckESC()
@@ -85,6 +99,16 @@ public class GameCanvas : MonoBehaviour {
 	public void UpdateAttackSlider(int num)
 	{
 		StartCoroutine (TurnOnSlider (num));
+	}
+
+	public Transform GrabBoundary1()
+	{
+		return boundary1;
+	}
+
+	public Transform GrabBoundary2()
+	{
+		return boundary2;
 	}
 
 	IEnumerator TurnOnSlider(int num)
@@ -133,6 +157,21 @@ public class GameCanvas : MonoBehaviour {
 				yield return null;
 			}
 
+			yield return null;
+		}
+	}
+
+	IEnumerator UpdateHealthSlider()
+	{
+		float health = Player.playerSingleton.GetMaxHealth ();
+		sliders [(int)SliderNumbers.Health].maxValue = health;
+		sliders [(int)SliderNumbers.Health].value = health;
+		while (true) {
+			while (Player.playerSingleton.GetHealth () < health) {
+				health -= .5f;
+				sliders [(int)SliderNumbers.Health].value = health;
+				yield return null;
+			}
 			yield return null;
 		}
 	}

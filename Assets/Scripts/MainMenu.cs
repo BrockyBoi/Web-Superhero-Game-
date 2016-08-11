@@ -18,6 +18,9 @@ public class MainMenu : MonoBehaviour {
 
 	public List<Button> heroButtons;
 
+	public Text descriptionText;
+	string[] heroDescriptions = new string[(int)SuperPowerController.SuperHero.HERO_COUNT];
+
 
 
 
@@ -34,7 +37,7 @@ public class MainMenu : MonoBehaviour {
 
 		CheckUnlockedHeroes ();
 
-		PlayerInfo.controller.Load ();
+		InitializeStrings ();
 
 	}
 	
@@ -85,6 +88,11 @@ public class MainMenu : MonoBehaviour {
 		if (currentScreen == (int)Screens.Options) {
 			CheckAudioSettings ();
 		}
+
+		if (currentScreen == (int)Screens.HeroSelect) {
+			SetHeroDescription (GetHeroString (SuperPowerController.SuperHero.Tank));
+			CheckUnlockedHeroes ();
+		}
 	}
 
 	void DeactivateScreen(Screens s)
@@ -118,6 +126,30 @@ public class MainMenu : MonoBehaviour {
 		else
 			result = "Off";
 		fxText.text = "FX: " + result;
+	}
+
+	void InitializeStrings()
+	{
+		heroDescriptions [(int)SuperPowerController.SuperHero.Tank] = "* Highest health\n*Takes no knockback\n*Slow speed/attack regen\n*Highest enemy knockback";
+		heroDescriptions [(int)SuperPowerController.SuperHero.Elementalist] = "* Lowest health\n*Takes knockback\n*Medium speed/attack regen\n*High enemy knockback/damage";
+		heroDescriptions [(int)SuperPowerController.SuperHero.Paragon] = "* High health\n*Takes no knockback\n*Medium speed, slow attack regen\n*Medium enemy knockback";
+		heroDescriptions [(int)SuperPowerController.SuperHero.Vigilantee] = "* Low health\n*Takes knockback\n*Medium speed/attack regen\n*High enemy knockback";
+		heroDescriptions [(int)SuperPowerController.SuperHero.Speedster] = "* Medium health\n*Takes knockback\n*Highest speed/attack regen\n*Low enemy knockback";
+	}
+
+	void SetHeroDescription(string s)
+	{
+		descriptionText.text = s;
+	}
+
+	string GetHeroString(int num)
+	{
+		return heroDescriptions [num];
+	}
+
+	string GetHeroString(SuperPowerController.SuperHero hero)
+	{
+		return heroDescriptions [SuperPowerController.HeroToInt (hero)];
 	}
 
 	void CheckScreens ()
@@ -168,14 +200,12 @@ public class MainMenu : MonoBehaviour {
 			break;
 		}
 		SuperPowerController.controller.SetSuperHero (num);
+		SetHeroDescription (GetHeroString (num));
 	}
 
 	public void StartGame()
 	{
-		if (!PlayerInfo.controller.CheckIfNewPlayer ())
-			SceneManager.LoadScene ("Test Scene");
-		else
-			SceneManager.LoadScene ("Tutorial Scene");
+		SceneManager.LoadScene ("Test Scene");
 	}
 
 	public void CheckUnlockedHeroes()

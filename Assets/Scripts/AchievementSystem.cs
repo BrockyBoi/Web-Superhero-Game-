@@ -23,9 +23,21 @@ public class AchievementSystem : MonoBehaviour {
 	 * TOTAL KILLS (ACROSS ALL HEROES)
 	 * */
 	int hitsInOneAttack;
+	int totalXP;
 	int fullHealthKills;
 	int totalDamageDone;
 	int totalKillsAllHeroes;
+
+	public static int[] totalXPAmounts = new int[10]{ 1000, 5000, 10000, 50000, 100000, 500000, 1000000, 5000000, 10000000, 50000000 };
+	public static int[] killAmounts = new int[10]{ 1, 50, 100, 250, 1000, 5000, 25000, 100000, 500000, 1000000 };
+	public static int[] playerDeathAmounts = new int[10]{ 1, 10, 25, 50, 100, 250, 500, 1000, 2500, 5000 };
+	public static int[] hitsAmounts = new int[10]{10, 20, 30, 40, 50, 60, 70, 80, 90,100 };
+	public static int[] fullHealthKillAmounts = new int[10]{5,10,25,50,100,250,500,750,1000,1500};
+	public static int[] totalDamageAmounts = new int[10]{100,500,2500, 7500, 15000, 75000, 150000, 750000, 1500000, 10000000};
+	public static int[] totalKillsAllHeroesAmounts = new int[10]{100, 500, 1000, 5000, 10000, 50000, 100000, 500000, 1000000, 5000000};
+
+	public bool UnlockAllHeroes;
+
 
 
 	void Awake()
@@ -42,7 +54,10 @@ public class AchievementSystem : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		if (UnlockAllHeroes)
+			for (int i = 0; i < unlockedHeros.Count; i++) {
+				unlockedHeros [i] = true;
+			}
 	}
 	
 	// Update is called once per frame
@@ -87,9 +102,14 @@ public class AchievementSystem : MonoBehaviour {
 			AddKillAtFullHealth ();
 	}
 
-	int GetKillCount(int hero)
+	public int GetKillCount(int hero)
 	{
 		return totalKills [hero];
+	}
+
+	public int GetDeathCount(int hero)
+	{
+		return playerDeaths [hero];
 	}
 
 	void SetKillCount(int hero, int killCount)
@@ -124,6 +144,11 @@ public class AchievementSystem : MonoBehaviour {
 	public int GetTotalKillsAllHeroes()
 	{
 		return totalKillsAllHeroes;
+	}
+
+	public int GetTotalXP()
+	{
+		return totalXP;
 	}
 
 	public int GetHitsInOneAttack()
@@ -169,6 +194,11 @@ public class AchievementSystem : MonoBehaviour {
 	public void SetTotalPlayerDeaths(int num)
 	{
 		totalPlayerDeaths = num;
+	}
+
+	public void SetTotalXP(int num)
+	{
+		totalXP = num;
 	}
 
 	public void SetUnlockedHerosList(Dictionary<int,bool> list)
@@ -238,11 +268,17 @@ public class AchievementSystem : MonoBehaviour {
 				UnlockHero (hero + 1);
 			}
 			break;
+		case(100):
+			break;
 		case(250):
 			break;
 		case(1000):
 			break;
+		case(5000):
+			break;
 		case(25000):
+			break;
+		case(100000):
 			break;
 		case(500000):
 			break;
@@ -273,5 +309,15 @@ public class AchievementSystem : MonoBehaviour {
 	public bool CheckIfUnlocked(int num)
 	{
 		return unlockedHeros [num];
+	}
+
+	public int CheckAchievements(int[] array, int amount)
+	{
+		int counter = 0;
+		while (amount > array [counter]) {
+			counter++;
+		}
+
+		return counter;
 	}
 }

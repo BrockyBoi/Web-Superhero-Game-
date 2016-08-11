@@ -5,14 +5,12 @@ using System.Collections.Generic;
 public class Player : MonoBehaviour {
     public static Player playerSingleton;
 
-    public GameObject firePrefab;
     public float defaultXScale;
 
-    public Transform boundary1;
-    public Transform boundary2;
+    Transform boundary1;
+    Transform boundary2;
 
     public float hSpeed = 5;
-    public float jumpHeight = .3f;
 
 	public GameObject rockPrefab;
 	public GameObject wavePrefab;
@@ -27,25 +25,28 @@ public class Player : MonoBehaviour {
     //Has 3 numbers which represent close range, medium range, and long range attacks
     public static float[] attackDistances;
 
-    [Range(0,100)]
-    int health = 100;
+    [Range(0,250)]
+    public int health = 100;
 	int maxHealth;
 
     Rigidbody2D rb2d;
-
-    BoxCollider2D personalCollider;
 
     Vector2 forwardVector;
 
     bool alive = true;
 
     public bool godMode;
+	public bool tutorial;
+
     [Range (1,10)]
     public int playerLevel;
 
     public enum Attacks { Short, Medium, Long, AOE };
 
     int[] availablePowers = new int[4];
+
+	public bool knockback;
+
     void Awake()
     {
 
@@ -71,9 +72,11 @@ public class Player : MonoBehaviour {
         else Destroy(gameObject);
 
         rb2d = GetComponent<Rigidbody2D>();
-        personalCollider = GetComponent<BoxCollider2D>();
 
 		forwardVector = Vector3.right;
+
+		maxHealth = health;
+
     }
 
 	// Use this for initialization
@@ -83,18 +86,16 @@ public class Player : MonoBehaviour {
 		canAttack = true;
 		GetPowers ();
 		InitalizeSliders ();
-		maxHealth = health;
+		InitializeBoundaries ();
+
+
     }
 	
 	// Update is called once per frame
 	void Update () {
         float horizontal = Input.GetAxis("Horizontal") * Time.deltaTime * hSpeed;
-        float vertical = Input.GetAxisRaw("Vertical");
-        float jump = Input.GetAxisRaw("Jump");
 
-
-        Movement(horizontal, vertical);
-       // Attack(jump);
+        Movement(horizontal);
 
         if(Input.GetKey(KeyCode.Q))
         {
@@ -138,7 +139,7 @@ public class Player : MonoBehaviour {
         }
     }
 
-    void Movement(float h, float v)
+    void Movement(float h)
     {
 		if (!alive || !canMove || GameCanvas.controller.GetTutorialMode())
             return;
@@ -147,13 +148,8 @@ public class Player : MonoBehaviour {
         {
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x + h, transform.position.y),1);
             CheckBoundaries();
-            //transform.Translate(new Vector3(transform.position.x + h, transform.position.y));
-            //transform.position = new Vector3(transform.position.x + h, transform.position.y);
             CheckForward(h);
         }
-
-        //if (v != 0 && transform.position.y < 1)
-        //    rb2d.AddForce(new Vector2(0, jumpHeight * powerController.GetPower(SuperPowerController.PowerNames.Jump)), ForceMode2D.Impulse);
     }
 
     bool CheckIfInBoundaries()
@@ -176,6 +172,12 @@ public class Player : MonoBehaviour {
 
         return true;
     }
+
+	void InitializeBoundaries()
+	{
+		boundary1 = GameCanvas.controller.GrabBoundary1 ();
+		boundary2 = GameCanvas.controller.GrabBoundary2 ();
+	}
 
     void CheckBoundaries()
     {
@@ -325,6 +327,12 @@ public class Player : MonoBehaviour {
     {
         canAttack = false;
     }
+
+	void DisableCanAttack(float num)
+	{
+		canAttack = false;
+		Invoke ("EnableCanAttack", num);
+	}
 
     public int GetPower(int num)
     {
@@ -564,6 +572,9 @@ public class Player : MonoBehaviour {
         if (godMode)
             return;
 
+		if (knockback)
+			DisableCanAttack (.8f);
+
         health -= num;
 
         if(health <= 0)
@@ -635,6 +646,11 @@ public class Player : MonoBehaviour {
 	public int GetHealth()
 	{
 		return health;
+	}
+
+	public int GetMaxHealth()
+	{
+		return maxHealth;
 	}
 
 	public bool AtFullHealth()

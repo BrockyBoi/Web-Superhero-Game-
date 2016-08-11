@@ -109,24 +109,34 @@ public class SuperPowerController : MonoBehaviour {
         superPowers.Add(PowerToInt(PowerNames.Grenades));
     }
 
-    public int PowerToInt(PowerNames power)
+    public static int PowerToInt(PowerNames power)
     {
         return (int)power;
     }
 
-    public PowerNames IntToPower(int num)
+    public static PowerNames IntToPower(int num)
     {
         return (PowerNames)num;
     }
 
-	public SuperHero IntToHero(int num)
+	public static SuperHero IntToHero(int num)
 	{
 		return (SuperHero)num;
 	}
 
-	public int HeroToInt(SuperHero hero)
+	public static int HeroToInt(SuperHero hero)
 	{
 		return (int)hero;
+	}
+
+	public static string HeroToString(SuperHero hero)
+	{
+		return hero.ToString();
+	}
+
+	public static string HeroToString(int hero)
+	{
+		return ((SuperHero)hero).ToString();
 	}
 
     public int GetPower(PowerNames power)

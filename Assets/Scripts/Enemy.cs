@@ -60,7 +60,8 @@ public class Enemy : MonoBehaviour {
 
         if(hit)
         {
-            Attack(hit);
+			DisableCanMove ();
+			Invoke("Attack", 1.5f);
         }
     }
 
@@ -125,16 +126,19 @@ public class Enemy : MonoBehaviour {
 	}
 		
 
-    protected void Attack(RaycastHit2D hit)
+    protected void Attack()
     {
 		if (tutorialMode)
 			return;
 
-        DisableCanMove();
+		RaycastHit2D hit = Physics2D.Raycast(transform.position, forwardDirection, attackDistance, LayerMask.GetMask("Player"));
 
-        hit.collider.gameObject.GetComponent<Player>().TakeDamage(damage);
+		if (!invulnerable && hit) {
+			Debug.Log ("Attacked");
+			Player.playerSingleton.TakeDamage (damage);
+		}
 
-        StartCoroutine(Recover(2.5f));
+        StartCoroutine(Recover());
     }
 
     protected void EnableCanMove()

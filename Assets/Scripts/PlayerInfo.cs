@@ -14,7 +14,8 @@ public class PlayerInfo : MonoBehaviour {
 
 	int[] killCounts;
 
-	bool newPlayer;
+	public bool newPlayer = false;
+	public bool DontLoadOnStart;
 
 	int hitsInOneAttack;
 	int fullHealthKills;
@@ -29,13 +30,16 @@ public class PlayerInfo : MonoBehaviour {
 			Destroy (gameObject);
 		
 		DontDestroyOnLoad (this);
+
+		useMusic = true;
+		useFX = true;
+		//newPlayer = true;
 	}
 
 	// Use this for initialization
 	void Start () {
-		useMusic = true;
-		useFX = true;
-		newPlayer = true;
+		if (!DontLoadOnStart)
+			Load ();
 	}
 	
 	// Update is called once per frame
@@ -96,6 +100,7 @@ public class PlayerInfo : MonoBehaviour {
 		data.newPlayer = newPlayer;
 		//For example: data.health = health;
 
+		data.totalXP = AchievementSystem.controller.GetTotalXP ();
 		data.hitsInOneAttack = AchievementSystem.controller.GetHitsInOneAttack ();
 		data.fullHealthKills = AchievementSystem.controller.GetFullHealthKills ();
 		data.totalDamageDone = AchievementSystem.controller.GetTotalDamageDone ();
@@ -130,6 +135,7 @@ public class PlayerInfo : MonoBehaviour {
 
 			MainMenu.controller.CheckUnlockedHeroes ();
 
+			AchievementSystem.controller.SetTotalXP (data.totalXP);
 			AchievementSystem.controller.SetHitsInOneAttack (data.hitsInOneAttack);
 			AchievementSystem.controller.SetKillsAtFullHealth (data.fullHealthKills);
 			AchievementSystem.controller.SetTotalDamageDone (data.totalDamageDone);
@@ -157,6 +163,7 @@ public class PlayerInfo : MonoBehaviour {
 
 		public bool newPlayer;
 
+		public int totalXP;
 		public int hitsInOneAttack;
 		public int fullHealthKills;
 		public int totalDamageDone;
