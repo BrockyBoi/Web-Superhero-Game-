@@ -36,6 +36,7 @@ public class MainMenu : MonoBehaviour {
 		SetHero ((int)SuperPowerController.SuperHero.Tank);
 
 		CheckUnlockedHeroes ();
+		CheckAudioSettings ();
 
 		InitializeStrings ();
 

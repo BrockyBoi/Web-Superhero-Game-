@@ -130,10 +130,10 @@ public class PlayerInfo : MonoBehaviour {
 			AchievementSystem.controller.SetTotalPlayerDeaths (data.totalPlayerDeaths);
 
 			AchievementSystem.controller.SetUnlockedHerosList (data.unlockedHeros);
-
-			MainMenu.controller.CheckAudioSettings ();
-
-			MainMenu.controller.CheckUnlockedHeroes ();
+			if (SceneManager.GetActiveScene () == SceneManager.GetSceneByName ("Main Menu")) {
+				MainMenu.controller.CheckAudioSettings ();
+				MainMenu.controller.CheckUnlockedHeroes ();
+			}
 
 			AchievementSystem.controller.SetTotalXP (data.totalXP);
 			AchievementSystem.controller.SetHitsInOneAttack (data.hitsInOneAttack);

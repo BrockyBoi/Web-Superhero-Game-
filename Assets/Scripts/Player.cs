@@ -47,6 +47,8 @@ public class Player : MonoBehaviour {
 
 	public bool knockback;
 
+	AudioSource audio;
+
     void Awake()
     {
 
@@ -72,6 +74,7 @@ public class Player : MonoBehaviour {
         else Destroy(gameObject);
 
         rb2d = GetComponent<Rigidbody2D>();
+		audio = gameObject.AddComponent<AudioSource> ();
 
 		forwardVector = Vector3.right;
 
@@ -315,6 +318,7 @@ public class Player : MonoBehaviour {
 		default:
 			break;
 		}
+		SoundController.controller.PlaySoundInList (audio, attackNum);
 		GameCanvas.controller.UpdateAttackSlider (attackNum);
 	}
 
@@ -495,6 +499,7 @@ public class Player : MonoBehaviour {
 	{
 		int enemiesHit = 0;
 
+
 		Vector3 startingPos = transform.position;
 		canMove = false;
 		while (CheckIfInBoundaries ()) {
@@ -503,11 +508,13 @@ public class Player : MonoBehaviour {
 			yield return null;
 		}
 		transform.position += new Vector3 (5, 0);
+		SoundController.controller.PlaySoundInList (audio, SuperPowerController.PowerNames.DashAttack);
 		while (CheckIfInBoundaries ()) {
 			rb2d.MovePosition(new Vector2(transform.position.x + 3f, transform.position.y));
 			enemiesHit += SuperPowerAttackGetHits ((int)Attacks.AOE, 3f);
 			yield return null;
 		}
+		SoundController.controller.PlaySoundInList (audio, SuperPowerController.PowerNames.DashAttack);
 		while (Vector3.Distance(transform.position, startingPos) > 2) {
 			rb2d.MovePosition(new Vector2(transform.position.x - 3f, transform.position.y));
 			enemiesHit += SuperPowerAttackGetHits ((int)Attacks.AOE, -3f);

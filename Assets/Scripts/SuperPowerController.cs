@@ -38,7 +38,7 @@ public class SuperPowerController : MonoBehaviour {
         InitializePowers();
 
 		//By default the superhero will be a tank
-		SetSuperHero (SuperHero.Paragon);
+		SetSuperHero (SuperHero.Speedster);
     }
 
     // Use this for initialization
