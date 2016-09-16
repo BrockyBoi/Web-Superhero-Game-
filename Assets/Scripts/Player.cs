@@ -5,7 +5,9 @@ using System.Collections.Generic;
 public class Player : MonoBehaviour {
     public static Player playerSingleton;
 
-    public float defaultXScale;
+	Animator anim;
+
+    float defaultXScale;
 
     Transform boundary1;
     Transform boundary2;
@@ -65,7 +67,7 @@ public class Player : MonoBehaviour {
                                     };
         //Only need to check for short, medium, long, AOE attacks
         attackTimes = new float[4] { 0, 0, 0, 0};
-        attackDistances = new float[3] { 2, 7, 15 };
+        attackDistances = new float[3] { 4, 14, 30 };
 
         if (playerSingleton == null)
         {
@@ -75,6 +77,7 @@ public class Player : MonoBehaviour {
 
         rb2d = GetComponent<Rigidbody2D>();
 		audio = gameObject.AddComponent<AudioSource> ();
+		anim = GetComponent<Animator> ();
 
 		forwardVector = Vector3.right;
 
@@ -91,38 +94,63 @@ public class Player : MonoBehaviour {
 		InitalizeSliders ();
 		InitializeBoundaries ();
 
+		defaultXScale = transform.localScale.x;
+
 
     }
 	
 	// Update is called once per frame
 	void Update () {
-        float horizontal = Input.GetAxis("Horizontal") * Time.deltaTime * hSpeed;
+		float horizontal = Input.GetAxisRaw ("Horizontal"); 
+		anim.SetFloat ("speed", Mathf.Abs(horizontal));
 
-        Movement(horizontal);
+		Movement(horizontal * Time.deltaTime * hSpeed);
 
-        if(Input.GetKey(KeyCode.Q))
-        {
-			if(!GameCanvas.controller.GetTutorialMode() || GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.PressQ))
-            	SelectAttack(0);
-        }
-        else if (Input.GetKey(KeyCode.W))
-        {
-			if(!GameCanvas.controller.GetTutorialMode() || GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.PressW))
-            SelectAttack(1);
-        }
-        else if (Input.GetKey(KeyCode.E))
-        {
-			if(!GameCanvas.controller.GetTutorialMode() || GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.PressE))
-            SelectAttack(2);
-        }
-        else if (Input.GetKey(KeyCode.R))
-        {
-			if(!GameCanvas.controller.GetTutorialMode() || GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.PressR)
-														|| GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.Lvl1AOE)
-														|| GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.Lvl10AOE))
-            SelectAttack(3);
-        }
+		CheckAttackInput ();
     }
+
+	void CheckAttackInput()
+	{
+
+		if(Input.GetKey(KeyCode.Q))
+		{
+			if (!GameCanvas.controller.GetTutorialMode () || GameCanvas.controller.CheckIfOnSpecificPosition (GameCanvas.TutorialPosition.PressQ))
+				TryAttack (0);
+		}
+		else if (Input.GetKey(KeyCode.W))
+		{
+			if(!GameCanvas.controller.GetTutorialMode() || GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.PressW))
+				TryAttack (1);
+		}
+		else if (Input.GetKey(KeyCode.E))
+		{
+			if(!GameCanvas.controller.GetTutorialMode() || GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.PressE))
+				TryAttack (2);
+		}
+		else if (Input.GetKey(KeyCode.R))
+		{
+			if(!GameCanvas.controller.GetTutorialMode() || GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.PressR)
+				|| GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.Lvl1AOE)
+				|| GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.Lvl10AOE))
+				TryAttack (3);
+		}
+	}
+
+	void TryAttack(int attackNum)
+	{
+		if (CheckIfCanAttack (attackNum)) {
+			anim.SetTrigger ("attackNum" + attackNum.ToString ());
+			IncreaseAttackTime (attackNum);
+		}
+	}
+
+	bool CheckIfCanAttack(int num)
+	{
+		if (!canAttack || !CheckAttackTime (num))
+			return false;
+
+		return true;
+	}
 
     void CheckForward(float h)
     {
@@ -160,14 +188,14 @@ public class Player : MonoBehaviour {
         float xPos = transform.position.x;
         if (xPos < 0)
         {
-            if (xPos < boundary1.position.x + 20)
+            if (xPos < boundary1.position.x + 35)
             {
                 return false;
             }
         }
         else
         {
-            if (xPos > boundary2.position.x - 20)
+            if (xPos > boundary2.position.x - 35)
             {
                 return false;
             }
@@ -187,17 +215,17 @@ public class Player : MonoBehaviour {
         float xPos = transform.position.x;
         if (xPos < 0)
         {
-            if (xPos < boundary1.position.x + 20)
+			if (xPos < boundary1.position.x + 35)
             {
-                xPos = boundary1.position.x + 20;
+				xPos = boundary1.position.x + 35;
                 transform.position = new Vector3(xPos, transform.position.y, 0);
             }
         }
         else
         {
-            if (xPos > boundary2.position.x - 20)
+			if (xPos > boundary2.position.x - 35)
             {
-                xPos = boundary2.position.x - 20;
+				xPos = boundary2.position.x - 35;
                 transform.position = new Vector3(xPos, transform.position.y, 0);
             }
         }
@@ -222,9 +250,6 @@ public class Player : MonoBehaviour {
 
     void SelectAttack(int attackNum)
 	{
-		if (!canAttack || !CheckAttackTime (attackNum))
-			return;
-
 		switch (attackNum) {
 		//Short Attacks
 		case (0):
@@ -243,7 +268,6 @@ public class Player : MonoBehaviour {
 				break;
 			}
 			SuperPowerAttack (attackNum, ShortAttackDistance ());
-			IncreaseAttackTime ((int)Attacks.Short);
 			break;
 		//Medium Attacks
 		case (1):
@@ -292,6 +316,7 @@ public class Player : MonoBehaviour {
 		case (3):
 			switch (availablePowers [3]) {
 			case ((int)SuperPowerController.PowerNames.GroundSmash):
+				FollowPlayer.MainCamera.CameraShake ();
 				break;
 			case ((int)SuperPowerController.PowerNames.Lightning):
 				break;
@@ -355,10 +380,11 @@ public class Player : MonoBehaviour {
         {
 			if (hit [i]) {
 				Enemy enemy = hit [i].collider.gameObject.GetComponent<Enemy> ();
-				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
 
 				if (enemy.CheckIfInvulnerable () == false)
 					enemiesHit++;
+				
+				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
 			}
         }
 
@@ -377,10 +403,12 @@ public class Player : MonoBehaviour {
 			if (hit[i])
 			{
 				Enemy enemy = hit [i].collider.gameObject.GetComponent<Enemy> ();
-				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
 
 				if (enemy.CheckIfInvulnerable () == false)
 					enemiesHit++;
+
+				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
+
 			}
 		}
 
@@ -399,10 +427,12 @@ public class Player : MonoBehaviour {
             if (hit[i])
             {
 				Enemy enemy = hit [i].collider.gameObject.GetComponent<Enemy> ();
-				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
 
 				if (enemy.CheckIfInvulnerable () == false)
 					enemiesHit++;
+
+				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
+
             }
         }
 
@@ -411,10 +441,13 @@ public class Player : MonoBehaviour {
             if (hit2[i])
             {
 				Enemy enemy = hit2 [i].collider.gameObject.GetComponent<Enemy> ();
-				enemy.TakeDamage (powerUsed, playerLevel, -forwardVector);
 
 				if (enemy.CheckIfInvulnerable () == false)
 					enemiesHit++;
+
+				enemy.TakeDamage (powerUsed, playerLevel, -forwardVector);
+
+
             }
         }
 
@@ -459,13 +492,17 @@ public class Player : MonoBehaviour {
 		rb2d.AddForce(new Vector2(0, Player.playerSingleton.GetLevel() * 6), ForceMode2D.Impulse);
 
         yield return new WaitForSeconds(1f);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.down, 1f, LayerMask.GetMask("Default"));
+		RaycastHit2D hit = Physics2D.Raycast(new Vector3(transform.position.x, transform.position.y - (transform.localScale.y / 2)), Vector2.down, 2f, LayerMask.GetMask("Default"));
         while (!hit)           
         {
-             hit = Physics2D.Raycast(transform.position, Vector3.down, 1f, LayerMask.GetMask("Default"));
+			hit = Physics2D.Raycast(transform.position, Vector2.down, 10, LayerMask.GetMask("Default"));
+			//Debug.DrawRay (new Vector3 (transform.position.x, transform.position.y - (transform.localScale.y / 2)), Vector3.down, Color.green);
+			Debug.DrawRay(transform.position, Vector2.down, Color.green);
+			Debug.Log ("Still jumping");
             yield return null;
         }
 
+		FollowPlayer.MainCamera.CameraShake ();
         SuperPowerAttackBothDirections((int)Attacks.AOE,LargeAttackDistance());
 		canAttack = true;
 		GameCanvas.controller.UpdateAttackSlider (3);
@@ -473,11 +510,11 @@ public class Player : MonoBehaviour {
 
     IEnumerator DashAttack()
     {
+		int enemiesHit = 0;
+
         canMove = false;
         int steps = 0;
 		int max = 20;
-
-		int enemiesHit = 0;
 
         while (steps < max)
         {
@@ -485,7 +522,7 @@ public class Player : MonoBehaviour {
             {
 				rb2d.MovePosition(new Vector2(transform.position.x + ((LargeAttackDistance() + 5) / max * forwardVector.x), transform.position.y));
             }
-			enemiesHit += SuperPowerAttackGetHits((int)Attacks.Long, LargeAttackDistance() / max);
+			enemiesHit = SuperPowerAttackGetHits((int)Attacks.Long, LargeAttackDistance() / max);
             steps++;
             yield return null;
             
@@ -579,8 +616,10 @@ public class Player : MonoBehaviour {
         if (godMode)
             return;
 
-		if (knockback)
+		if (knockback) {
 			DisableCanAttack (.8f);
+			anim.SetTrigger ("takeHit");
+		}
 
         health -= num;
 
@@ -666,6 +705,11 @@ public class Player : MonoBehaviour {
 			return true;
 
 		return false;
+	}
+
+	public Vector3 GetLocation()
+	{
+		return new Vector3 (transform.position.x, transform.position.y, -10);
 	}
 	
 }

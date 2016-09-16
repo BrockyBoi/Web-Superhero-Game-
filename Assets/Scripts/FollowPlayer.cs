@@ -2,7 +2,17 @@
 using System.Collections;
 
 public class FollowPlayer : MonoBehaviour {
+	public static FollowPlayer MainCamera;
+
     public Transform player;
+
+	Vector3 velocity = Vector3.zero;
+
+	void Awake()
+	{
+		MainCamera = this;
+	}
+
 	// Use this for initialization
 	void Start () {
 	
@@ -15,6 +25,25 @@ public class FollowPlayer : MonoBehaviour {
 
     void Follow()
     {
-        transform.position = new Vector3(player.position.x, player.position.y, -10);
+		transform.position = Vector3.SmoothDamp (transform.position, Player.playerSingleton.GetLocation(), ref velocity, .05f);
     }
+
+	public void CameraShake()
+	{
+		StartCoroutine (CameraShakeEnumerator ());
+	}
+
+	IEnumerator CameraShakeEnumerator()
+	{
+		float shakeTime = .3f;
+
+		while (shakeTime > 0) {
+			Vector2 newSpot = Random.insideUnitCircle * .25f;
+
+			transform.position = new Vector3 (transform.position.x + newSpot.x, transform.position.y + newSpot.y, -10);
+
+			shakeTime -= Time.deltaTime;
+			yield return null;
+		}
+	}
 }

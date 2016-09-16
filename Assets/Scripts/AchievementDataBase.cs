@@ -120,9 +120,9 @@ public class AchievementDataBase : MonoBehaviour
 	{
 		killLists.Add (tankKills);
 		killLists.Add (elementalistKills);
-		killLists.Add (vigilanteKills);
 		killLists.Add (paragonKills);
 		killLists.Add (speedsterKills);
+		killLists.Add (vigilanteKills);
 
 		//		hitLists.Add (tankHits);
 		//		hitLists.Add (elementalistHits);
@@ -132,9 +132,10 @@ public class AchievementDataBase : MonoBehaviour
 
 		deathLists.Add (tankDeaths);
 		deathLists.Add (elementalistDeaths);
-		deathLists.Add (vigilanteDeaths);
 		deathLists.Add (paragonDeaths);
 		deathLists.Add (speedsterDeaths);
+		deathLists.Add (vigilanteDeaths);
+
 	}
 
 	public void ActivatePanel(int num)
@@ -187,7 +188,7 @@ public class AchievementDataBase : MonoBehaviour
 	{
 		for (int i = 0; i < (int)SuperPowerController.SuperHero.HERO_COUNT; i++) {
 			for (int j = 0; j < killLists [i].Count; j++) {
-				GiveData (killLists [i] [j], SuperPowerController.HeroToString (i) + " lelz", AchievementSystem.killAmounts [j].ToString());
+				GiveData (killLists [i] [j], SuperPowerController.HeroToString (i) + " Kills", AchievementSystem.killAmounts [j].ToString());
 				LockAchievement (killLists [i], j);
 			}
 			for (int j = 0; j < deathLists [i].Count; j++) {

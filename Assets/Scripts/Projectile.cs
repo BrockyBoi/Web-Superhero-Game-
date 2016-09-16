@@ -39,8 +39,6 @@ public class Projectile : MonoBehaviour {
 			if(c.gameObject.GetComponent<Enemy>().CheckIfInvulnerable() == false)
 				enemiesHit++;
 			c.gameObject.GetComponent<Enemy>().TakeDamage(myPower, level, forwardVector);
-
-			Debug.Log (enemiesHit);
 		}
 	}
 

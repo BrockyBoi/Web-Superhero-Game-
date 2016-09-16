@@ -25,6 +25,7 @@ public class Grenade : MonoBehaviour {
 	void Explode()
 	{
 		SuperPowerAttackBothDirectionsGetHits((int)Player.Attacks.AOE, 2);
+		FollowPlayer.MainCamera.CameraShake ();
 		grenadeCount--;
 
 		if (grenadeCount == 0) 
