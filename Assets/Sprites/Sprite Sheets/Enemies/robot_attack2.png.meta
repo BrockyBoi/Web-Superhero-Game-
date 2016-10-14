@@ -1,0 +1,372 @@
+fileFormatVersion: 2
+guid: 2586a5b927070fc4781a08429ee4135c
+timeCreated: 1476365682
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: robot_attack2_0
+    21300002: robot_attack2_1
+    21300004: robot_attack2_2
+    21300006: robot_attack2_3
+    21300008: robot_attack2_4
+    21300010: robot_attack2_5
+    21300012: robot_attack2_6
+    21300014: robot_attack2_7
+    21300016: robot_attack2_8
+    21300018: robot_attack2_9
+    21300020: robot_attack2_10
+    21300022: robot_attack2_11
+    21300024: robot_attack2_12
+    21300026: robot_attack2_14
+    21300028: robot_attack2_15
+    21300030: robot_attack2_16
+    21300032: robot_attack2_18
+    21300034: robot_attack2_19
+    21300036: robot_attack2_20
+    21300038: robot_attack2_21
+    21300040: robot_attack2_22
+    21300042: robot_attack2_23
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings:
+  - buildTarget: Standalone
+    maxTextureSize: 4096
+    textureFormat: -1
+    compressionQuality: 50
+    allowsAlphaSplitting: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: robot_attack2_0
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 1223
+        width: 418
+        height: 538
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_1
+      rect:
+        serializedVersion: 2
+        x: 1063
+        y: 1223
+        width: 392
+        height: 538
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_2
+      rect:
+        serializedVersion: 2
+        x: 1919
+        y: 1223
+        width: 358
+        height: 538
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_3
+      rect:
+        serializedVersion: 2
+        x: 2777
+        y: 1223
+        width: 332
+        height: 538
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_4
+      rect:
+        serializedVersion: 2
+        x: 3637
+        y: 1223
+        width: 312
+        height: 538
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_5
+      rect:
+        serializedVersion: 2
+        x: 4479
+        y: 1223
+        width: 313
+        height: 538
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_6
+      rect:
+        serializedVersion: 2
+        x: 5322
+        y: 1223
+        width: 313
+        height: 538
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_7
+      rect:
+        serializedVersion: 2
+        x: 6169
+        y: 1223
+        width: 308
+        height: 538
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_8
+      rect:
+        serializedVersion: 2
+        x: 7016
+        y: 1223
+        width: 303
+        height: 538
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_9
+      rect:
+        serializedVersion: 2
+        x: 7857
+        y: 1223
+        width: 302
+        height: 538
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_10
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 627
+        width: 304
+        height: 538
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_11
+      rect:
+        serializedVersion: 2
+        x: 1108
+        y: 627
+        width: 333
+        height: 538
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_12
+      rect:
+        serializedVersion: 2
+        x: 1939
+        y: 627
+        width: 328
+        height: 538
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_14
+      rect:
+        serializedVersion: 2
+        x: 2794
+        y: 627
+        width: 315
+        height: 538
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_15
+      rect:
+        serializedVersion: 2
+        x: 3195
+        y: 703
+        width: 139
+        height: 143
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_16
+      rect:
+        serializedVersion: 2
+        x: 3647
+        y: 627
+        width: 302
+        height: 538
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_18
+      rect:
+        serializedVersion: 2
+        x: 4488
+        y: 627
+        width: 304
+        height: 538
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_19
+      rect:
+        serializedVersion: 2
+        x: 5330
+        y: 627
+        width: 305
+        height: 538
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_20
+      rect:
+        serializedVersion: 2
+        x: 6165
+        y: 627
+        width: 312
+        height: 538
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_21
+      rect:
+        serializedVersion: 2
+        x: 7004
+        y: 627
+        width: 326
+        height: 538
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_22
+      rect:
+        serializedVersion: 2
+        x: 7814
+        y: 627
+        width: 377
+        height: 538
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_23
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 31
+        width: 418
+        height: 538
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

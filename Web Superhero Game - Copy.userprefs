@@ -1,16 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Humanoids\Enemy.cs">
     <Files>
-      <File FileName="Assets\Scripts\Player.cs" Line="105" Column="49" />
-      <File FileName="Assets\Scripts\MainMenu.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SuperPowerController.cs" Line="41" Column="31" />
-      <File FileName="Assets\Scripts\AchievementSystem.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\EnemySpawner.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\AchievementItem.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Grenade.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\AchievementDataBase.cs" Line="125" Column="34" />
-      <File FileName="Assets\Scripts\Projectile.cs" Line="52" Column="62" />
+      <File FileName="Assets\Scripts\Humanoids\Enemy.cs" Line="88" Column="74" />
+      <File FileName="Assets\Scripts\Humanoids\Player.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Objects\Projectile.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\PlayerInfo.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
