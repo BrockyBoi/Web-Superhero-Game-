@@ -1,0 +1,325 @@
+fileFormatVersion: 2
+guid: faf87b99052994048a664de75c39f92a
+timeCreated: 1477585636
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: ground_braker (1)_0
+    21300002: ground_braker (1)_1
+    21300004: ground_braker (1)_2
+    21300006: ground_braker (1)_3
+    21300008: ground_braker (1)_4
+    21300010: ground_braker (1)_5
+    21300012: ground_braker (1)_6
+    21300014: ground_braker (1)_7
+    21300016: ground_braker (1)_8
+    21300018: ground_braker (1)_9
+    21300020: ground_braker (1)_10
+    21300022: ground_braker (1)_11
+    21300024: ground_braker (1)_12
+    21300026: ground_braker (1)_13
+    21300028: ground_braker (1)_14
+    21300030: ground_braker (1)_15
+    21300032: ground_braker (1)_16
+    21300034: ground_braker (1)_17
+    21300036: ground_braker (1)_18
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ground_braker (1)_0
+      rect:
+        serializedVersion: 2
+        x: 2522
+        y: 5822
+        width: 421
+        height: 705
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ground_braker (1)_1
+      rect:
+        serializedVersion: 2
+        x: 4323
+        y: 6046
+        width: 479
+        height: 703
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ground_braker (1)_2
+      rect:
+        serializedVersion: 2
+        x: 6141
+        y: 6269
+        width: 516
+        height: 697
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ground_braker (1)_3
+      rect:
+        serializedVersion: 2
+        x: 7973
+        y: 6491
+        width: 543
+        height: 692
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ground_braker (1)_4
+      rect:
+        serializedVersion: 2
+        x: 731
+        y: 5600
+        width: 354
+        height: 710
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ground_braker (1)_5
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 4699
+        width: 561
+        height: 697
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ground_braker (1)_6
+      rect:
+        serializedVersion: 2
+        x: 2427
+        y: 4631
+        width: 582
+        height: 702
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ground_braker (1)_7
+      rect:
+        serializedVersion: 2
+        x: 4264
+        y: 4677
+        width: 610
+        height: 696
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ground_braker (1)_8
+      rect:
+        serializedVersion: 2
+        x: 6105
+        y: 4750
+        width: 633
+        height: 664
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ground_braker (1)_9
+      rect:
+        serializedVersion: 2
+        x: 7973
+        y: 4759
+        width: 629
+        height: 623
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ground_braker (1)_10
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 2862
+        width: 615
+        height: 634
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ground_braker (1)_11
+      rect:
+        serializedVersion: 2
+        x: 2518
+        y: 2604
+        width: 511
+        height: 642
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ground_braker (1)_12
+      rect:
+        serializedVersion: 2
+        x: 4445
+        y: 2396
+        width: 479
+        height: 570
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ground_braker (1)_13
+      rect:
+        serializedVersion: 2
+        x: 6268
+        y: 2197
+        width: 587
+        height: 475
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ground_braker (1)_14
+      rect:
+        serializedVersion: 2
+        x: 8159
+        y: 1858
+        width: 629
+        height: 515
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ground_braker (1)_15
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 79
+        width: 555
+        height: 398
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ground_braker (1)_16
+      rect:
+        serializedVersion: 2
+        x: 2576
+        y: 11
+        width: 475
+        height: 629
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ground_braker (1)_17
+      rect:
+        serializedVersion: 2
+        x: 4440
+        y: 39
+        width: 353
+        height: 710
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ground_braker (1)_18
+      rect:
+        serializedVersion: 2
+        x: 6291
+        y: 39
+        width: 352
+        height: 710
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

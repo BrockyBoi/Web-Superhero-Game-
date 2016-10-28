@@ -5,12 +5,12 @@ using System.Collections.Generic;
 public class Player : MonoBehaviour {
     public static Player playerSingleton;
 
-	Animator anim;
+	protected Animator anim;
 
-    float defaultXScale;
+	protected float defaultXScale;
 
-    Transform boundary1;
-    Transform boundary2;
+    protected Transform boundary1;
+    protected Transform boundary2;
 	public Transform attackPoint;
 
     public float hSpeed = 5;
@@ -20,11 +20,11 @@ public class Player : MonoBehaviour {
 	public GameObject grenadePrefab;
 	public GameObject clapPrefab;
 
-    bool canAttack;
-    bool canMove;
+    protected bool canAttack;
+    protected bool canMove;
 
-    float[] attackRates;
-    float[] attackTimes;
+    protected float[] attackRates;
+    protected float[] attackTimes;
 
     //Has 3 numbers which represent close range, medium range, and long range attacks
     public static float[] attackDistances;
@@ -93,7 +93,7 @@ public class Player : MonoBehaviour {
         canMove = true;
 		canAttack = true;
 		GetPowers ();
-		InitalizeSliders ();
+		InitializeSliders ();
 		InitializeBoundaries ();
 
 		defaultXScale = transform.localScale.x;
@@ -127,20 +127,20 @@ public class Player : MonoBehaviour {
 		else if (Input.GetKey(KeyCode.E))
 		{
 			if(!GameCanvas.controller.GetTutorialMode() || GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.PressE))
-				//TryAttack (2);
-				SelectAttack(2);
+				TryAttack (2);
+				//SelectAttack(2);
 		}
 		else if (Input.GetKey(KeyCode.R))
 		{
 			if(!GameCanvas.controller.GetTutorialMode() || GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.PressR)
 				|| GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.Lvl1AOE)
 				|| GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.Lvl10AOE))
-				//TryAttack (3);
-				SelectAttack(3);
+				TryAttack (3);
+				//SelectAttack(3);
 		}
 	}
 
-	void TryAttack(int attackNum)
+	private void TryAttack(int attackNum)
 	{
 		if (CheckIfCanAttack (attackNum)) {
 			anim.SetTrigger ("attackNum" + attackNum.ToString ());
@@ -240,7 +240,7 @@ public class Player : MonoBehaviour {
 		availablePowers = SuperPowerController.controller.GetAvailablePowers();
 	}
 
-	void InitalizeSliders()
+	void InitializeSliders()
 	{
 		for (int i = 0; i < 4; i++) {
 			GameCanvas.controller.InitializeSlider (i, attackRates [availablePowers [i]]);
@@ -259,8 +259,10 @@ public class Player : MonoBehaviour {
 		case (0):
 			switch (availablePowers [0]) {
 			case ((int)SuperPowerController.PowerNames.TankMelee):
+				NormalAttack (0);
 				break;
 			case ((int)SuperPowerController.PowerNames.ParagonMelee):
+				NormalAttack (0);
 				break;
 			case ((int)SuperPowerController.PowerNames.SpeedMelee):
 				break;
@@ -327,7 +329,7 @@ public class Player : MonoBehaviour {
 			case ((int)SuperPowerController.PowerNames.Jump):
 				StartCoroutine (JumpAttack ());
 				//IncreaseAttackTime ((int)Attacks.AOE);
-				break;
+				return;
 			case ((int)SuperPowerController.PowerNames.MapDash):
 				StartCoroutine (MapDash ());
 				//IncreaseAttackTime ((int)Attacks.AOE);
@@ -343,7 +345,7 @@ public class Player : MonoBehaviour {
 		default:
 			break;
 		}
-		SoundController.controller.PlaySoundInList (audio, attackNum);
+		//SoundController.controller.PlaySoundInList (audio, attackNum);
 		GameCanvas.controller.UpdateAttackSlider (attackNum);
 	}
 
@@ -353,8 +355,6 @@ public class Player : MonoBehaviour {
 			SuperPowerAttack (powerNum, attackDistances [powerNum]);
 		else
 			SuperPowerAttackBothDirections (powerNum, playerLevel * 2);
-		
-		//IncreaseAttackTime (powerNum);
 	}
 		
 
@@ -500,19 +500,22 @@ public class Player : MonoBehaviour {
     IEnumerator JumpAttack()
     {
 		canAttack = false;
-		rb2d.AddForce(new Vector2(0, Player.playerSingleton.GetLevel() * 6), ForceMode2D.Impulse);
+		rb2d.AddForce(new Vector2(0, Player.playerSingleton.GetLevel() * 55), ForceMode2D.Impulse);
 
         yield return new WaitForSeconds(1f);
 		RaycastHit2D hit = Physics2D.Raycast(new Vector3(transform.position.x, transform.position.y - (transform.localScale.y / 2)), Vector2.down, 2f, LayerMask.GetMask("Default"));
         while (!hit)           
         {
 			hit = Physics2D.Raycast(transform.position, Vector2.down, 10, LayerMask.GetMask("Default"));
-			//Debug.DrawRay (new Vector3 (transform.position.x, transform.position.y - (transform.localScale.y / 2)), Vector3.down, Color.green);
-			Debug.DrawRay(transform.position, Vector2.down, Color.green);
-			Debug.Log ("Still jumping");
+
+			if (Vector2.Distance(rb2d.velocity, Vector2.zero) < .5f) {
+				anim.SetTrigger ("HitPeak");
+				rb2d.AddForce(new Vector2(0, -Player.playerSingleton.GetLevel() * 150), ForceMode2D.Impulse);
+			}
             yield return null;
         }
 
+		anim.SetTrigger ("HitGround");
 		FollowPlayer.MainCamera.CameraShake ();
         SuperPowerAttackBothDirections((int)Attacks.AOE,LargeAttackDistance());
 		canAttack = true;

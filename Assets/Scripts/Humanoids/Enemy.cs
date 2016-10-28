@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour {
     protected bool canMove = true;
     protected bool invulnerable;
 
+	protected bool stunned;
     protected bool onFire;
 	protected bool dead;
 
@@ -63,13 +64,11 @@ public class Enemy : MonoBehaviour {
 		//transform.Translate(CheckPlayerPos() * speed * Time.deltaTime);
 		transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + CheckPlayerPos().x, transform.position.y), speed * Time.deltaTime);
 
-		Debug.DrawRay (attackTransform.position, forwardDirection);
 		RaycastHit2D hit = Physics2D.Raycast(attackTransform.position, forwardDirection, attackDistance, LayerMask.GetMask("Player"));
 
         if(hit)
         {
 			DisableCanMove ();
-			//Invoke("Attack", 1.5f);
 			anim.SetTrigger("attack");
         }
     }
@@ -121,6 +120,7 @@ public class Enemy : MonoBehaviour {
 	public void StunEnemy(Color c, float time)
 	{
 		canMove = false;
+		stunned = true;
 
 		ChangeColor (c);
 
@@ -131,6 +131,7 @@ public class Enemy : MonoBehaviour {
 	protected void UnstunEnemy()
 	{
 		StartCoroutine (Recover ());
+		stunned = false;
 
 		ChangeColor (Color.white);
 	}
@@ -143,12 +144,12 @@ public class Enemy : MonoBehaviour {
 
     protected void Attack()
     {
-		if (tutorialMode)
+		if (tutorialMode || invulnerable || stunned)
 			return;
 
 		RaycastHit2D hit = Physics2D.Raycast(attackTransform.position, forwardDirection, attackDistance, LayerMask.GetMask("Player"));
 
-		if (!invulnerable && hit) {
+		if (hit) {
 			Player.playerSingleton.TakeDamage (damage);
 		}
 

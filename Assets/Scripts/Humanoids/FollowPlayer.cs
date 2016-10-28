@@ -15,7 +15,7 @@ public class FollowPlayer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		player = Player.playerSingleton.transform;
 	}
 	
 	// Update is called once per frame
@@ -25,7 +25,7 @@ public class FollowPlayer : MonoBehaviour {
 
     void Follow()
     {
-		transform.position = Vector3.SmoothDamp (transform.position, Player.playerSingleton.GetLocation(), ref velocity, .05f);
+		transform.position = Vector3.SmoothDamp (transform.position, new Vector3(player.position.x, player.position.y, -10), ref velocity, .01f);
     }
 
 	public void CameraShake()
