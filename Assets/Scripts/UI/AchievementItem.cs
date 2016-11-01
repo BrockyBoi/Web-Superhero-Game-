@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class AchievementItem : MonoBehaviour {
-	public Text name;
+	public Text nameString;
 	public Text amount; 
 	public Image photo;
 
@@ -23,7 +23,7 @@ public class AchievementItem : MonoBehaviour {
 
 	public void GiveData(string nameString, string amountString)
 	{
-		name.text = nameString;
+		this.nameString.text = nameString;
 		amount.text = amountString;
 	}
 

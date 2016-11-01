@@ -22,6 +22,8 @@ public class GameCanvas : MonoBehaviour {
 
 	public List<GameObject> heroPrefabs = new List<GameObject>();
 
+	public Transform startLocation;
+
 
 	//Tutorial stuff
 	bool tutorialMode;
@@ -70,7 +72,7 @@ public class GameCanvas : MonoBehaviour {
 
 	void SpawnHero()
 	{
-		Instantiate(heroPrefabs[SuperPowerController.controller.GetSuperHero()], Vector3.zero, Quaternion.identity);
+		Instantiate(heroPrefabs[SuperPowerController.controller.GetSuperHero()], startLocation.position, Quaternion.identity);
 	}
 
 	public void CheckESC()

@@ -14,7 +14,8 @@ public class SuperPowerController : MonoBehaviour {
                             Fire, Wave, RockThrow, Lightning,
                             ParagonMelee, FreezeBreath, HeatVision, Jump,
                             SpeedMelee, WindGust, DashAttack, MapDash,
-                            Pistol, Shotgun, Sniper, Grenades
+                            Pistol, Shotgun, Sniper, Grenades,
+							POWERS_COUNT
                            };
     public enum SuperHero { Tank, Elementalist, Paragon, Speedster, Vigilantee, HERO_COUNT}
     SuperHero currentHero;
@@ -83,30 +84,9 @@ public class SuperPowerController : MonoBehaviour {
 
     void InitializePowers()
     {
-        superPowers.Add(PowerToInt(PowerNames.TankMelee));
-        superPowers.Add(PowerToInt(PowerNames.SonicClap));
-        superPowers.Add(PowerToInt(PowerNames.ShoulderCharge));
-        superPowers.Add(PowerToInt(PowerNames.GroundSmash));
-
-        superPowers.Add(PowerToInt(PowerNames.Fire));
-        superPowers.Add(PowerToInt(PowerNames.Wave));
-        superPowers.Add(PowerToInt(PowerNames.RockThrow));
-        superPowers.Add(PowerToInt(PowerNames.Lightning));
-
-        superPowers.Add(PowerToInt(PowerNames.ParagonMelee));
-        superPowers.Add(PowerToInt(PowerNames.FreezeBreath));
-        superPowers.Add(PowerToInt(PowerNames.HeatVision));
-        superPowers.Add(PowerToInt(PowerNames.Jump));
-
-        superPowers.Add(PowerToInt(PowerNames.SpeedMelee));
-        superPowers.Add(PowerToInt(PowerNames.WindGust));
-        superPowers.Add(PowerToInt(PowerNames.DashAttack));
-        superPowers.Add(PowerToInt(PowerNames.MapDash));      
-
-        superPowers.Add(PowerToInt(PowerNames.Pistol));
-        superPowers.Add(PowerToInt(PowerNames.Shotgun));
-        superPowers.Add(PowerToInt(PowerNames.Sniper));
-        superPowers.Add(PowerToInt(PowerNames.Grenades));
+		for (int i = 0; i < (int) PowerNames.POWERS_COUNT; i++) {
+			superPowers.Add (i);
+		}
     }
 
     public static int PowerToInt(PowerNames power)

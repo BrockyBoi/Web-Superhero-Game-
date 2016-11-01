@@ -46,8 +46,8 @@ public class EnemySpawner : MonoBehaviour {
 		round = 60;
 		CheckRound ();
 
-		for (int j = 0; j < 100; j++) {
-			for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 1000; j++) {
+			for (int i = 0; i < enemyPrefabs.Count; i++) {
 				AppendSpawnRate (i);
 			}
 		}
@@ -57,11 +57,11 @@ public class EnemySpawner : MonoBehaviour {
     {
         if (spawn1WasLastSpawn)
         {
-            GameObject spanwedEnemy = Instantiate(enemy, spawn2.position, Quaternion.identity) as GameObject;
+            Instantiate(enemy, spawn2.position, Quaternion.identity);
         }
         else
         {
-            GameObject spanwedEnemy = Instantiate(enemy, spawn1.position, Quaternion.identity) as GameObject;
+            Instantiate(enemy, spawn1.position, Quaternion.identity);
         }
 
         spawn1WasLastSpawn = !spawn1WasLastSpawn;
@@ -92,7 +92,7 @@ public class EnemySpawner : MonoBehaviour {
     {
        
         //Original rates are 3,6,10,30
-        if ((enemyNum == 0 && spawnRates[0] < .6f) || 
+        if ((enemyNum == 0 && spawnRates[0] < .45f) || 
             (enemyNum == 1 && spawnRates[1] < 1) || 
             (enemyNum == 2 && spawnRates[2] < 2) ||
             (enemyNum == 3 && spawnRates[3] < 5))
@@ -103,6 +103,9 @@ public class EnemySpawner : MonoBehaviour {
 
     IEnumerator SpawnCoroutine(int enemyNum)
     {
+		if (enemyNum == 1 || enemyNum == 2)
+			yield break;
+
         float time = 0;
         while (Player.playerSingleton.CheckAlive())
         {

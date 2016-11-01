@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class Enemy : MonoBehaviour {
+	#region variables
 	public Transform attackTransform;
 
     protected Vector3 forwardDirection;
@@ -21,6 +22,7 @@ public class Enemy : MonoBehaviour {
 
     protected bool canMove = true;
     protected bool invulnerable;
+	protected bool canAttack;
 
 	protected bool stunned;
     protected bool onFire;
@@ -31,6 +33,7 @@ public class Enemy : MonoBehaviour {
 	protected bool tutorialMode;
 
 	private Animator anim;
+	#endregion
 
     protected void Awake()
     {
@@ -63,14 +66,20 @@ public class Enemy : MonoBehaviour {
         //transform.position = new Vector2(transform.position.x + forwardDirection.x * speed * Time.deltaTime, transform.position.y);
 		//transform.Translate(CheckPlayerPos() * speed * Time.deltaTime);
 		transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + CheckPlayerPos().x, transform.position.y), speed * Time.deltaTime);
+		float dist = Vector2.Distance (attackTransform.position, Player.playerSingleton.transform.position);
 
-		RaycastHit2D hit = Physics2D.Raycast(attackTransform.position, forwardDirection, attackDistance, LayerMask.GetMask("Player"));
-
-        if(hit)
-        {
+		if (dist <= attackDistance) {
 			DisableCanMove ();
-			anim.SetTrigger("attack");
-        }
+			anim.SetTrigger ("attack");
+		}
+
+//		RaycastHit2D hit = Physics2D.Raycast(attackTransform.position, forwardDirection, attackDistance, LayerMask.GetMask("Player"));
+//
+//        if(hit)
+//        {
+//			DisableCanMove ();
+//			anim.SetTrigger("attack");
+//        }
     }
 
     protected Vector3 CheckPlayerPos()
@@ -153,7 +162,11 @@ public class Enemy : MonoBehaviour {
 			Player.playerSingleton.TakeDamage (damage);
 		}
 
-        StartCoroutine(Recover());
+		if (canAttack) {
+			anim.SetTrigger ("attack");
+		} else {
+			StartCoroutine (Recover ());
+		}
     }
 
     protected void EnableCanMove()
@@ -207,7 +220,7 @@ public class Enemy : MonoBehaviour {
 				GetHit (30, 50, 50, 75, dir);
 				break;
 			case ((int)SuperPowerController.PowerNames.ParagonMelee):
-				GetHit (50, 60, 2, 6, dir);
+				GetHit (50, 60, 10, 20, dir);
 				break;
 			case ((int)SuperPowerController.PowerNames.SpeedMelee):
 				GetHit (5, 10, 1, 2, dir);
@@ -275,7 +288,7 @@ public class Enemy : MonoBehaviour {
 				StunEnemy (Color.yellow, 8);
 				break;
 			case ((int)SuperPowerController.PowerNames.Jump):
-				GetHit (2, 10, 35, 60, dir);
+				GetHit (10, 25, 35, 60, dir);
 				break;
 			case ((int)SuperPowerController.PowerNames.MapDash):
 				GetHit (50, 75, 20, 30, dir);
@@ -326,20 +339,15 @@ public class Enemy : MonoBehaviour {
 
     protected void Die(float dmg, int powerType, Vector3 directionHit)
     {
-		if (dead)
-			return;
-
-        rb2d.AddTorque(Random.Range(dmg * directionHit.x * 20, dmg * directionHit.x * 40));
+		rb2d.freezeRotation = false;
+        rb2d.AddTorque(Random.Range(dmg * directionHit.x * 100, dmg * directionHit.x * 250));
 
         CheckDeathType(powerType);
-
-        rb2d.freezeRotation = false;
 
 		XPController.controller.AddXP (enemyNumber);
         EnemySpawner.controller.SubtractEnemy(enemyNumber);
 		AchievementSystem.controller.KilledEnemy ((int)dmg, enemyNumber);
 
-		dead = true;
         enabled = false;
     }
 
@@ -396,4 +404,21 @@ public class Enemy : MonoBehaviour {
 	{
 		return invulnerable;
 	}
+
+//	void OnTriggerEnter2D(Collider2D other)
+//	{
+//		if(other.CompareTag("Player"))
+//			{
+//				canAttack = true;
+//				anim.SetTrigger ("attack");
+//			DisableCanMove ();
+//			}
+//	}
+//
+//	void OnTriggerExit2D(Collider2D other)
+//	{
+//		if (other.CompareTag ("Player")) {
+//			canAttack = false;
+//		}
+//	}
 }

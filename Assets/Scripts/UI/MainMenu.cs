@@ -153,11 +153,6 @@ public class MainMenu : MonoBehaviour {
 		return heroDescriptions [SuperPowerController.HeroToInt (hero)];
 	}
 
-	void CheckScreens ()
-	{
-		
-	}
-
 	int ScreensToInt(Screens s)
 	{
 		return (int)s;

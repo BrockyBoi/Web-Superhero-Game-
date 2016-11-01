@@ -63,7 +63,7 @@ public class AchievementDataBase : MonoBehaviour
 	public GameObject totalDamageObject;
 	List<GameObject> totalDamage = new List<GameObject>();
 
-	string[] names = new string[(int)SuperPowerController.SuperHero.HERO_COUNT]{"Tank", "Elementalist", "Paragon", "Speedster", "Vigilantee"}; 
+	//string[] names = new string[(int)SuperPowerController.SuperHero.HERO_COUNT]{"Tank", "Elementalist", "Paragon", "Speedster", "Vigilantee"}; 
 
 	List<GameObject> panelList = new List<GameObject>();
 

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Player : MonoBehaviour {
+	#region variables
     public static Player playerSingleton;
 
 	protected Animator anim;
@@ -37,7 +38,7 @@ public class Player : MonoBehaviour {
 
     Vector2 forwardVector;
 
-    bool alive = true;
+    bool alive;
 
     public bool godMode;
 	public bool tutorial;
@@ -51,7 +52,8 @@ public class Player : MonoBehaviour {
 
 	public bool knockback;
 
-	AudioSource audio;
+	AudioSource myAudio;
+	#endregion 
 
     void Awake()
     {
@@ -69,7 +71,7 @@ public class Player : MonoBehaviour {
                                     };
         //Only need to check for short, medium, long, AOE attacks
         attackTimes = new float[4] { 0, 0, 0, 0};
-        attackDistances = new float[3] { 15, 30, 50 };
+        attackDistances = new float[3] { 5, 15, 30 };
 
         if (playerSingleton == null)
         {
@@ -78,7 +80,7 @@ public class Player : MonoBehaviour {
         else Destroy(gameObject);
 
         rb2d = GetComponent<Rigidbody2D>();
-		audio = gameObject.AddComponent<AudioSource> ();
+		myAudio = gameObject.AddComponent<AudioSource> ();
 		anim = GetComponent<Animator> ();
 
 		forwardVector = Vector3.right;
@@ -345,7 +347,7 @@ public class Player : MonoBehaviour {
 		default:
 			break;
 		}
-		//SoundController.controller.PlaySoundInList (audio, attackNum);
+		//SoundController.controller.PlaySoundInList (myAudio, attackNum);
 		GameCanvas.controller.UpdateAttackSlider (attackNum);
 	}
 
@@ -357,7 +359,6 @@ public class Player : MonoBehaviour {
 			SuperPowerAttackBothDirections (powerNum, playerLevel * 2);
 	}
 		
-
     void EnableCanAttack()
     {
         canAttack = true;
@@ -378,8 +379,7 @@ public class Player : MonoBehaviour {
     {
         return availablePowers[num];
     }
-
-
+		
 	void SuperPowerAttack(int powerUsed, float attackDistance)
 	{
 		int enemiesHit = 0;
@@ -559,13 +559,13 @@ public class Player : MonoBehaviour {
 			yield return null;
 		}
 		transform.position += new Vector3 (5, 0);
-		SoundController.controller.PlaySoundInList (audio, SuperPowerController.PowerNames.DashAttack);
+		SoundController.controller.PlaySoundInList (GetComponent<AudioSource>(), SuperPowerController.PowerNames.DashAttack);
 		while (CheckIfInBoundaries ()) {
 			rb2d.MovePosition(new Vector2(transform.position.x + 3f, transform.position.y));
 			enemiesHit += SuperPowerAttackGetHits ((int)Attacks.AOE, 3f);
 			yield return null;
 		}
-		SoundController.controller.PlaySoundInList (audio, SuperPowerController.PowerNames.DashAttack);
+		SoundController.controller.PlaySoundInList (GetComponent<AudioSource>(), SuperPowerController.PowerNames.DashAttack);
 		while (Vector3.Distance(transform.position, startingPos) > 2) {
 			rb2d.MovePosition(new Vector2(transform.position.x - 3f, transform.position.y));
 			enemiesHit += SuperPowerAttackGetHits ((int)Attacks.AOE, -3f);
@@ -718,10 +718,4 @@ public class Player : MonoBehaviour {
 
 		return false;
 	}
-
-	public Vector3 GetLocation()
-	{
-		return new Vector3 (transform.position.x, transform.position.y, -10);
-	}
-	
 }

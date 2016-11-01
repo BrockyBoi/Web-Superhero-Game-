@@ -35,10 +35,10 @@ public class FollowPlayer : MonoBehaviour {
 
 	IEnumerator CameraShakeEnumerator()
 	{
-		float shakeTime = .3f;
+		float shakeTime = .35f;
 
 		while (shakeTime > 0) {
-			Vector2 newSpot = Random.insideUnitCircle * .25f;
+			Vector2 newSpot = Random.insideUnitCircle * 1.5f;
 
 			transform.position = new Vector3 (transform.position.x + newSpot.x, transform.position.y + newSpot.y, -10);
 
