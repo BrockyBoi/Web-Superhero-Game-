@@ -6,10 +6,16 @@ public class SoundController : MonoBehaviour {
 	public static SoundController controller;
 
 	public static Dictionary<int, AudioClip> soundClips = new Dictionary<int, AudioClip>();
-	AudioSource audio;
+	AudioSource fxAudio;
+	AudioSource musicAudio;
+
+	public AudioClip music;
+
+	public AudioClip punch;
+	public AudioClip capeWhoosh;
+	public AudioClip whoosh;
 
 	//Tank audio clips
-	public AudioClip upperCut;
 	public AudioClip sonicClap;
 	public AudioClip shoulderCharge;
 	public AudioClip groundSmash;
@@ -17,21 +23,16 @@ public class SoundController : MonoBehaviour {
 	//Elementalist
 	public AudioClip flamethrower;
 	public AudioClip wave;
+	public AudioClip rockSummon;
 	public AudioClip rockThrow;
 	public AudioClip lightningStrike;
 
 	//Paragon 
-	public AudioClip paragonPunch;
 	public AudioClip freezeBreath;
 	public AudioClip heatVision;
-	public AudioClip superJump;
-	public AudioClip superJumpLanding;
 
 	//Speedster
-	public AudioClip speedsterPunch;
 	public AudioClip whirlwind;
-	public AudioClip dash;
-	public AudioClip mapDash;
 
 	//Vigilante
 	public AudioClip pistolShot;
@@ -49,7 +50,13 @@ public class SoundController : MonoBehaviour {
 		} else
 			Destroy (gameObject);
 
-		audio = gameObject.AddComponent<AudioSource> ();
+		fxAudio = gameObject.AddComponent<AudioSource> ();
+		musicAudio = gameObject.AddComponent<AudioSource> ();
+
+		//musicAudio.clip = music;
+		musicAudio.Play ();
+		musicAudio.volume = .275f;
+		musicAudio.loop = true;
 
 		InitializeSoundList ();
 	}
@@ -72,7 +79,6 @@ public class SoundController : MonoBehaviour {
 	void InitializeSoundList()
 	{
 		//Tank
-		AddSound (SuperPowerController.PowerNames.TankMelee, upperCut);
 		AddSound (SuperPowerController.PowerNames.SonicClap, sonicClap);
 		AddSound (SuperPowerController.PowerNames.ShoulderCharge, shoulderCharge);
 		AddSound (SuperPowerController.PowerNames.GroundSmash, groundSmash);
@@ -81,16 +87,11 @@ public class SoundController : MonoBehaviour {
 		AddSound (SuperPowerController.PowerNames.Wave, wave);
 		AddSound (SuperPowerController.PowerNames.RockThrow, rockThrow);
 		AddSound (SuperPowerController.PowerNames.Lightning, lightningStrike);
-		//Paraon
-		AddSound (SuperPowerController.PowerNames.ParagonMelee, paragonPunch);
+
 		AddSound (SuperPowerController.PowerNames.FreezeBreath, freezeBreath);
 		AddSound (SuperPowerController.PowerNames.HeatVision, heatVision);
-		AddSound (SuperPowerController.PowerNames.Jump, superJump);
-		//Speedster
-		AddSound (SuperPowerController.PowerNames.SpeedMelee, speedsterPunch);
+
 		AddSound (SuperPowerController.PowerNames.WindGust, whirlwind);
-		AddSound (SuperPowerController.PowerNames.DashAttack, dash);
-		AddSound (SuperPowerController.PowerNames.MapDash, mapDash);
 		//Vigilante
 		AddSound (SuperPowerController.PowerNames.Pistol, pistolShot);
 		AddSound (SuperPowerController.PowerNames.Shotgun, shotgunShot);
@@ -110,12 +111,12 @@ public class SoundController : MonoBehaviour {
 
 	public void PlaySoundInList(int i)
 	{
-		audio.PlayOneShot (soundClips [i]);
+		fxAudio.PlayOneShot (soundClips [i]);
 	}
 
 	public void PlaySound(AudioClip clip)
 	{
-		audio.PlayOneShot (clip);
+		fxAudio.PlayOneShot (clip);
 	}
 
 	public void PlaySound(AudioSource source, AudioClip clip)

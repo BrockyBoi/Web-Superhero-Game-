@@ -106,6 +106,7 @@ public class EnemySpawner : MonoBehaviour {
 		if (enemyNum == 1 || enemyNum == 2)
 			yield break;
 
+
         float time = 0;
         while (Player.playerSingleton.CheckAlive())
         {

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: f2368ce2dd663e74db3f0a1073bcb4b9
-timeCreated: 1477585668
+timeCreated: 1478351852
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -16,6 +16,7 @@ TextureImporter:
     21300018: lesser (1)_9
     21300020: lesser (1)_10
     21300022: lesser (1)_11
+    21300024: lesser (1)_12
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -68,10 +69,10 @@ TextureImporter:
       name: lesser (1)_0
       rect:
         serializedVersion: 2
-        x: 261
-        y: 1617
-        width: 350
-        height: 702
+        x: 0
+        y: 1600
+        width: 908
+        height: 800
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -81,10 +82,10 @@ TextureImporter:
       name: lesser (1)_1
       rect:
         serializedVersion: 2
-        x: 1169
-        y: 1617
-        width: 397
-        height: 702
+        x: 908
+        y: 1600
+        width: 908
+        height: 800
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -94,10 +95,10 @@ TextureImporter:
       name: lesser (1)_2
       rect:
         serializedVersion: 2
-        x: 2076
-        y: 1617
-        width: 374
-        height: 702
+        x: 1816
+        y: 1600
+        width: 908
+        height: 800
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -107,10 +108,10 @@ TextureImporter:
       name: lesser (1)_3
       rect:
         serializedVersion: 2
-        x: 2985
-        y: 1617
-        width: 394
-        height: 702
+        x: 2724
+        y: 1600
+        width: 908
+        height: 800
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -120,10 +121,10 @@ TextureImporter:
       name: lesser (1)_4
       rect:
         serializedVersion: 2
-        x: 3892
-        y: 1617
-        width: 648
-        height: 702
+        x: 3632
+        y: 1600
+        width: 908
+        height: 800
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -133,10 +134,10 @@ TextureImporter:
       name: lesser (1)_5
       rect:
         serializedVersion: 2
-        x: 261
-        y: 817
-        width: 649
-        height: 702
+        x: 0
+        y: 800
+        width: 908
+        height: 800
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -146,10 +147,10 @@ TextureImporter:
       name: lesser (1)_6
       rect:
         serializedVersion: 2
-        x: 1169
-        y: 817
-        width: 650
-        height: 702
+        x: 908
+        y: 800
+        width: 908
+        height: 800
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,10 +160,10 @@ TextureImporter:
       name: lesser (1)_7
       rect:
         serializedVersion: 2
-        x: 2078
-        y: 817
-        width: 650
-        height: 702
+        x: 1816
+        y: 800
+        width: 908
+        height: 800
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -172,10 +173,10 @@ TextureImporter:
       name: lesser (1)_8
       rect:
         serializedVersion: 2
-        x: 2985
-        y: 817
-        width: 649
-        height: 702
+        x: 2724
+        y: 800
+        width: 908
+        height: 800
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -185,10 +186,10 @@ TextureImporter:
       name: lesser (1)_9
       rect:
         serializedVersion: 2
-        x: 3892
-        y: 817
-        width: 648
-        height: 702
+        x: 3632
+        y: 800
+        width: 908
+        height: 800
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -198,10 +199,10 @@ TextureImporter:
       name: lesser (1)_10
       rect:
         serializedVersion: 2
-        x: 258
-        y: 17
-        width: 652
-        height: 702
+        x: 0
+        y: 0
+        width: 908
+        height: 800
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -211,10 +212,23 @@ TextureImporter:
       name: lesser (1)_11
       rect:
         serializedVersion: 2
-        x: 1167
-        y: 17
-        width: 652
-        height: 702
+        x: 908
+        y: 0
+        width: 908
+        height: 800
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: lesser (1)_12
+      rect:
+        serializedVersion: 2
+        x: 1816
+        y: 0
+        width: 908
+        height: 800
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

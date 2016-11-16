@@ -59,19 +59,22 @@ public class Enemy : MonoBehaviour {
 
     protected void Movement()
     {
-		if (tutorialMode || !canMove || !Player.playerSingleton.CheckAlive())
-            return;
+		if (Player.playerSingleton.CheckAlive ()) {
+			if (tutorialMode || !canMove)
+				return;
 
-        //rb2d.MovePosition(transform.position + forwardDirection * speed * Time.deltaTime);
-        //transform.position = new Vector2(transform.position.x + forwardDirection.x * speed * Time.deltaTime, transform.position.y);
-		//transform.Translate(CheckPlayerPos() * speed * Time.deltaTime);
-		transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + CheckPlayerPos().x, transform.position.y), speed * Time.deltaTime);
-		float dist = Vector2.Distance (attackTransform.position, Player.playerSingleton.transform.position);
+			//rb2d.MovePosition(transform.position + forwardDirection * speed * Time.deltaTime);
+			//transform.position = new Vector2(transform.position.x + forwardDirection.x * speed * Time.deltaTime, transform.position.y);
+			//transform.Translate(CheckPlayerPos() * speed * Time.deltaTime);
+			transform.position = Vector2.MoveTowards (transform.position, new Vector2 (transform.position.x + CheckPlayerPos ().x, transform.position.y), speed * Time.deltaTime);
+			float dist = Vector2.Distance (attackTransform.position, Player.playerSingleton.transform.position);
 
-		if (dist <= attackDistance) {
-			DisableCanMove ();
-			anim.SetTrigger ("attack");
-		}
+			if (dist <= attackDistance) {
+				DisableCanMove ();
+				anim.SetTrigger ("attack");
+			}
+		} else
+			transform.position = Vector2.MoveTowards (transform.position, new Vector2(transform.position.x + forwardDirection.x, transform.position.y), speed * Time.deltaTime);
 
 //		RaycastHit2D hit = Physics2D.Raycast(attackTransform.position, forwardDirection, attackDistance, LayerMask.GetMask("Player"));
 //

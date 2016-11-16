@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: acb6b3664284000418e544f743f0bad0
-timeCreated: 1477585389
+timeCreated: 1478351773
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -72,12 +72,12 @@ TextureImporter:
       name: death (1)_0
       rect:
         serializedVersion: 2
-        x: 493
-        y: 2416
-        width: 352
-        height: 705
+        x: 0
+        y: 2400
+        width: 1087
+        height: 800
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -85,12 +85,12 @@ TextureImporter:
       name: death (1)_1
       rect:
         serializedVersion: 2
-        x: 1527
-        y: 2419
-        width: 374
-        height: 705
+        x: 1087
+        y: 2400
+        width: 1087
+        height: 800
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -98,12 +98,12 @@ TextureImporter:
       name: death (1)_2
       rect:
         serializedVersion: 2
-        x: 2565
-        y: 2421
-        width: 390
-        height: 705
+        x: 2174
+        y: 2400
+        width: 1087
+        height: 800
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -111,12 +111,12 @@ TextureImporter:
       name: death (1)_3
       rect:
         serializedVersion: 2
-        x: 3605
-        y: 2424
-        width: 412
-        height: 705
+        x: 3261
+        y: 2400
+        width: 1087
+        height: 800
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -124,12 +124,12 @@ TextureImporter:
       name: death (1)_4
       rect:
         serializedVersion: 2
-        x: 4651
-        y: 2429
-        width: 430
-        height: 705
+        x: 4348
+        y: 2400
+        width: 1087
+        height: 800
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -137,12 +137,12 @@ TextureImporter:
       name: death (1)_5
       rect:
         serializedVersion: 2
-        x: 304
-        y: 1628
-        width: 430
-        height: 705
+        x: 0
+        y: 1600
+        width: 1087
+        height: 800
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -150,12 +150,12 @@ TextureImporter:
       name: death (1)_6
       rect:
         serializedVersion: 2
-        x: 1392
-        y: 1628
-        width: 427
-        height: 705
+        x: 1087
+        y: 1600
+        width: 1087
+        height: 800
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -163,12 +163,12 @@ TextureImporter:
       name: death (1)_7
       rect:
         serializedVersion: 2
-        x: 2480
-        y: 1628
-        width: 427
-        height: 705
+        x: 2174
+        y: 1600
+        width: 1087
+        height: 800
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -176,12 +176,12 @@ TextureImporter:
       name: death (1)_8
       rect:
         serializedVersion: 2
-        x: 3565
-        y: 1628
-        width: 430
-        height: 705
+        x: 3261
+        y: 1600
+        width: 1087
+        height: 800
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -189,12 +189,12 @@ TextureImporter:
       name: death (1)_9
       rect:
         serializedVersion: 2
-        x: 4648
-        y: 1628
-        width: 433
-        height: 705
+        x: 4348
+        y: 1600
+        width: 1087
+        height: 800
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -202,12 +202,12 @@ TextureImporter:
       name: death (1)_10
       rect:
         serializedVersion: 2
-        x: 299
-        y: 829
-        width: 435
-        height: 705
+        x: 0
+        y: 800
+        width: 1087
+        height: 800
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -215,12 +215,12 @@ TextureImporter:
       name: death (1)_11
       rect:
         serializedVersion: 2
-        x: 1464
-        y: 824
-        width: 342
-        height: 705
+        x: 1087
+        y: 800
+        width: 1087
+        height: 800
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -228,12 +228,12 @@ TextureImporter:
       name: death (1)_12
       rect:
         serializedVersion: 2
-        x: 2451
-        y: 822
-        width: 432
-        height: 705
+        x: 2174
+        y: 800
+        width: 1087
+        height: 800
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -241,12 +241,12 @@ TextureImporter:
       name: death (1)_13
       rect:
         serializedVersion: 2
-        x: 3364
-        y: 880
-        width: 628
-        height: 705
+        x: 3261
+        y: 800
+        width: 1087
+        height: 800
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -254,12 +254,12 @@ TextureImporter:
       name: death (1)_14
       rect:
         serializedVersion: 2
-        x: 4367
-        y: 944
-        width: 706
-        height: 692
+        x: 4348
+        y: 800
+        width: 1087
+        height: 800
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -267,12 +267,12 @@ TextureImporter:
       name: death (1)_15
       rect:
         serializedVersion: 2
-        x: 17
-        y: 145
-        width: 706
-        height: 690
+        x: 0
+        y: 0
+        width: 1087
+        height: 800
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 0d1090c61171d904bbd5c588ef137263
-timeCreated: 1476112735
+timeCreated: 1478352202
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -67,12 +67,12 @@ TextureImporter:
       name: hit_0
       rect:
         serializedVersion: 2
-        x: 145
-        y: 687
-        width: 393
-        height: 582
+        x: 0
+        y: 650
+        width: 600
+        height: 650
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -80,12 +80,12 @@ TextureImporter:
       name: hit_1
       rect:
         serializedVersion: 2
-        x: 746
-        y: 687
-        width: 392
-        height: 582
+        x: 600
+        y: 650
+        width: 600
+        height: 650
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -93,12 +93,12 @@ TextureImporter:
       name: hit_2
       rect:
         serializedVersion: 2
-        x: 1355
-        y: 704
-        width: 381
-        height: 582
+        x: 1200
+        y: 650
+        width: 600
+        height: 650
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -106,12 +106,12 @@ TextureImporter:
       name: hit_3
       rect:
         serializedVersion: 2
-        x: 1920
-        y: 728
-        width: 422
-        height: 572
+        x: 1800
+        y: 650
+        width: 600
+        height: 650
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -119,12 +119,12 @@ TextureImporter:
       name: hit_4
       rect:
         serializedVersion: 2
-        x: 2442
-        y: 774
-        width: 515
-        height: 526
+        x: 2400
+        y: 650
+        width: 600
+        height: 650
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -132,12 +132,12 @@ TextureImporter:
       name: hit_5
       rect:
         serializedVersion: 2
-        x: 3004
-        y: 825
-        width: 539
-        height: 475
+        x: 3000
+        y: 650
+        width: 600
+        height: 650
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -145,12 +145,12 @@ TextureImporter:
       name: hit_6
       rect:
         serializedVersion: 2
-        x: 3611
-        y: 798
-        width: 553
-        height: 502
+        x: 3600
+        y: 650
+        width: 600
+        height: 650
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -158,12 +158,12 @@ TextureImporter:
       name: hit_7
       rect:
         serializedVersion: 2
-        x: 4220
-        y: 780
-        width: 563
-        height: 520
+        x: 4200
+        y: 650
+        width: 600
+        height: 650
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -171,12 +171,12 @@ TextureImporter:
       name: hit_8
       rect:
         serializedVersion: 2
-        x: 4824
-        y: 743
-        width: 565
-        height: 557
+        x: 4800
+        y: 650
+        width: 600
+        height: 650
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -184,12 +184,12 @@ TextureImporter:
       name: hit_9
       rect:
         serializedVersion: 2
-        x: 5424
-        y: 704
-        width: 572
-        height: 582
+        x: 5400
+        y: 650
+        width: 600
+        height: 650
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -197,12 +197,12 @@ TextureImporter:
       name: hit_10
       rect:
         serializedVersion: 2
-        x: 25
-        y: 54
-        width: 571
-        height: 582
+        x: 0
+        y: 0
+        width: 600
+        height: 650
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

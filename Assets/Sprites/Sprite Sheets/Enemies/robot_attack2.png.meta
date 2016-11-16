@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 2586a5b927070fc4781a08429ee4135c
-timeCreated: 1476365682
+timeCreated: 1478352227
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -26,6 +26,8 @@ TextureImporter:
     21300038: robot_attack2_21
     21300040: robot_attack2_22
     21300042: robot_attack2_23
+    21300044: robot_attack2_13
+    21300046: robot_attack2_17
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -83,12 +85,12 @@ TextureImporter:
       name: robot_attack2_0
       rect:
         serializedVersion: 2
-        x: 212
-        y: 1223
-        width: 418
-        height: 538
+        x: 0
+        y: 1192
+        width: 842
+        height: 596
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -96,12 +98,12 @@ TextureImporter:
       name: robot_attack2_1
       rect:
         serializedVersion: 2
-        x: 1063
-        y: 1223
-        width: 392
-        height: 538
+        x: 842
+        y: 1192
+        width: 842
+        height: 596
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -109,12 +111,12 @@ TextureImporter:
       name: robot_attack2_2
       rect:
         serializedVersion: 2
-        x: 1919
-        y: 1223
-        width: 358
-        height: 538
+        x: 1684
+        y: 1192
+        width: 842
+        height: 596
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -122,12 +124,12 @@ TextureImporter:
       name: robot_attack2_3
       rect:
         serializedVersion: 2
-        x: 2777
-        y: 1223
-        width: 332
-        height: 538
+        x: 2526
+        y: 1192
+        width: 842
+        height: 596
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -135,12 +137,12 @@ TextureImporter:
       name: robot_attack2_4
       rect:
         serializedVersion: 2
-        x: 3637
-        y: 1223
-        width: 312
-        height: 538
+        x: 3368
+        y: 1192
+        width: 842
+        height: 596
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -148,12 +150,12 @@ TextureImporter:
       name: robot_attack2_5
       rect:
         serializedVersion: 2
-        x: 4479
-        y: 1223
-        width: 313
-        height: 538
+        x: 4210
+        y: 1192
+        width: 842
+        height: 596
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -161,12 +163,12 @@ TextureImporter:
       name: robot_attack2_6
       rect:
         serializedVersion: 2
-        x: 5322
-        y: 1223
-        width: 313
-        height: 538
+        x: 5052
+        y: 1192
+        width: 842
+        height: 596
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -174,12 +176,12 @@ TextureImporter:
       name: robot_attack2_7
       rect:
         serializedVersion: 2
-        x: 6169
-        y: 1223
-        width: 308
-        height: 538
+        x: 5894
+        y: 1192
+        width: 842
+        height: 596
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -187,12 +189,12 @@ TextureImporter:
       name: robot_attack2_8
       rect:
         serializedVersion: 2
-        x: 7016
-        y: 1223
-        width: 303
-        height: 538
+        x: 6736
+        y: 1192
+        width: 842
+        height: 596
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -200,12 +202,12 @@ TextureImporter:
       name: robot_attack2_9
       rect:
         serializedVersion: 2
-        x: 7857
-        y: 1223
-        width: 302
-        height: 538
+        x: 7578
+        y: 1192
+        width: 842
+        height: 596
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -213,12 +215,12 @@ TextureImporter:
       name: robot_attack2_10
       rect:
         serializedVersion: 2
-        x: 278
-        y: 627
-        width: 304
-        height: 538
+        x: 0
+        y: 596
+        width: 842
+        height: 596
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -226,12 +228,12 @@ TextureImporter:
       name: robot_attack2_11
       rect:
         serializedVersion: 2
-        x: 1108
-        y: 627
-        width: 333
-        height: 538
+        x: 842
+        y: 596
+        width: 842
+        height: 596
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -239,12 +241,25 @@ TextureImporter:
       name: robot_attack2_12
       rect:
         serializedVersion: 2
-        x: 1939
-        y: 627
-        width: 328
-        height: 538
+        x: 1684
+        y: 596
+        width: 842
+        height: 596
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_13
+      rect:
+        serializedVersion: 2
+        x: 2526
+        y: 596
+        width: 842
+        height: 596
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -252,12 +267,12 @@ TextureImporter:
       name: robot_attack2_14
       rect:
         serializedVersion: 2
-        x: 2794
-        y: 627
-        width: 315
-        height: 538
+        x: 3368
+        y: 596
+        width: 842
+        height: 596
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -265,12 +280,12 @@ TextureImporter:
       name: robot_attack2_15
       rect:
         serializedVersion: 2
-        x: 3195
-        y: 703
-        width: 139
-        height: 143
+        x: 4210
+        y: 596
+        width: 842
+        height: 596
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -278,12 +293,25 @@ TextureImporter:
       name: robot_attack2_16
       rect:
         serializedVersion: 2
-        x: 3647
-        y: 627
-        width: 302
-        height: 538
+        x: 5052
+        y: 596
+        width: 842
+        height: 596
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_attack2_17
+      rect:
+        serializedVersion: 2
+        x: 5894
+        y: 596
+        width: 842
+        height: 596
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -291,12 +319,12 @@ TextureImporter:
       name: robot_attack2_18
       rect:
         serializedVersion: 2
-        x: 4488
-        y: 627
-        width: 304
-        height: 538
+        x: 6736
+        y: 596
+        width: 842
+        height: 596
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -304,12 +332,12 @@ TextureImporter:
       name: robot_attack2_19
       rect:
         serializedVersion: 2
-        x: 5330
-        y: 627
-        width: 305
-        height: 538
+        x: 7578
+        y: 596
+        width: 842
+        height: 596
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -317,51 +345,12 @@ TextureImporter:
       name: robot_attack2_20
       rect:
         serializedVersion: 2
-        x: 6165
-        y: 627
-        width: 312
-        height: 538
+        x: 0
+        y: 0
+        width: 842
+        height: 596
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: robot_attack2_21
-      rect:
-        serializedVersion: 2
-        x: 7004
-        y: 627
-        width: 326
-        height: 538
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: robot_attack2_22
-      rect:
-        serializedVersion: 2
-        x: 7814
-        y: 627
-        width: 377
-        height: 538
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: robot_attack2_23
-      rect:
-        serializedVersion: 2
-        x: 212
-        y: 31
-        width: 418
-        height: 538
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

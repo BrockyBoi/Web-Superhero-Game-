@@ -21,6 +21,7 @@ public class Player : MonoBehaviour {
 	public GameObject grenadePrefab;
 	public GameObject clapPrefab;
 
+	protected bool currentlyAttacking;
     protected bool canAttack;
     protected bool canMove;
 
@@ -38,7 +39,7 @@ public class Player : MonoBehaviour {
 
     Vector2 forwardVector;
 
-    bool alive;
+	bool alive = true;
 
     public bool godMode;
 	public bool tutorial;
@@ -111,33 +112,40 @@ public class Player : MonoBehaviour {
 		Movement(horizontal * Time.deltaTime * hSpeed);
 
 		CheckAttackInput ();
+		Debug.DrawLine (transform.position, new Vector3 (transform.position.x + Player.MediumAttackDistance(), transform.position.y));
     }
 
 	void CheckAttackInput()
 	{
-
+		if (currentlyAttacking)
+			return;
+		
 		if(Input.GetKey(KeyCode.Q))
 		{
-			if (!GameCanvas.controller.GetTutorialMode () || GameCanvas.controller.CheckIfOnSpecificPosition (GameCanvas.TutorialPosition.PressQ))
+			if (!GameCanvas.controller.GetTutorialMode () || GameCanvas.controller.CheckIfOnSpecificPosition (GameCanvas.TutorialPosition.PressQ)) {
 				TryAttack (0);
+			}
 		}
 		else if (Input.GetKey(KeyCode.W))
 		{
-			if(!GameCanvas.controller.GetTutorialMode() || GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.PressW))
+			if (!GameCanvas.controller.GetTutorialMode () || GameCanvas.controller.CheckIfOnSpecificPosition (GameCanvas.TutorialPosition.PressW)) {
 				TryAttack (1);
+			}
 		}
 		else if (Input.GetKey(KeyCode.E))
 		{
-			if(!GameCanvas.controller.GetTutorialMode() || GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.PressE))
+			if (!GameCanvas.controller.GetTutorialMode () || GameCanvas.controller.CheckIfOnSpecificPosition (GameCanvas.TutorialPosition.PressE)) {
 				TryAttack (2);
+			}
 				//SelectAttack(2);
 		}
 		else if (Input.GetKey(KeyCode.R))
 		{
-			if(!GameCanvas.controller.GetTutorialMode() || GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.PressR)
-				|| GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.Lvl1AOE)
-				|| GameCanvas.controller.CheckIfOnSpecificPosition(GameCanvas.TutorialPosition.Lvl10AOE))
+			if (!GameCanvas.controller.GetTutorialMode () || GameCanvas.controller.CheckIfOnSpecificPosition (GameCanvas.TutorialPosition.PressR)
+			   || GameCanvas.controller.CheckIfOnSpecificPosition (GameCanvas.TutorialPosition.Lvl1AOE)
+			   || GameCanvas.controller.CheckIfOnSpecificPosition (GameCanvas.TutorialPosition.Lvl10AOE)) {
 				TryAttack (3);
+			}
 				//SelectAttack(3);
 		}
 	}
@@ -147,6 +155,7 @@ public class Player : MonoBehaviour {
 		if (CheckIfCanAttack (attackNum)) {
 			anim.SetTrigger ("attackNum" + attackNum.ToString ());
 			IncreaseAttackTime (attackNum);
+			currentlyAttacking = true;
 		}
 	}
 
@@ -262,15 +271,23 @@ public class Player : MonoBehaviour {
 			switch (availablePowers [0]) {
 			case ((int)SuperPowerController.PowerNames.TankMelee):
 				NormalAttack (0);
+				PlayThisSound (attackNum);
 				break;
 			case ((int)SuperPowerController.PowerNames.ParagonMelee):
 				NormalAttack (0);
+				//PlayThisSound (attackNum);
+				PlaySound(SoundController.controller.punch);
 				break;
 			case ((int)SuperPowerController.PowerNames.SpeedMelee):
+				NormalAttack (0);
+				PlayThisSound (attackNum);
 				break;
 			case ((int)SuperPowerController.PowerNames.Fire):
+				PlaySound (SoundController.controller.flamethrower);
 				break;
 			case ((int)SuperPowerController.PowerNames.Pistol):
+				NormalAttack (0);
+				PlayThisSound (attackNum);
 				break;
 			default:
 				break;
@@ -284,16 +301,22 @@ public class Player : MonoBehaviour {
 				ProjectileSpawn (clapPrefab, 1);
 				break;
 			case ((int)SuperPowerController.PowerNames.Wave):
-				ProjectileSpawn (wavePrefab, 1);
+				NormalAttack (1);
+				PlaySound (SoundController.controller.wave);
 				break;
 			case ((int)SuperPowerController.PowerNames.FreezeBreath):
 				NormalAttack (1);
+				IceBreathSprite (1);
+				//PlayThisSound (attackNum);
+				PlaySound(SoundController.controller.freezeBreath);
 				break;
 			case ((int)SuperPowerController.PowerNames.WindGust):
 				NormalAttack (1);
+				PlayThisSound (attackNum);
 				break;
 			case ((int)SuperPowerController.PowerNames.Shotgun):
 				NormalAttack (1);
+				PlayThisSound (attackNum);
 				break;
 			default:
 				break;
@@ -306,15 +329,21 @@ public class Player : MonoBehaviour {
 				break;
 			case ((int)SuperPowerController.PowerNames.RockThrow):
 				ProjectileSpawn (rockPrefab, 2);
+				PlaySound (SoundController.controller.rockSummon);
 				break;
 			case ((int)SuperPowerController.PowerNames.HeatVision):
 				NormalAttack (2);
+				//PlayThisSound (attackNum);
+				PlaySound (SoundController.controller.heatVision);
+				//Turn on heat vision sprite
+				LaserVisionSprite(1);
 				break;
 			case ((int)SuperPowerController.PowerNames.DashAttack):
 				StartCoroutine (DashAttack ());
 				break;
 			case ((int)SuperPowerController.PowerNames.Sniper):
 				NormalAttack (2);
+				PlayThisSound (attackNum);
 				break;
 			default:
 				break;
@@ -325,20 +354,20 @@ public class Player : MonoBehaviour {
 			case ((int)SuperPowerController.PowerNames.GroundSmash):
 				FollowPlayer.MainCamera.CameraShake ();
 				NormalAttack (3);
+				PlayThisSound (attackNum);
 				break;
 			case ((int)SuperPowerController.PowerNames.Lightning):
+				PlaySound (SoundController.controller.lightningStrike);
+				NormalAttack (3);
 				break;
 			case ((int)SuperPowerController.PowerNames.Jump):
 				StartCoroutine (JumpAttack ());
-				//IncreaseAttackTime ((int)Attacks.AOE);
 				return;
 			case ((int)SuperPowerController.PowerNames.MapDash):
 				StartCoroutine (MapDash ());
-				//IncreaseAttackTime ((int)Attacks.AOE);
 				break;
 			case ((int)SuperPowerController.PowerNames.Grenades):
-				GrenadeMove ();
-				//IncreaseAttackTime ((int)Attacks.AOE);
+				ThrowGrenades ();
 				break;
 			default:
 				break;
@@ -348,6 +377,7 @@ public class Player : MonoBehaviour {
 			break;
 		}
 		//SoundController.controller.PlaySoundInList (myAudio, attackNum);
+		currentlyAttacking = false;
 		GameCanvas.controller.UpdateAttackSlider (attackNum);
 	}
 
@@ -379,6 +409,16 @@ public class Player : MonoBehaviour {
     {
         return availablePowers[num];
     }
+
+	void PlayThisSound(int thisAttack)
+	{
+		SoundController.controller.PlaySoundInList (myAudio, thisAttack);
+	}
+
+	void PlaySound(AudioClip clip)
+	{
+		SoundController.controller.PlaySound (clip);
+	}
 		
 	void SuperPowerAttack(int powerUsed, float attackDistance)
 	{
@@ -497,10 +537,30 @@ public class Player : MonoBehaviour {
 		return enemiesHit;
 	}
 
+	void LaserVisionSprite(int i)
+	{
+		if (SuperPowerController.controller.GetSuperHero () != (int)SuperPowerController.SuperHero.Paragon)
+			return;
+		bool b = (i == 0) ? false : true;
+
+		transform.GetChild (1).GetComponent<SpriteRenderer> ().enabled = b;
+	}
+
+	void IceBreathSprite(int i)
+	{
+		if (SuperPowerController.controller.GetSuperHero () != (int)SuperPowerController.SuperHero.Paragon) 
+			return;
+
+		bool b = (i == 0) ? false : true;
+
+		transform.GetChild (2).GetComponent<SpriteRenderer> ().enabled = b;
+	}
+
     IEnumerator JumpAttack()
     {
 		canAttack = false;
 		rb2d.AddForce(new Vector2(0, Player.playerSingleton.GetLevel() * 55), ForceMode2D.Impulse);
+		PlaySound (SoundController.controller.capeWhoosh);
 
         yield return new WaitForSeconds(1f);
 		RaycastHit2D hit = Physics2D.Raycast(new Vector3(transform.position.x, transform.position.y - (transform.localScale.y / 2)), Vector2.down, 2f, LayerMask.GetMask("Default"));
@@ -511,15 +571,18 @@ public class Player : MonoBehaviour {
 			if (Vector2.Distance(rb2d.velocity, Vector2.zero) < .5f) {
 				anim.SetTrigger ("HitPeak");
 				rb2d.AddForce(new Vector2(0, -Player.playerSingleton.GetLevel() * 150), ForceMode2D.Impulse);
+				PlaySound (SoundController.controller.capeWhoosh);
 			}
             yield return null;
         }
 
 		anim.SetTrigger ("HitGround");
 		FollowPlayer.MainCamera.CameraShake ();
+		PlaySound (SoundController.controller.groundSmash);
         SuperPowerAttackBothDirections((int)Attacks.AOE,LargeAttackDistance());
 		canAttack = true;
 		GameCanvas.controller.UpdateAttackSlider (3);
+		currentlyAttacking = false;
     }
 
     IEnumerator DashAttack()
@@ -610,7 +673,7 @@ public class Player : MonoBehaviour {
 		Debug.Log (prefab.name);
 	}
 
-	void GrenadeMove()
+	void ThrowGrenades()
 	{
 		for (int i = 0; i < 8; i++) {
 			GameObject grenade = Instantiate (grenadePrefab, transform.position, Quaternion.identity) as GameObject;
@@ -638,8 +701,9 @@ public class Player : MonoBehaviour {
         if(health <= 0)
         {
             alive = false;
-            Debug.Log("ded");
+			anim.SetBool ("dead", true);
 			AchievementSystem.controller.PlayerDeath (SuperPowerController.controller.GetSuperHero ());
+			enabled = false;
         }
     }
 

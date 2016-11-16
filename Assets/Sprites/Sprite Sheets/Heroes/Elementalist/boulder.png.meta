@@ -1,0 +1,437 @@
+fileFormatVersion: 2
+guid: 2063b5ec033b03e44880c9cd32b55623
+timeCreated: 1478351549
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: boulder_0
+    21300002: boulder_1
+    21300004: boulder_2
+    21300006: boulder_3
+    21300008: boulder_4
+    21300010: boulder_5
+    21300012: boulder_6
+    21300014: boulder_7
+    21300016: boulder_8
+    21300018: boulder_9
+    21300020: boulder_10
+    21300022: boulder_11
+    21300024: boulder_12
+    21300026: boulder_13
+    21300028: boulder_14
+    21300030: boulder_15
+    21300032: boulder_16
+    21300034: boulder_17
+    21300036: boulder_18
+    21300038: boulder_19
+    21300040: boulder_20
+    21300042: boulder_21
+    21300044: boulder_22
+    21300046: boulder_23
+    21300048: boulder_24
+    21300050: boulder_25
+    21300052: boulder_26
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: boulder_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3850
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_1
+      rect:
+        serializedVersion: 2
+        x: 1453
+        y: 3850
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_2
+      rect:
+        serializedVersion: 2
+        x: 2906
+        y: 3850
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_3
+      rect:
+        serializedVersion: 2
+        x: 4359
+        y: 3850
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_4
+      rect:
+        serializedVersion: 2
+        x: 5812
+        y: 3850
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3080
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_6
+      rect:
+        serializedVersion: 2
+        x: 1453
+        y: 3080
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_7
+      rect:
+        serializedVersion: 2
+        x: 2906
+        y: 3080
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_8
+      rect:
+        serializedVersion: 2
+        x: 4359
+        y: 3080
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_9
+      rect:
+        serializedVersion: 2
+        x: 5812
+        y: 3080
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2310
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_11
+      rect:
+        serializedVersion: 2
+        x: 1453
+        y: 2310
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_12
+      rect:
+        serializedVersion: 2
+        x: 2906
+        y: 2310
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_13
+      rect:
+        serializedVersion: 2
+        x: 4359
+        y: 2310
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_14
+      rect:
+        serializedVersion: 2
+        x: 5812
+        y: 2310
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1540
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_16
+      rect:
+        serializedVersion: 2
+        x: 1453
+        y: 1540
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_17
+      rect:
+        serializedVersion: 2
+        x: 2906
+        y: 1540
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_18
+      rect:
+        serializedVersion: 2
+        x: 4359
+        y: 1540
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_19
+      rect:
+        serializedVersion: 2
+        x: 5812
+        y: 1540
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 770
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_21
+      rect:
+        serializedVersion: 2
+        x: 1453
+        y: 770
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_22
+      rect:
+        serializedVersion: 2
+        x: 2906
+        y: 770
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_23
+      rect:
+        serializedVersion: 2
+        x: 4359
+        y: 770
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_24
+      rect:
+        serializedVersion: 2
+        x: 5812
+        y: 770
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boulder_26
+      rect:
+        serializedVersion: 2
+        x: 1453
+        y: 0
+        width: 1453
+        height: 770
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

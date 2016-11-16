@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 2f70bb561cdff6541ad980354fb856c6
-timeCreated: 1476362957
+timeCreated: 1478352262
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -66,10 +66,10 @@ TextureImporter:
       name: robot_hit_2_0
       rect:
         serializedVersion: 2
-        x: 216
-        y: 630
-        width: 413
-        height: 532
+        x: 0
+        y: 596
+        width: 842
+        height: 596
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -79,10 +79,10 @@ TextureImporter:
       name: robot_hit_2_1
       rect:
         serializedVersion: 2
-        x: 1058
-        y: 630
-        width: 414
-        height: 532
+        x: 842
+        y: 596
+        width: 842
+        height: 596
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -92,10 +92,10 @@ TextureImporter:
       name: robot_hit_2_2
       rect:
         serializedVersion: 2
-        x: 1900
-        y: 630
-        width: 415
-        height: 532
+        x: 1684
+        y: 596
+        width: 842
+        height: 596
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -105,10 +105,10 @@ TextureImporter:
       name: robot_hit_2_3
       rect:
         serializedVersion: 2
-        x: 2743
-        y: 634
-        width: 390
-        height: 530
+        x: 2526
+        y: 596
+        width: 842
+        height: 596
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,10 +118,10 @@ TextureImporter:
       name: robot_hit_2_4
       rect:
         serializedVersion: 2
-        x: 3576
-        y: 642
-        width: 371
-        height: 520
+        x: 3368
+        y: 596
+        width: 842
+        height: 596
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,10 +131,10 @@ TextureImporter:
       name: robot_hit_2_5
       rect:
         serializedVersion: 2
-        x: 180
-        y: 61
-        width: 371
-        height: 497
+        x: 0
+        y: 0
+        width: 842
+        height: 596
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -144,10 +144,10 @@ TextureImporter:
       name: robot_hit_2_6
       rect:
         serializedVersion: 2
-        x: 1043
-        y: 49
-        width: 371
-        height: 517
+        x: 842
+        y: 0
+        width: 842
+        height: 596
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -157,10 +157,10 @@ TextureImporter:
       name: robot_hit_2_7
       rect:
         serializedVersion: 2
-        x: 1903
-        y: 40
-        width: 375
-        height: 528
+        x: 1684
+        y: 0
+        width: 842
+        height: 596
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -170,10 +170,10 @@ TextureImporter:
       name: robot_hit_2_8
       rect:
         serializedVersion: 2
-        x: 2741
-        y: 36
-        width: 396
-        height: 530
+        x: 2526
+        y: 0
+        width: 842
+        height: 596
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,10 +183,10 @@ TextureImporter:
       name: robot_hit_2_9
       rect:
         serializedVersion: 2
-        x: 3584
-        y: 34
-        width: 414
-        height: 532
+        x: 3368
+        y: 0
+        width: 842
+        height: 596
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
