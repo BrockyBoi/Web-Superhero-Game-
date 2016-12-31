@@ -9,6 +9,7 @@ public class SoundController : MonoBehaviour {
 	AudioSource fxAudio;
 	AudioSource musicAudio;
 
+	#region clips
 	public AudioClip music;
 
 	public AudioClip punch;
@@ -39,36 +40,30 @@ public class SoundController : MonoBehaviour {
 	public AudioClip shotgunShot;
 	public AudioClip sniperShot;
 	public AudioClip grenades;
-
-
+	#endregion
 
 	void Awake()
 	{
 		if (controller == null) {
 			controller = this;
-			DontDestroyOnLoad (this);
-		} else
-			Destroy (gameObject);
+		} else if(controller != this)
+			Destroy (this);
 
 		fxAudio = gameObject.AddComponent<AudioSource> ();
 		musicAudio = gameObject.AddComponent<AudioSource> ();
+	}
 
-		//musicAudio.clip = music;
+	void Start()
+	{
+		//InitializeSoundList ();
+		musicAudio.volume = PlayerInfo.controller.GetMusic ();
+		fxAudio.volume = PlayerInfo.controller.GetFXLevel ();
+
+		musicAudio.clip = music;
 		musicAudio.Play ();
-		musicAudio.volume = .275f;
 		musicAudio.loop = true;
-
-		InitializeSoundList ();
-	}
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+		//musicAudio.volume = PlayerInfo.controller.GetMusic ();
+		//musicAudio.volume = .5f;
 	}
 
 	void AddSound(SuperPowerController.PowerNames power, AudioClip sound)
@@ -121,6 +116,16 @@ public class SoundController : MonoBehaviour {
 
 	public void PlaySound(AudioSource source, AudioClip clip)
 	{
-		source.PlayOneShot (clip);
+			source.PlayOneShot (clip);
+	}
+
+	public void SetMusic(float vol)
+	{
+		musicAudio.volume = vol;
+	}
+
+	public void SetFX(float vol)
+	{
+		fxAudio.volume = vol;
 	}
 }

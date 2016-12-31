@@ -9,9 +9,6 @@ public class MainMenu : MonoBehaviour {
 	public List<GameObject> screens;
 	int currentScreen;
 
-	public Text fxText;
-	public Text musicText;
-
 	public GameObject heroSelect;
 
 	public enum Screens{Title, Option_Achievement_HeroSelect, HeroSelect, Achievements, Options}
@@ -21,6 +18,8 @@ public class MainMenu : MonoBehaviour {
 	public Text descriptionText;
 	string[] heroDescriptions = new string[(int)SuperPowerController.SuperHero.HERO_COUNT];
 
+	public Animator heroAnimator;
+
 
 
 
@@ -28,7 +27,7 @@ public class MainMenu : MonoBehaviour {
 	{
 		controller = this;
 	}
-	// Use this for initialization
+
 	void Start () {
 		currentScreen = ScreensToInt (Screens.Title);
 		TurnOffScreens ();
@@ -36,36 +35,11 @@ public class MainMenu : MonoBehaviour {
 		SetHero ((int)SuperPowerController.SuperHero.Tank);
 
 		CheckUnlockedHeroes ();
-		CheckAudioSettings ();
 
 		InitializeStrings ();
 
 	}
-	
-	// Update is called once per frame
-	void Update () {
 
-	}
-
-	public void CheckAudioSettings()
-	{
-		bool varOn = PlayerInfo.controller.GetMusic ();
-		string result;
-		if (varOn)
-			result = "On";
-		else
-			result = "Off";
-
-		musicText.text = "Music: " + result;
-
-		varOn = PlayerInfo.controller.GetFX ();
-		if (varOn)
-			result = "On";
-		else
-			result = "Off";
-
-		fxText.text = "FX: " + result;
-	}
 
 	void TurnOffScreens()
 	{
@@ -86,10 +60,6 @@ public class MainMenu : MonoBehaviour {
 		screens [i].gameObject.SetActive (true);
 		currentScreen = i;
 
-		if (currentScreen == (int)Screens.Options) {
-			CheckAudioSettings ();
-		}
-
 		if (currentScreen == (int)Screens.HeroSelect) {
 			SetHeroDescription (GetHeroString (SuperPowerController.SuperHero.Tank));
 			CheckUnlockedHeroes ();
@@ -106,35 +76,12 @@ public class MainMenu : MonoBehaviour {
 		screens [i].gameObject.SetActive (false);
 	}
 
-	public void ToggleMusic()
-	{
-		bool varOn = PlayerInfo.controller.ClickMusic ();
-		string result;
-		if (varOn)
-			result = "On";
-		else
-			result = "Off";
-		
-		musicText.text = "Music: " + result;
-	}
-
-	public void ToggleFX()
-	{
-		bool varOn = PlayerInfo.controller.ClickFX ();
-		string result;
-		if (varOn)
-			result = "On";
-		else
-			result = "Off";
-		fxText.text = "FX: " + result;
-	}
-
 	void InitializeStrings()
 	{
 		heroDescriptions [(int)SuperPowerController.SuperHero.Tank] = "* Highest health\n*Takes no knockback\n*Slow speed/attack regen\n*Highest enemy knockback";
 		heroDescriptions [(int)SuperPowerController.SuperHero.Elementalist] = "* Lowest health\n*Takes knockback\n*Medium speed/attack regen\n*High enemy knockback/damage";
 		heroDescriptions [(int)SuperPowerController.SuperHero.Paragon] = "* High health\n*Takes no knockback\n*Medium speed, slow attack regen\n*Medium enemy knockback";
-		heroDescriptions [(int)SuperPowerController.SuperHero.Vigilantee] = "* Low health\n*Takes knockback\n*Medium speed/attack regen\n*High enemy knockback";
+		heroDescriptions [(int)SuperPowerController.SuperHero.Vigilante] = "* Low health\n*Takes knockback\n*Medium speed/attack regen\n*High enemy knockback";
 		heroDescriptions [(int)SuperPowerController.SuperHero.Speedster] = "* Medium health\n*Takes knockback\n*Highest speed/attack regen\n*Low enemy knockback";
 	}
 
@@ -158,39 +105,24 @@ public class MainMenu : MonoBehaviour {
 		return (int)s;
 	}
 
-	void PreviousScreen()
-	{
-		screens [currentScreen].gameObject.SetActive (false);
-		currentScreen--;
-		screens [currentScreen].gameObject.SetActive (true);
-	}
-
-	void NextScreen()
-	{
-		screens [currentScreen].gameObject.SetActive (false);
-		currentScreen++;
-		screens [currentScreen].gameObject.SetActive (true);
-	}
-
 	public void SetHero(int num)
 	{
 		switch (num) 
 		{
 		case((int)SuperPowerController.SuperHero.Tank):
-			//Bla bla bla
-			heroSelect.GetComponent<SpriteRenderer>().color = Color.green;
+			heroAnimator.SetTrigger ("Tank");
 			break;
 		case((int)SuperPowerController.SuperHero.Elementalist):
-			heroSelect.GetComponent<SpriteRenderer>().color = Color.blue;
+			heroAnimator.SetTrigger ("Elementalist");
 			break;
 		case((int)SuperPowerController.SuperHero.Paragon):
-			heroSelect.GetComponent<SpriteRenderer>().color = Color.red;
+			heroAnimator.SetTrigger ("Paragon");
 			break;
 		case((int)SuperPowerController.SuperHero.Speedster):
-			heroSelect.GetComponent<SpriteRenderer>().color = Color.yellow;
+			heroAnimator.SetTrigger ("Speedster");
 			break;
-		case((int)SuperPowerController.SuperHero.Vigilantee):
-			heroSelect.GetComponent<SpriteRenderer>().color = Color.black;
+		case((int)SuperPowerController.SuperHero.Vigilante):
+			heroAnimator.SetTrigger ("Vigilante");
 			break;
 		default:
 			break;
@@ -216,5 +148,15 @@ public class MainMenu : MonoBehaviour {
 				heroButtons [i].GetComponent<Image> ().color = Color.white;
 			}
 		}
+	}
+
+	public void SetMusicVolume(float f)
+	{
+		SoundController.controller.SetMusic (f);
+	}
+
+	public void SetFXVolume(float f)
+	{
+		SoundController.controller.SetFX (f);
 	}
 }

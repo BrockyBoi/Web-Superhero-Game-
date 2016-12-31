@@ -1,0 +1,423 @@
+fileFormatVersion: 2
+guid: 2090d653e10525a4888c0d9488a378c1
+timeCreated: 1481200585
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: ninja_alonewater_attack_0
+    21300002: ninja_alonewater_attack_1
+    21300004: ninja_alonewater_attack_2
+    21300006: ninja_alonewater_attack_3
+    21300008: ninja_alonewater_attack_4
+    21300010: ninja_alonewater_attack_5
+    21300012: ninja_alonewater_attack_6
+    21300014: ninja_alonewater_attack_7
+    21300016: ninja_alonewater_attack_8
+    21300018: ninja_alonewater_attack_9
+    21300020: ninja_alonewater_attack_10
+    21300022: ninja_alonewater_attack_11
+    21300024: ninja_alonewater_attack_12
+    21300026: ninja_alonewater_attack_13
+    21300028: ninja_alonewater_attack_14
+    21300030: ninja_alonewater_attack_15
+    21300032: ninja_alonewater_attack_16
+    21300034: ninja_alonewater_attack_17
+    21300036: ninja_alonewater_attack_18
+    21300038: ninja_alonewater_attack_19
+    21300040: ninja_alonewater_attack_20
+    21300042: ninja_alonewater_attack_21
+    21300044: ninja_alonewater_attack_22
+    21300046: ninja_alonewater_attack_23
+    21300048: ninja_alonewater_attack_24
+    21300050: ninja_alonewater_attack_25
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3895
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_1
+      rect:
+        serializedVersion: 2
+        x: 1075
+        y: 3895
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_2
+      rect:
+        serializedVersion: 2
+        x: 2150
+        y: 3895
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_3
+      rect:
+        serializedVersion: 2
+        x: 3225
+        y: 3895
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_4
+      rect:
+        serializedVersion: 2
+        x: 4300
+        y: 3895
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3116
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_6
+      rect:
+        serializedVersion: 2
+        x: 1075
+        y: 3116
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_7
+      rect:
+        serializedVersion: 2
+        x: 2150
+        y: 3116
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_8
+      rect:
+        serializedVersion: 2
+        x: 3225
+        y: 3116
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_9
+      rect:
+        serializedVersion: 2
+        x: 4300
+        y: 3116
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2337
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_11
+      rect:
+        serializedVersion: 2
+        x: 1075
+        y: 2337
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_12
+      rect:
+        serializedVersion: 2
+        x: 2150
+        y: 2337
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_13
+      rect:
+        serializedVersion: 2
+        x: 3225
+        y: 2337
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_14
+      rect:
+        serializedVersion: 2
+        x: 4300
+        y: 2337
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1558
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_16
+      rect:
+        serializedVersion: 2
+        x: 1075
+        y: 1558
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_17
+      rect:
+        serializedVersion: 2
+        x: 2150
+        y: 1558
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_18
+      rect:
+        serializedVersion: 2
+        x: 3225
+        y: 1558
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_19
+      rect:
+        serializedVersion: 2
+        x: 4300
+        y: 1558
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 779
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_21
+      rect:
+        serializedVersion: 2
+        x: 1075
+        y: 779
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_22
+      rect:
+        serializedVersion: 2
+        x: 2150
+        y: 779
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_23
+      rect:
+        serializedVersion: 2
+        x: 3225
+        y: 779
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_24
+      rect:
+        serializedVersion: 2
+        x: 4300
+        y: 779
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_alonewater_attack_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1075
+        height: 779
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -11,16 +11,6 @@ public class AchievementItem : MonoBehaviour {
 	string achievementName;
 	string achievementAmount;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
 	public void GiveData(string nameString, string amountString)
 	{
 		this.nameString.text = nameString;

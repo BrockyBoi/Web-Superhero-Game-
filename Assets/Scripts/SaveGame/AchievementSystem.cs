@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 
 public class AchievementSystem : MonoBehaviour {
-	public static AchievementSystem controller = null;
+	public static AchievementSystem controller;
 
 	Dictionary<int, int> totalKills = new Dictionary<int, int>();
 	Dictionary<int, int> enemyTypeKills = new Dictionary<int, int>();
@@ -14,14 +14,6 @@ public class AchievementSystem : MonoBehaviour {
 
 	Dictionary<int, bool> unlockedHeros = new Dictionary<int, bool>();
 
-	//ADD THIS LATER
-	/*
-	 * TOTAL ENEMIES HIT IN ONE ATTACK
-	 * ENEMIES KILLED AT FULL HEALTH
-	 * TOTAL XP
-	 * TOTAL DAMAGE DONE
-	 * TOTAL KILLS (ACROSS ALL HEROES)
-	 * */
 	int hitsInOneAttack;
 	int totalXP;
 	int fullHealthKills;
@@ -43,12 +35,11 @@ public class AchievementSystem : MonoBehaviour {
 	void Awake()
 	{
 		InitializeDictionaries();
-		DontDestroyOnLoad (this);
 
 		if (controller == null)
 			controller = this;
 		else if (controller != this) {
-			Destroy (gameObject);
+			Destroy (this);
 		}
 	}
 
@@ -69,7 +60,7 @@ public class AchievementSystem : MonoBehaviour {
 	{
 		totalKills.Add ((int)SuperPowerController.SuperHero.Tank, 0);
 		totalKills.Add ((int)SuperPowerController.SuperHero.Elementalist, 0);
-		totalKills.Add ((int)SuperPowerController.SuperHero.Vigilantee, 0);
+		totalKills.Add ((int)SuperPowerController.SuperHero.Vigilante, 0);
 		totalKills.Add ((int)SuperPowerController.SuperHero.Paragon, 0);
 		totalKills.Add ((int)SuperPowerController.SuperHero.Speedster, 0);
 
@@ -81,13 +72,13 @@ public class AchievementSystem : MonoBehaviour {
 
 		playerDeaths.Add ((int)SuperPowerController.SuperHero.Tank, 0);
 		playerDeaths.Add ((int)SuperPowerController.SuperHero.Elementalist, 0);
-		playerDeaths.Add ((int)SuperPowerController.SuperHero.Vigilantee, 0);
+		playerDeaths.Add ((int)SuperPowerController.SuperHero.Vigilante, 0);
 		playerDeaths.Add ((int)SuperPowerController.SuperHero.Paragon, 0);
 		playerDeaths.Add ((int)SuperPowerController.SuperHero.Speedster, 0);
 
 		unlockedHeros.Add ((int)SuperPowerController.SuperHero.Tank, true);
 		unlockedHeros.Add ((int)SuperPowerController.SuperHero.Elementalist, false);
-		unlockedHeros.Add ((int)SuperPowerController.SuperHero.Vigilantee, false);
+		unlockedHeros.Add ((int)SuperPowerController.SuperHero.Vigilante, false);
 		unlockedHeros.Add ((int)SuperPowerController.SuperHero.Paragon, false);
 		unlockedHeros.Add ((int)SuperPowerController.SuperHero.Speedster, false);
 	}

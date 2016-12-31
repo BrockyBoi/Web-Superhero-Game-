@@ -41,18 +41,17 @@ public class Enemy : MonoBehaviour {
 		anim = GetComponent<Animator> ();
         transform.SetParent(GameObject.Find("Enemies").transform);
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Enemy"), true);
-		originalScale = transform.localScale;
     }
 
-    // Use this for initialization
     protected void Start () {
+		originalScale = transform.localScale;
+
 		if (!tutorialMode) {
 			EnemySpawner.controller.AddEnemy (enemyNumber);
 			EnableCanMove();
 		}
     }
 
-    // Update is called once per frame
     protected void Update () {
         Movement();
 	}
@@ -63,40 +62,26 @@ public class Enemy : MonoBehaviour {
 			if (tutorialMode || !canMove)
 				return;
 
-			//rb2d.MovePosition(transform.position + forwardDirection * speed * Time.deltaTime);
-			//transform.position = new Vector2(transform.position.x + forwardDirection.x * speed * Time.deltaTime, transform.position.y);
-			//transform.Translate(CheckPlayerPos() * speed * Time.deltaTime);
 			transform.position = Vector2.MoveTowards (transform.position, new Vector2 (transform.position.x + CheckPlayerPos ().x, transform.position.y), speed * Time.deltaTime);
-			float dist = Vector2.Distance (attackTransform.position, Player.playerSingleton.transform.position);
 
+			float dist = Vector2.Distance (attackTransform.position, Player.playerSingleton.transform.position);
 			if (dist <= attackDistance) {
 				DisableCanMove ();
 				anim.SetTrigger ("attack");
 			}
 		} else
 			transform.position = Vector2.MoveTowards (transform.position, new Vector2(transform.position.x + forwardDirection.x, transform.position.y), speed * Time.deltaTime);
-
-//		RaycastHit2D hit = Physics2D.Raycast(attackTransform.position, forwardDirection, attackDistance, LayerMask.GetMask("Player"));
-//
-//        if(hit)
-//        {
-//			DisableCanMove ();
-//			anim.SetTrigger("attack");
-//        }
     }
 
     protected Vector3 CheckPlayerPos()
     {
-        if (transform.position.x < Player.playerSingleton.GetXPos())
-        {
-            forwardDirection = Vector3.right;
-        }
-        else forwardDirection = Vector3.left;
-
-		if (forwardDirection == Vector3.left)
-			transform.localScale = new Vector2 (-originalScale.x, originalScale.y);
-		else
+		if (transform.position.x < Player.playerSingleton.GetXPos ()) {
+			forwardDirection = Vector3.right;
 			transform.localScale = new Vector2 (originalScale.x, originalScale.y);
+		} else {
+			transform.localScale = new Vector2 (-originalScale.x, originalScale.y);
+			forwardDirection = Vector3.left;
+		}
 
         return forwardDirection;
     }
@@ -106,7 +91,7 @@ public class Enemy : MonoBehaviour {
         SpriteRenderer sR = GetComponent<SpriteRenderer>();
         while(sR.color.a > 0)
         {
-            sR.color = new Color(sR.color.r,sR.color.g,sR.color.b,sR.color.a - .012f);
+            sR.color = new Color(sR.color.r,sR.color.g,sR.color.b,sR.color.a - .019f);
             yield return null;
         }
         Destroy(gameObject);
@@ -152,7 +137,6 @@ public class Enemy : MonoBehaviour {
 	{
 		tutorialMode = b;
 	}
-		
 
     protected void Attack()
     {
@@ -200,6 +184,8 @@ public class Enemy : MonoBehaviour {
             return;
 
         CheckPowerHitBy(powerType, damageTaken, directionHit);
+
+		DisableCanMove ();
 
         health -= damageTaken;
 
@@ -249,7 +235,7 @@ public class Enemy : MonoBehaviour {
 				GetHit (25, 30, 25, 30, dir);
 				break;
 			case ((int)SuperPowerController.PowerNames.FreezeBreath):
-				StunEnemy (Color.blue, 4);
+				StunEnemy (Color.blue, dmg);
 				break;
 			case ((int)SuperPowerController.PowerNames.WindGust):
 				GetHit (5, 10, 40, 50, dir);
@@ -270,7 +256,7 @@ public class Enemy : MonoBehaviour {
 				GetHit (30, 45, 10, 20, dir);
 				break;
 			case ((int)SuperPowerController.PowerNames.HeatVision):
-				GetComponent<SpriteRenderer> ().color = Color.black;
+				GetHit (20, 30, 0, 0, dir);
 				break;
 			case ((int)SuperPowerController.PowerNames.DashAttack):
 				GetHit (30, 50, 10, 10, dir);
@@ -343,9 +329,11 @@ public class Enemy : MonoBehaviour {
     protected void Die(float dmg, int powerType, Vector3 directionHit)
     {
 		rb2d.freezeRotation = false;
-        rb2d.AddTorque(Random.Range(dmg * directionHit.x * 100, dmg * directionHit.x * 250));
+        rb2d.AddTorque(Random.Range(dmg * directionHit.x * 1000, dmg * directionHit.x * 2500));
 
+		if(enemyNumber != 3)
         CheckDeathType(powerType);
+		else StartCoroutine(Disappear());
 
 		XPController.controller.AddXP (enemyNumber);
         EnemySpawner.controller.SubtractEnemy(enemyNumber);
@@ -365,7 +353,7 @@ public class Enemy : MonoBehaviour {
                 StartCoroutine(Disappear());
                 break;
             default:
-			StartCoroutine(Disappear(Player.playerSingleton.GetLevel()));
+			StartCoroutine(Disappear(2));
                 break;
         }
     }

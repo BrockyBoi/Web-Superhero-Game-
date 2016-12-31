@@ -1,9 +1,26 @@
 fileFormatVersion: 2
 guid: c1fc162cb6b1e57418f8fbad687270f2
-timeCreated: 1478350063
+timeCreated: 1481200441
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: fire_alone_0
+    21300002: fire_alone_1
+    21300004: fire_alone_2
+    21300006: fire_alone_3
+    21300008: fire_alone_4
+    21300010: fire_alone_5
+    21300012: fire_alone_6
+    21300014: fire_alone_7
+    21300016: fire_alone_8
+    21300018: fire_alone_9
+    21300020: fire_alone_10
+    21300022: fire_alone_11
+    21300024: fire_alone_12
+    21300026: fire_alone_13
+    21300028: fire_alone_14
+    21300030: fire_alone_15
+    21300032: fire_alone_16
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -51,7 +68,228 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: fire_alone_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2100
+        width: 1209
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: fire_alone_1
+      rect:
+        serializedVersion: 2
+        x: 1209
+        y: 2100
+        width: 1209
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: fire_alone_2
+      rect:
+        serializedVersion: 2
+        x: 2418
+        y: 2100
+        width: 1209
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: fire_alone_3
+      rect:
+        serializedVersion: 2
+        x: 3627
+        y: 2100
+        width: 1209
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: fire_alone_4
+      rect:
+        serializedVersion: 2
+        x: 4836
+        y: 2100
+        width: 1209
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: fire_alone_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1400
+        width: 1209
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: fire_alone_6
+      rect:
+        serializedVersion: 2
+        x: 1209
+        y: 1400
+        width: 1209
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: fire_alone_7
+      rect:
+        serializedVersion: 2
+        x: 2418
+        y: 1400
+        width: 1209
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: fire_alone_8
+      rect:
+        serializedVersion: 2
+        x: 3627
+        y: 1400
+        width: 1209
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: fire_alone_9
+      rect:
+        serializedVersion: 2
+        x: 4836
+        y: 1400
+        width: 1209
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: fire_alone_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 700
+        width: 1209
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: fire_alone_11
+      rect:
+        serializedVersion: 2
+        x: 1209
+        y: 700
+        width: 1209
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: fire_alone_12
+      rect:
+        serializedVersion: 2
+        x: 2418
+        y: 700
+        width: 1209
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: fire_alone_13
+      rect:
+        serializedVersion: 2
+        x: 3627
+        y: 700
+        width: 1209
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: fire_alone_14
+      rect:
+        serializedVersion: 2
+        x: 4836
+        y: 700
+        width: 1209
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: fire_alone_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1209
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: fire_alone_16
+      rect:
+        serializedVersion: 2
+        x: 1209
+        y: 0
+        width: 1209
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 

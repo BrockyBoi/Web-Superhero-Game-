@@ -7,10 +7,10 @@ using System.IO;
 using UnityEngine.SceneManagement;
 
 public class PlayerInfo : MonoBehaviour {
-	public static PlayerInfo controller = null; 
+	public static PlayerInfo controller; 
 
-	bool useMusic;
-	bool useFX;
+	float musicLevel;
+	float fxLevel;
 
 	int[] killCounts;
 
@@ -27,46 +27,37 @@ public class PlayerInfo : MonoBehaviour {
 		if (controller == null)
 			controller = this;
 		else if(controller != this)
-			Destroy (gameObject);
-		
-		DontDestroyOnLoad (this);
+			Destroy (this);
 
-		useMusic = true;
-		useFX = true;
+		musicLevel = fxLevel = .5f;
 		//newPlayer = true;
 	}
-
-	// Use this for initialization
+		
 	void Start () {
+
 		if (!DontLoadOnStart)
 			Load ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
 
+
+	public void SetFXLevel(float f)
+	{
+		fxLevel = f;
 	}
 
-	public bool ClickFX()
+	public float GetFXLevel()
 	{
-		useFX = !useFX;
-		return useFX;
+		return fxLevel;
 	}
 
-	public bool GetFX()
+	public void SetMusicLevel(float f)
 	{
-		return useFX;
+		musicLevel = f;
 	}
 
-	public bool ClickMusic()
+	public float GetMusic()
 	{
-		useMusic = !useMusic;
-		return useMusic;
-	}
-
-	public bool GetMusic()
-	{
-		return useMusic;
+		return musicLevel;
 	}
 
 	public bool CheckIfNewPlayer()
@@ -86,8 +77,8 @@ public class PlayerInfo : MonoBehaviour {
 
 		PlayerData data = new PlayerData ();
 		//place data here
-		data.audio = useMusic;
-		data.fx = useFX;
+		data.fxLevel = fxLevel;
+		data.musicLevel = musicLevel;
 
 		data.killList = AchievementSystem.controller.GetKillList ();
 		data.enemyKillList = AchievementSystem.controller.GetEnemyKillList ();
@@ -98,7 +89,6 @@ public class PlayerInfo : MonoBehaviour {
 		data.unlockedHeros = AchievementSystem.controller.GetUnlockedHerosList ();
 
 		data.newPlayer = newPlayer;
-		//For example: data.health = health;
 
 		data.totalXP = AchievementSystem.controller.GetTotalXP ();
 		data.hitsInOneAttack = AchievementSystem.controller.GetHitsInOneAttack ();
@@ -120,8 +110,11 @@ public class PlayerInfo : MonoBehaviour {
 			file.Close ();
 
 			//give data back here
-			useMusic = data.audio;
-			useFX = data.fx;
+			fxLevel = data.fxLevel;
+			musicLevel = data.musicLevel;
+
+			SoundController.controller.SetFX (fxLevel);
+			SoundController.controller.SetMusic (musicLevel);
 
 			AchievementSystem.controller.SetKillList (data.killList);
 			AchievementSystem.controller.SetEnemyKillList (data.enemyKillList);
@@ -131,7 +124,6 @@ public class PlayerInfo : MonoBehaviour {
 
 			AchievementSystem.controller.SetUnlockedHerosList (data.unlockedHeros);
 			if (SceneManager.GetActiveScene () == SceneManager.GetSceneByName ("Main Menu")) {
-				MainMenu.controller.CheckAudioSettings ();
 				MainMenu.controller.CheckUnlockedHeroes ();
 			}
 
@@ -150,8 +142,7 @@ public class PlayerInfo : MonoBehaviour {
 	[Serializable]
 	class PlayerData
 	{
-		public bool audio;
-		public bool fx;
+		public float musicLevel, fxLevel;
 
 		public Dictionary<int, int> killList = new Dictionary<int, int>();
 		public Dictionary<int,int> enemyKillList = new Dictionary<int, int>();

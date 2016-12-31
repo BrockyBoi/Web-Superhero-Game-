@@ -12,6 +12,7 @@ public class EnemySpawner : MonoBehaviour {
     int[] currentEnemies = new int[4];
     public float[] spawnRates;
     public int[] maxEnemies;
+	public int[] enemyRounds;
 
     int round;
 
@@ -39,11 +40,11 @@ public class EnemySpawner : MonoBehaviour {
 
 	void GoToLastRound()
 	{
-		round = 20;
+		round = enemyRounds[0];
 		CheckRound ();
-		round = 40;
+		round = enemyRounds[1];
 		CheckRound ();
-		round = 60;
+		round = enemyRounds[2];
 		CheckRound ();
 
 		for (int j = 0; j < 1000; j++) {
@@ -72,40 +73,30 @@ public class EnemySpawner : MonoBehaviour {
 
     void CheckRound()
     {
-        switch (round)
-        {
-            case (20):
-                StartCoroutine(SpawnCoroutine(1));
-                break;
-            case (40):
-                StartCoroutine(SpawnCoroutine(2));
-                break;
-            case (60):
-                StartCoroutine(SpawnCoroutine(3));
-                break;
-            default:
-                break;
-        }
+		if (round == enemyRounds [0]) {
+			StartCoroutine (SpawnCoroutine (1));
+		} else if (round == enemyRounds [1]) {
+			StartCoroutine (SpawnCoroutine (2));
+		} else if (round == enemyRounds [2]) {
+			StartCoroutine (SpawnCoroutine (3));
+		}
     }
 
     void AppendSpawnRate(int enemyNum)
     {
        
         //Original rates are 3,6,10,30
-        if ((enemyNum == 0 && spawnRates[0] < .45f) || 
-            (enemyNum == 1 && spawnRates[1] < 1) || 
-            (enemyNum == 2 && spawnRates[2] < 2) ||
+        if ((enemyNum == 0 && spawnRates[0] < .35f) || 
+            (enemyNum == 1 && spawnRates[1] < .8f) || 
+            (enemyNum == 2 && spawnRates[2] < 1.6f) ||
             (enemyNum == 3 && spawnRates[3] < 5))
             return;
 
-        spawnRates[enemyNum] *= .975f;
+        spawnRates[enemyNum] *= .999f;
     }
 
     IEnumerator SpawnCoroutine(int enemyNum)
     {
-		if (enemyNum == 1 || enemyNum == 2)
-			yield break;
-
 
         float time = 0;
         while (Player.playerSingleton.CheckAlive())

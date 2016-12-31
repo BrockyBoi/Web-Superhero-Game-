@@ -70,7 +70,9 @@ public class Player : MonoBehaviour {
                                      .8f, 3.5f, 6, 20,
                                      .5f, 3.5f, 7, 20
                                     };
-        //Only need to check for short, medium, long, AOE attacks
+
+		GetPowers ();
+
         attackTimes = new float[4] { 0, 0, 0, 0};
         attackDistances = new float[3] { 5, 15, 30 };
 
@@ -81,21 +83,18 @@ public class Player : MonoBehaviour {
         else Destroy(gameObject);
 
         rb2d = GetComponent<Rigidbody2D>();
-		myAudio = gameObject.AddComponent<AudioSource> ();
+		//myAudio = gameObject.AddComponent<AudioSource> ();
 		anim = GetComponent<Animator> ();
 
 		forwardVector = Vector3.right;
 
 		maxHealth = health;
-
     }
 
-	// Use this for initialization
 	void Start () {
         alive = true;
         canMove = true;
 		canAttack = true;
-		GetPowers ();
 		InitializeSliders ();
 		InitializeBoundaries ();
 
@@ -103,8 +102,7 @@ public class Player : MonoBehaviour {
 
 
     }
-	
-	// Update is called once per frame
+
 	void Update () {
 		float horizontal = Input.GetAxisRaw ("Horizontal"); 
 		anim.SetFloat ("speed", Mathf.Abs(horizontal));
@@ -112,7 +110,6 @@ public class Player : MonoBehaviour {
 		Movement(horizontal * Time.deltaTime * hSpeed);
 
 		CheckAttackInput ();
-		Debug.DrawLine (transform.position, new Vector3 (transform.position.x + Player.MediumAttackDistance(), transform.position.y));
     }
 
 	void CheckAttackInput()
@@ -150,21 +147,33 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	private void TryAttack(int attackNum)
+	void TryAttack(int attackNum)
 	{
 		if (CheckIfCanAttack (attackNum)) {
 			anim.SetTrigger ("attackNum" + attackNum.ToString ());
-			IncreaseAttackTime (attackNum);
 			currentlyAttacking = true;
 		}
 	}
 
 	bool CheckIfCanAttack(int num)
 	{
-		if (!canAttack || !CheckAttackTime (num))
+		if (!canAttack || currentlyAttacking || !CheckAttackTime (num))
 			return false;
 
 		return true;
+	}
+
+	bool CheckAttackTime(int num)
+	{
+		if (Time.time < attackTimes [num]) {
+			return false;
+		}
+		return true;
+	}
+
+	void IncreaseAttackTime(int num)
+	{
+		attackTimes [num] = Time.time + attackRates [availablePowers [num]];
 	}
 
     void CheckForward(float h)
@@ -173,8 +182,7 @@ public class Player : MonoBehaviour {
             return;
 
         if (h > 0)
-        {
-            
+		{   
             transform.localScale = new Vector2(defaultXScale, transform.localScale.y);
             forwardVector = Vector2.right;
         }
@@ -187,7 +195,7 @@ public class Player : MonoBehaviour {
 
     void Movement(float h)
     {
-		if (!alive || !canMove || GameCanvas.controller.GetTutorialMode())
+		if (!alive || !canMove || currentlyAttacking || GameCanvas.controller.GetTutorialMode())
             return;
 
         if (h != 0)
@@ -265,25 +273,33 @@ public class Player : MonoBehaviour {
 
     void SelectAttack(int attackNum)
 	{
+		IncreaseAttackTime (attackNum);
+
 		switch (attackNum) {
 		//Short Attacks
 		case (0):
 			switch (availablePowers [0]) {
 			case ((int)SuperPowerController.PowerNames.TankMelee):
-				NormalAttack (0);
-				PlayThisSound (attackNum);
+				if (NormalAttack (0) > 0)
+					PlayThisSound (attackNum);
+				else
+					PlaySound (SoundController.controller.whoosh);
 				break;
 			case ((int)SuperPowerController.PowerNames.ParagonMelee):
-				NormalAttack (0);
-				//PlayThisSound (attackNum);
-				PlaySound(SoundController.controller.punch);
+				if(NormalAttack (0) > 0)
+					PlaySound(SoundController.controller.punch);
+				else
+					PlaySound (SoundController.controller.whoosh);
 				break;
 			case ((int)SuperPowerController.PowerNames.SpeedMelee):
-				NormalAttack (0);
-				PlayThisSound (attackNum);
+				if(NormalAttack (0) > 0)
+					PlayThisSound (attackNum);
+				else
+					PlaySound (SoundController.controller.whoosh);
 				break;
 			case ((int)SuperPowerController.PowerNames.Fire):
 				PlaySound (SoundController.controller.flamethrower);
+				NormalAttack (0);
 				break;
 			case ((int)SuperPowerController.PowerNames.Pistol):
 				NormalAttack (0);
@@ -292,7 +308,6 @@ public class Player : MonoBehaviour {
 			default:
 				break;
 			}
-			SuperPowerAttack (attackNum, ShortAttackDistance ());
 			break;
 		//Medium Attacks
 		case (1):
@@ -302,12 +317,12 @@ public class Player : MonoBehaviour {
 				break;
 			case ((int)SuperPowerController.PowerNames.Wave):
 				NormalAttack (1);
+				SpawnWaterAttack ();
 				PlaySound (SoundController.controller.wave);
 				break;
 			case ((int)SuperPowerController.PowerNames.FreezeBreath):
 				NormalAttack (1);
 				IceBreathSprite (1);
-				//PlayThisSound (attackNum);
 				PlaySound(SoundController.controller.freezeBreath);
 				break;
 			case ((int)SuperPowerController.PowerNames.WindGust):
@@ -322,6 +337,7 @@ public class Player : MonoBehaviour {
 				break;
 			}
 			break;
+			//Long attacks
 		case (2):
 			switch (availablePowers [2]) {
 			case ((int)SuperPowerController.PowerNames.ShoulderCharge):
@@ -333,7 +349,6 @@ public class Player : MonoBehaviour {
 				break;
 			case ((int)SuperPowerController.PowerNames.HeatVision):
 				NormalAttack (2);
-				//PlayThisSound (attackNum);
 				PlaySound (SoundController.controller.heatVision);
 				//Turn on heat vision sprite
 				LaserVisionSprite(1);
@@ -376,17 +391,28 @@ public class Player : MonoBehaviour {
 		default:
 			break;
 		}
-		//SoundController.controller.PlaySoundInList (myAudio, attackNum);
-		currentlyAttacking = false;
+
+		//currentlyAttacking = false;
 		GameCanvas.controller.UpdateAttackSlider (attackNum);
 	}
 
-	void NormalAttack(int powerNum)
+	int NormalAttack(int powerNum)
 	{
+		int hits = 0;
+
 		if (powerNum != 3)
-			SuperPowerAttack (powerNum, attackDistances [powerNum]);
-		else
-			SuperPowerAttackBothDirections (powerNum, playerLevel * 2);
+			hits = SuperPowerAttack (powerNum, attackDistances [powerNum]);
+		else {
+			float distance = Mathf.Max (ShortAttackDistance() + 2, playerLevel * 2.5f);
+			hits = SuperPowerAttackBothDirections (powerNum, distance);
+		}
+
+		return hits;
+	}
+
+	void NoLongerAttacking()
+	{
+		currentlyAttacking = false;
 	}
 		
     void EnableCanAttack()
@@ -412,7 +438,7 @@ public class Player : MonoBehaviour {
 
 	void PlayThisSound(int thisAttack)
 	{
-		SoundController.controller.PlaySoundInList (myAudio, thisAttack);
+		SoundController.controller.PlaySoundInList (thisAttack);
 	}
 
 	void PlaySound(AudioClip clip)
@@ -420,7 +446,7 @@ public class Player : MonoBehaviour {
 		SoundController.controller.PlaySound (clip);
 	}
 		
-	void SuperPowerAttack(int powerUsed, float attackDistance)
+	int SuperPowerAttack(int powerUsed, float attackDistance)
 	{
 		int enemiesHit = 0;
 
@@ -438,35 +464,37 @@ public class Player : MonoBehaviour {
 				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
 			}
         }
-
-		AchievementSystem.controller.CheckMaxHits (hit.Length);
-    }
-
-	int SuperPowerAttackGetHits(int powerUsed, float attackDistance)
-	{
-		int enemiesHit = 0;
-
-		RaycastHit2D[] hit = Physics2D.RaycastAll(attackPoint.position, forwardVector, attackDistance, LayerMask.GetMask("Enemy"));
-		Debug.DrawRay(transform.position, forwardVector, Color.green);
-
-		for (int i = 0; i < hit.Length; i++)
-		{
-			if (hit[i])
-			{
-				Enemy enemy = hit [i].collider.gameObject.GetComponent<Enemy> ();
-
-				if (enemy.CheckIfInvulnerable () == false)
-					enemiesHit++;
-
-				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
-
-			}
-		}
+			
+		AchievementSystem.controller.CheckMaxHits (enemiesHit);
 
 		return enemiesHit;
-	}
+    }
 
-    void SuperPowerAttackBothDirections(int powerUsed, float attackDistance)
+//	int SuperPowerAttackGetHits(int powerUsed, float attackDistance)
+//	{
+//		int enemiesHit = 0;
+//
+//		RaycastHit2D[] hit = Physics2D.RaycastAll(attackPoint.position, forwardVector, attackDistance, LayerMask.GetMask("Enemy"));
+//		Debug.DrawRay(transform.position, forwardVector, Color.green);
+//
+//		for (int i = 0; i < hit.Length; i++)
+//		{
+//			if (hit[i])
+//			{
+//				Enemy enemy = hit [i].collider.gameObject.GetComponent<Enemy> ();
+//
+//				if (enemy.CheckIfInvulnerable () == false)
+//					enemiesHit++;
+//
+//				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
+//
+//			}
+//		}
+//
+//		return enemiesHit;
+//	}
+
+    int SuperPowerAttackBothDirections(int powerUsed, float attackDistance)
     {
 		int enemiesHit = 0;
 
@@ -503,39 +531,40 @@ public class Player : MonoBehaviour {
         }
 
 		AchievementSystem.controller.CheckMaxHits (enemiesHit);
+		return enemiesHit;
     }
 
-	int SuperPowerAttackBothDirectionsGetHits(int powerUsed, float attackDistance)
-	{
-		int enemiesHit = 0;
-
-		RaycastHit2D[] hit = Physics2D.RaycastAll(attackPoint.position, forwardVector, attackDistance, LayerMask.GetMask("Enemy"));
-		RaycastHit2D[] hit2 = Physics2D.RaycastAll(attackPoint.position, -forwardVector, attackDistance, LayerMask.GetMask("Enemy"));
-
-		for (int i = 0; i < hit.Length; i++)
-		{
-			if (hit[i])
-			{
-				Enemy enemy = hit [i].collider.gameObject.GetComponent<Enemy> ();
-				if (enemy.CheckIfInvulnerable () == false)
-					enemiesHit++;
-				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
-			}
-		}
-
-		for(int i = 0; i < hit2.Length; i++)
-		{
-			if (hit2[i])
-			{
-				Enemy enemy = hit2 [i].collider.gameObject.GetComponent<Enemy> ();
-				if (enemy.CheckIfInvulnerable () == false)
-					enemiesHit++;
-				enemy.TakeDamage (powerUsed, playerLevel, -forwardVector);
-			}
-		}
-
-		return enemiesHit;
-	}
+//	int SuperPowerAttackBothDirectionsGetHits(int powerUsed, float attackDistance)
+//	{
+//		int enemiesHit = 0;
+//
+//		RaycastHit2D[] hit = Physics2D.RaycastAll(attackPoint.position, forwardVector, attackDistance, LayerMask.GetMask("Enemy"));
+//		RaycastHit2D[] hit2 = Physics2D.RaycastAll(attackPoint.position, -forwardVector, attackDistance, LayerMask.GetMask("Enemy"));
+//
+//		for (int i = 0; i < hit.Length; i++)
+//		{
+//			if (hit[i])
+//			{
+//				Enemy enemy = hit [i].collider.gameObject.GetComponent<Enemy> ();
+//				if (enemy.CheckIfInvulnerable () == false)
+//					enemiesHit++;
+//				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
+//			}
+//		}
+//
+//		for(int i = 0; i < hit2.Length; i++)
+//		{
+//			if (hit2[i])
+//			{
+//				Enemy enemy = hit2 [i].collider.gameObject.GetComponent<Enemy> ();
+//				if (enemy.CheckIfInvulnerable () == false)
+//					enemiesHit++;
+//				enemy.TakeDamage (powerUsed, playerLevel, -forwardVector);
+//			}
+//		}
+//
+//		return enemiesHit;
+//	}
 
 	void LaserVisionSprite(int i)
 	{
@@ -559,7 +588,8 @@ public class Player : MonoBehaviour {
     IEnumerator JumpAttack()
     {
 		canAttack = false;
-		rb2d.AddForce(new Vector2(0, Player.playerSingleton.GetLevel() * 55), ForceMode2D.Impulse);
+		int force = Mathf.Max (playerLevel * 55, 200);
+		rb2d.AddForce(new Vector2(0, force), ForceMode2D.Impulse);
 		PlaySound (SoundController.controller.capeWhoosh);
 
         yield return new WaitForSeconds(1f);
@@ -567,10 +597,11 @@ public class Player : MonoBehaviour {
         while (!hit)           
         {
 			hit = Physics2D.Raycast(transform.position, Vector2.down, 10, LayerMask.GetMask("Default"));
+			Debug.DrawRay (transform.position, Vector2.down, Color.green);
 
 			if (Vector2.Distance(rb2d.velocity, Vector2.zero) < .5f) {
 				anim.SetTrigger ("HitPeak");
-				rb2d.AddForce(new Vector2(0, -Player.playerSingleton.GetLevel() * 150), ForceMode2D.Impulse);
+				rb2d.AddForce(new Vector2(0, -force * 3), ForceMode2D.Impulse);
 				PlaySound (SoundController.controller.capeWhoosh);
 			}
             yield return null;
@@ -579,10 +610,10 @@ public class Player : MonoBehaviour {
 		anim.SetTrigger ("HitGround");
 		FollowPlayer.MainCamera.CameraShake ();
 		PlaySound (SoundController.controller.groundSmash);
-        SuperPowerAttackBothDirections((int)Attacks.AOE,LargeAttackDistance());
+		NormalAttack (3);
 		canAttack = true;
 		GameCanvas.controller.UpdateAttackSlider (3);
-		currentlyAttacking = false;
+		NoLongerAttacking ();
     }
 
     IEnumerator DashAttack()
@@ -599,7 +630,7 @@ public class Player : MonoBehaviour {
             {
 				rb2d.MovePosition(new Vector2(transform.position.x + ((LargeAttackDistance() + 5) / max * forwardVector.x), transform.position.y));
             }
-			enemiesHit = SuperPowerAttackGetHits((int)Attacks.Long, LargeAttackDistance() / max);
+			enemiesHit = SuperPowerAttack((int)Attacks.Long, LargeAttackDistance() / max);
             steps++;
             yield return null;
             
@@ -618,20 +649,20 @@ public class Player : MonoBehaviour {
 		canMove = false;
 		while (CheckIfInBoundaries ()) {
 			rb2d.MovePosition(new Vector2(transform.position.x - 3f, transform.position.y));
-			enemiesHit += SuperPowerAttackGetHits ((int)Attacks.AOE, -3f);
+			enemiesHit += SuperPowerAttack ((int)Attacks.AOE, -3f);
 			yield return null;
 		}
 		transform.position += new Vector3 (5, 0);
 		SoundController.controller.PlaySoundInList (GetComponent<AudioSource>(), SuperPowerController.PowerNames.DashAttack);
 		while (CheckIfInBoundaries ()) {
 			rb2d.MovePosition(new Vector2(transform.position.x + 3f, transform.position.y));
-			enemiesHit += SuperPowerAttackGetHits ((int)Attacks.AOE, 3f);
+			enemiesHit += SuperPowerAttack ((int)Attacks.AOE, 3f);
 			yield return null;
 		}
 		SoundController.controller.PlaySoundInList (GetComponent<AudioSource>(), SuperPowerController.PowerNames.DashAttack);
 		while (Vector3.Distance(transform.position, startingPos) > 2) {
 			rb2d.MovePosition(new Vector2(transform.position.x - 3f, transform.position.y));
-			enemiesHit += SuperPowerAttackGetHits ((int)Attacks.AOE, -3f);
+			enemiesHit += SuperPowerAttack ((int)Attacks.AOE, -3f);
 			yield return null;
 		}
 		canMove = true;
@@ -653,7 +684,7 @@ public class Player : MonoBehaviour {
             {
 				rb2d.MovePosition(new Vector2(GetXPos() + ((LargeAttackDistance() + 5) / max * forwardVector.x), transform.position.y));
             }
-			enemiesHit += SuperPowerAttackGetHits((int)Attacks.Long, ShortAttackDistance());
+			enemiesHit += SuperPowerAttack((int)Attacks.Long, ShortAttackDistance());
             steps++;
             yield return null;
 
@@ -667,10 +698,6 @@ public class Player : MonoBehaviour {
 	{
 		GameObject projectile = Instantiate (prefab, transform.position, Quaternion.identity) as GameObject;
 		projectile.GetComponent<Projectile> ().SetVariables (forwardVector, (int)Attacks.Long, playerLevel, (int)attackDistances[powerNumber]);
-
-		//IncreaseAttackTime (powerNumber);
-
-		Debug.Log (prefab.name);
 	}
 
 	void ThrowGrenades()
@@ -684,6 +711,15 @@ public class Player : MonoBehaviour {
 			gRb2d.AddForce (dir * force);
 			gRb2d.AddTorque (dir.x * force);
 		}
+	}
+
+	void SpawnWaterAttack()
+	{
+		GameObject wave = Instantiate (wavePrefab, attackPoint.position, Quaternion.identity) as GameObject;
+		Vector3 originalScale = transform.localScale;
+		wave.transform.SetParent (transform);
+		wave.transform.localScale = new Vector3 ((originalScale.x  / transform.localScale.x), (originalScale.y / transform.localScale.x), originalScale.z);
+		DestroyObject (wave, 1.167f);
 	}
 
     public void TakeDamage(int num)
@@ -720,19 +756,6 @@ public class Player : MonoBehaviour {
 	public static float LargeAttackDistance()
     {
         return attackDistances[2];
-    }
-
-    void IncreaseAttackTime(int num)
-	{
-		attackTimes [num] = Time.time + attackRates [availablePowers [num]];
-	}
-
-    bool CheckAttackTime(int num)
-    {
-		if (Time.time < attackTimes [num]) {
-			return false;
-		}
-        return true;
     }
 
     public float GetXPos()

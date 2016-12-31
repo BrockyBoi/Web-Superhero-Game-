@@ -17,7 +17,7 @@ public class SuperPowerController : MonoBehaviour {
                             Pistol, Shotgun, Sniper, Grenades,
 							POWERS_COUNT
                            };
-    public enum SuperHero { Tank, Elementalist, Paragon, Speedster, Vigilantee, HERO_COUNT}
+    public enum SuperHero { Tank, Elementalist, Paragon, Speedster, Vigilante, HERO_COUNT}
     SuperHero currentHero;
     //First int is simply which power it is, and the second int is how powerful it is
     List<int> superPowers = new List<int>();
@@ -26,31 +26,19 @@ public class SuperPowerController : MonoBehaviour {
 
     void Awake()
     {
-		if (controller == null) 
-		{
+		if (controller == null) {
 			controller = this;
-			DontDestroyOnLoad (transform.parent);
-			DontDestroyOnLoad (this);
 		} else if (controller != this) 
 		{
-			Destroy (gameObject);
+			Destroy (this);
 		}
 		
         InitializePowers();
+		DontDestroyOnLoad (this);
 
 		//By default the superhero will be a tank
-		SetSuperHero (SuperHero.Paragon);
+		SetSuperHero (SuperHero.Elementalist);
     }
-
-    // Use this for initialization
-    void Start () {
-
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     public void SetSuperHero(SuperHero hero)
     {

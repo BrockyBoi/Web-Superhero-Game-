@@ -35,6 +35,8 @@ public class GameCanvas : MonoBehaviour {
 	public enum TutorialPosition{PressQ = 4,PressW,PressE,PressR,Lvl1AOE = 9,Lvl10AOE = 10,FinalSlide = 11}
 	public GameObject enemyPrefab;
 
+	public GameObject musicButton, fxButton;
+
 	void Awake()
 	{
 		controller = this;
@@ -356,6 +358,7 @@ public class GameCanvas : MonoBehaviour {
 	{
 		PlayerInfo.controller.Save ();
 		SceneManager.LoadScene ("Main Menu");
+		//Application.Quit();
 	}
 
 	public void PressReturnToGame()
@@ -377,14 +380,14 @@ public class GameCanvas : MonoBehaviour {
 		Activate (ESCImage);
 	}
 
-	public void ToggleMusic()
+	public void SetMusicVolume(float f)
 	{
-		PlayerInfo.controller.ClickMusic ();
+		SoundController.controller.SetMusic (f);
 	}
 
-	public void ToggleFX()
+	public void SetFXVolume(float f)
 	{
-		PlayerInfo.controller.ClickFX ();
+		SoundController.controller.SetFX (f);
 	}
 
 	public void PressEsc()

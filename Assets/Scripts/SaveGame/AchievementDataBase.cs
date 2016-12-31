@@ -67,10 +67,8 @@ public class AchievementDataBase : MonoBehaviour
 
 	List<GameObject> panelList = new List<GameObject>();
 
-	// Use this for initialization
 	void Start ()
 	{
-
 		InitializePanelList ();
 
 		InitializePanels ();
@@ -81,12 +79,7 @@ public class AchievementDataBase : MonoBehaviour
 
 		CheckAllAchievements ();
 	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-	
-	}
+
 
 	void InitializePanelList()
 	{
