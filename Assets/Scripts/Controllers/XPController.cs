@@ -6,22 +6,20 @@ public class XPController : MonoBehaviour {
 
 
 	int currentXp = 0;
+	[SerializeField]
+	[Range(1,10)]
+	int level;
 	public int[] xpCaps;
-
 
 	void Awake()
 	{
 		controller = this;
+		level = 1;
 	}
 
 	// Use this for initialization
 	void Start () {
 		GameCanvas.controller.LevelUp (xpCaps[1]);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 
 	public void AddXP(int enemyType)
@@ -33,20 +31,35 @@ public class XPController : MonoBehaviour {
 
 	void CheckXP()
 	{
-		int level = Player.playerSingleton.GetLevel ();
-
 		if (currentXp >= xpCaps [level]) {
-			currentXp = 0;
-			Player.playerSingleton.LevelUp ();
+			//currentXp = 0;
 			GameCanvas.controller.LevelUp (xpCaps [level + 1]);
 		}	
 	}
 
+	void SpendXP(int power)
+	{
+		if (currentXp <= 0)
+			return;
+		
+		currentXp -= 2;
+
+		if (currentXp < xpCaps [level])
+			level--;
+
+		UpgradeController.controller.SpendXP (power);
+	}
+
 	public void SetLevel(int num)
 	{
-		Player.playerSingleton.SetLevel (num);
+		level = num;
 		currentXp = 0; 
 		GameCanvas.controller.LevelUp(xpCaps[num]);
+	}
+
+	public int GetLevel()
+	{
+		return level;
 	}
 
 	int CheckEnemyType(int enemyType)
@@ -72,3 +85,4 @@ public class XPController : MonoBehaviour {
 		return currentXp;
 	}
 }
+	

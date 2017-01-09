@@ -146,6 +146,7 @@ public class Enemy : MonoBehaviour {
 		RaycastHit2D hit = Physics2D.Raycast(attackTransform.position, forwardDirection, attackDistance, LayerMask.GetMask("Player"));
 
 		if (hit) {
+			Debug.Log (hit.transform.name);
 			Player.playerSingleton.TakeDamage (damage);
 		}
 
@@ -296,7 +297,7 @@ public class Enemy : MonoBehaviour {
 
 	protected void GetHit(int x1, int x2, int y1, int y2, int direction)
 	{
-		int dmg = Player.playerSingleton.GetLevel ();
+		int dmg = XPController.controller.GetLevel ();
 		rb2d.AddForce (new Vector2 (Random.Range (dmg * direction * x1, dmg * direction * x2), Random.Range (dmg * y1, dmg * y2)), ForceMode2D.Impulse);
 
 		if(health > 0)

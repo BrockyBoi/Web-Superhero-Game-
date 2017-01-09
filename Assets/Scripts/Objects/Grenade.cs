@@ -51,7 +51,7 @@ public class Grenade : MonoBehaviour {
 				if (enemy.CheckIfInvulnerable () == false)
 					enemiesHit++;
 				
-				enemy.TakeDamage (powerUsed, Player.playerSingleton.GetLevel(), Vector2.left);
+				enemy.TakeDamage (powerUsed, XPController.controller.GetLevel(), Vector2.left);
 			}
 		}
 		for(int i = 0; i < hit2.Length; i++)
@@ -63,7 +63,7 @@ public class Grenade : MonoBehaviour {
 				if (enemy.CheckIfInvulnerable () == false)
 					enemiesHit++;
 				
-				enemy.TakeDamage (powerUsed, Player.playerSingleton.GetLevel(), Vector2.right);
+				enemy.TakeDamage (powerUsed, XPController.controller.GetLevel(), Vector2.right);
 			}
 		}
 

@@ -14,8 +14,6 @@ public class Player : MonoBehaviour {
     protected Transform boundary2;
 	public Transform attackPoint;
 
-    public float hSpeed = 5;
-
 	public GameObject rockPrefab;
 	public GameObject wavePrefab;
 	public GameObject grenadePrefab;
@@ -25,15 +23,17 @@ public class Player : MonoBehaviour {
     protected bool canAttack;
     protected bool canMove;
 
+
     protected float[] attackRates;
+	protected float[] defaultAttackRates = new float[4];
     protected float[] attackTimes;
 
     //Has 3 numbers which represent close range, medium range, and long range attacks
     public static float[] attackDistances;
 
-    [Range(0,250)]
-    public int health = 100;
-	int maxHealth;
+    public int health;
+	int starterHealth;
+
 
     Rigidbody2D rb2d;
 
@@ -44,16 +44,20 @@ public class Player : MonoBehaviour {
     public bool godMode;
 	public bool tutorial;
 
-    [Range (1,10)]
-    public int playerLevel;
-
     public enum Attacks { Short, Medium, Long, AOE };
 
     int[] availablePowers = new int[4];
 
-	public bool knockback;
-
 	AudioSource myAudio;
+
+	//Upgradable variables
+	int damage;
+	int maxHealth;
+	float healthRegen;
+	float powerRegen;
+	[SerializeField]
+	public float hSpeed = 5;
+
 	#endregion 
 
     void Awake()
@@ -71,6 +75,8 @@ public class Player : MonoBehaviour {
                                      .5f, 3.5f, 7, 20
                                     };
 
+		healthRegen = 5;
+
 		GetPowers ();
 
         attackTimes = new float[4] { 0, 0, 0, 0};
@@ -83,12 +89,12 @@ public class Player : MonoBehaviour {
         else Destroy(gameObject);
 
         rb2d = GetComponent<Rigidbody2D>();
-		//myAudio = gameObject.AddComponent<AudioSource> ();
 		anim = GetComponent<Animator> ();
 
 		forwardVector = Vector3.right;
 
 		maxHealth = health;
+		starterHealth = health;
     }
 
 	void Start () {
@@ -100,7 +106,7 @@ public class Player : MonoBehaviour {
 
 		defaultXScale = transform.localScale.x;
 
-
+		Invoke ("RegainHealth", healthRegen);
     }
 
 	void Update () {
@@ -110,6 +116,7 @@ public class Player : MonoBehaviour {
 		Movement(horizontal * Time.deltaTime * hSpeed);
 
 		CheckAttackInput ();
+
     }
 
 	void CheckAttackInput()
@@ -125,22 +132,25 @@ public class Player : MonoBehaviour {
 		}
 		else if (Input.GetKey(KeyCode.W))
 		{
-			if (!GameCanvas.controller.GetTutorialMode () || GameCanvas.controller.CheckIfOnSpecificPosition (GameCanvas.TutorialPosition.PressW)) {
+			if ((GameCanvas.controller.CheckIfOnSpecificPosition (GameCanvas.TutorialPosition.PressW) && GameCanvas.controller.GetTutorialMode())
+				|| (!GameCanvas.controller.GetTutorialMode () && XPController.controller.GetLevel() > 1)) {
 				TryAttack (1);
 			}
 		}
 		else if (Input.GetKey(KeyCode.E))
 		{
-			if (!GameCanvas.controller.GetTutorialMode () || GameCanvas.controller.CheckIfOnSpecificPosition (GameCanvas.TutorialPosition.PressE)) {
+			if ((GameCanvas.controller.CheckIfOnSpecificPosition (GameCanvas.TutorialPosition.PressE) && GameCanvas.controller.GetTutorialMode())
+				|| (!GameCanvas.controller.GetTutorialMode () && XPController.controller.GetLevel() > 2)) {
 				TryAttack (2);
 			}
 				//SelectAttack(2);
 		}
-		else if (Input.GetKey(KeyCode.R))
+		else if (Input.GetKey(KeyCode.R)&& XPController.controller.GetLevel() > 3)
 		{
 			if (!GameCanvas.controller.GetTutorialMode () || GameCanvas.controller.CheckIfOnSpecificPosition (GameCanvas.TutorialPosition.PressR)
 			   || GameCanvas.controller.CheckIfOnSpecificPosition (GameCanvas.TutorialPosition.Lvl1AOE)
-			   || GameCanvas.controller.CheckIfOnSpecificPosition (GameCanvas.TutorialPosition.Lvl10AOE)) {
+			   || GameCanvas.controller.CheckIfOnSpecificPosition (GameCanvas.TutorialPosition.Lvl10AOE)
+				|| (!GameCanvas.controller.GetTutorialMode() && XPController.controller.GetLevel() > 3)) {
 				TryAttack (3);
 			}
 				//SelectAttack(3);
@@ -257,6 +267,10 @@ public class Player : MonoBehaviour {
 	void GetPowers()
 	{
 		availablePowers = SuperPowerController.controller.GetAvailablePowers();
+
+		for (int i = 0; i < 4; i++) {
+			defaultAttackRates [i] = attackRates[availablePowers[i]];
+		}
 	}
 
 	void InitializeSliders()
@@ -403,7 +417,7 @@ public class Player : MonoBehaviour {
 		if (powerNum != 3)
 			hits = SuperPowerAttack (powerNum, attackDistances [powerNum]);
 		else {
-			float distance = Mathf.Max (ShortAttackDistance() + 2, playerLevel * 2.5f);
+			float distance = Mathf.Max (ShortAttackDistance() + 2, XPController.controller.GetLevel() * 2.5f);
 			hits = SuperPowerAttackBothDirections (powerNum, distance);
 		}
 
@@ -461,7 +475,7 @@ public class Player : MonoBehaviour {
 				if (enemy.CheckIfInvulnerable () == false)
 					enemiesHit++;
 				
-				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
+				enemy.TakeDamage (powerUsed, damage, forwardVector);
 			}
         }
 			
@@ -469,30 +483,6 @@ public class Player : MonoBehaviour {
 
 		return enemiesHit;
     }
-
-//	int SuperPowerAttackGetHits(int powerUsed, float attackDistance)
-//	{
-//		int enemiesHit = 0;
-//
-//		RaycastHit2D[] hit = Physics2D.RaycastAll(attackPoint.position, forwardVector, attackDistance, LayerMask.GetMask("Enemy"));
-//		Debug.DrawRay(transform.position, forwardVector, Color.green);
-//
-//		for (int i = 0; i < hit.Length; i++)
-//		{
-//			if (hit[i])
-//			{
-//				Enemy enemy = hit [i].collider.gameObject.GetComponent<Enemy> ();
-//
-//				if (enemy.CheckIfInvulnerable () == false)
-//					enemiesHit++;
-//
-//				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
-//
-//			}
-//		}
-//
-//		return enemiesHit;
-//	}
 
     int SuperPowerAttackBothDirections(int powerUsed, float attackDistance)
     {
@@ -510,7 +500,7 @@ public class Player : MonoBehaviour {
 				if (enemy.CheckIfInvulnerable () == false)
 					enemiesHit++;
 
-				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
+				enemy.TakeDamage (powerUsed, damage, forwardVector);
 
             }
         }
@@ -524,7 +514,7 @@ public class Player : MonoBehaviour {
 				if (enemy.CheckIfInvulnerable () == false)
 					enemiesHit++;
 
-				enemy.TakeDamage (powerUsed, playerLevel, -forwardVector);
+				enemy.TakeDamage (powerUsed, damage, -forwardVector);
 
 
             }
@@ -533,38 +523,6 @@ public class Player : MonoBehaviour {
 		AchievementSystem.controller.CheckMaxHits (enemiesHit);
 		return enemiesHit;
     }
-
-//	int SuperPowerAttackBothDirectionsGetHits(int powerUsed, float attackDistance)
-//	{
-//		int enemiesHit = 0;
-//
-//		RaycastHit2D[] hit = Physics2D.RaycastAll(attackPoint.position, forwardVector, attackDistance, LayerMask.GetMask("Enemy"));
-//		RaycastHit2D[] hit2 = Physics2D.RaycastAll(attackPoint.position, -forwardVector, attackDistance, LayerMask.GetMask("Enemy"));
-//
-//		for (int i = 0; i < hit.Length; i++)
-//		{
-//			if (hit[i])
-//			{
-//				Enemy enemy = hit [i].collider.gameObject.GetComponent<Enemy> ();
-//				if (enemy.CheckIfInvulnerable () == false)
-//					enemiesHit++;
-//				enemy.TakeDamage (powerUsed, playerLevel, forwardVector);
-//			}
-//		}
-//
-//		for(int i = 0; i < hit2.Length; i++)
-//		{
-//			if (hit2[i])
-//			{
-//				Enemy enemy = hit2 [i].collider.gameObject.GetComponent<Enemy> ();
-//				if (enemy.CheckIfInvulnerable () == false)
-//					enemiesHit++;
-//				enemy.TakeDamage (powerUsed, playerLevel, -forwardVector);
-//			}
-//		}
-//
-//		return enemiesHit;
-//	}
 
 	void LaserVisionSprite(int i)
 	{
@@ -588,7 +546,7 @@ public class Player : MonoBehaviour {
     IEnumerator JumpAttack()
     {
 		canAttack = false;
-		int force = Mathf.Max (playerLevel * 55, 200);
+		int force = Mathf.Max (XPController.controller.GetLevel() * 55, 200);
 		rb2d.AddForce(new Vector2(0, force), ForceMode2D.Impulse);
 		PlaySound (SoundController.controller.capeWhoosh);
 
@@ -697,7 +655,7 @@ public class Player : MonoBehaviour {
 	void ProjectileSpawn(GameObject prefab, int powerNumber)
 	{
 		GameObject projectile = Instantiate (prefab, transform.position, Quaternion.identity) as GameObject;
-		projectile.GetComponent<Projectile> ().SetVariables (forwardVector, (int)Attacks.Long, playerLevel, (int)attackDistances[powerNumber]);
+		projectile.GetComponent<Projectile> ().SetVariables (forwardVector, (int)Attacks.Long, XPController.controller.GetLevel(), (int)attackDistances[powerNumber]);
 	}
 
 	void ThrowGrenades()
@@ -727,11 +685,6 @@ public class Player : MonoBehaviour {
         if (godMode)
             return;
 
-		if (knockback) {
-			DisableCanAttack (.8f);
-			anim.SetTrigger ("takeHit");
-		}
-
         health -= num;
 
         if(health <= 0)
@@ -741,7 +694,15 @@ public class Player : MonoBehaviour {
 			AchievementSystem.controller.PlayerDeath (SuperPowerController.controller.GetSuperHero ());
 			enabled = false;
         }
+
     }
+
+	void RegainHealth()
+	{
+		health = Mathf.Min (health + 5, maxHealth);
+
+		Invoke ("RegainHealth", healthRegen);
+	}
 
     public static float ShortAttackDistance()
     {
@@ -773,19 +734,9 @@ public class Player : MonoBehaviour {
         return alive;
     }
 
-	public int GetLevel()
+	void UnlockLevel()
 	{
-		return playerLevel;
-	}
 
-    public void LevelUp()
-    {
-        playerLevel++;
-    }
-
-	public void SetLevel(int num)
-	{
-		playerLevel = num;
 	}
 
 	public int GetHealth()
@@ -804,5 +755,20 @@ public class Player : MonoBehaviour {
 			return true;
 
 		return false;
+	}
+
+	public void UpdatePowers(int damage, int maxHealth, float healthRegen, float powerRegen, float speed)
+	{
+		this.damage = damage;
+
+		this.maxHealth = Mathf.Max(starterHealth, starterHealth * (int)(maxHealth * .66f));
+		this.healthRegen = healthRegen;
+
+		this.powerRegen = powerRegen;
+		for (int i = 0; i < 4; i++) {
+			attackRates [i] = (1.0f / powerRegen) * defaultAttackRates[i];
+		}
+
+		this.hSpeed = 5 + speed;
 	}
 }

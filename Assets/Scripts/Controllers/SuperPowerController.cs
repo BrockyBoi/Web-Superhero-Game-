@@ -37,7 +37,7 @@ public class SuperPowerController : MonoBehaviour {
 		DontDestroyOnLoad (this);
 
 		//By default the superhero will be a tank
-		SetSuperHero (SuperHero.Elementalist);
+		SetSuperHero (SuperHero.Paragon);
     }
 
     public void SetSuperHero(SuperHero hero)

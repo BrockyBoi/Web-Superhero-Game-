@@ -49,19 +49,21 @@
      <Compile Include="Assets\Scripts\Controllers\EnemySpawner.cs" />
      <Compile Include="Assets\Scripts\Controllers\SoundController.cs" />
      <Compile Include="Assets\Scripts\Controllers\SuperPowerController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\UpgradeController.cs" />
      <Compile Include="Assets\Scripts\Controllers\XPController.cs" />
      <Compile Include="Assets\Scripts\Humanoids\Enemy.cs" />
      <Compile Include="Assets\Scripts\Humanoids\FollowPlayer.cs" />
      <Compile Include="Assets\Scripts\Humanoids\Player.cs" />
      <Compile Include="Assets\Scripts\Misc\DontDestroy.cs" />
+     <Compile Include="Assets\Scripts\Objects\Grenade.cs" />
      <Compile Include="Assets\Scripts\Objects\Projectile.cs" />
      <Compile Include="Assets\Scripts\SaveGame\AchievementDataBase.cs" />
      <Compile Include="Assets\Scripts\SaveGame\AchievementSystem.cs" />
      <Compile Include="Assets\Scripts\SaveGame\PlayerInfo.cs" />
      <Compile Include="Assets\Scripts\UI\AchievementItem.cs" />
      <Compile Include="Assets\Scripts\UI\GameCanvas.cs" />
-     <Compile Include="Assets\Scripts\UI\Grenade.cs" />
      <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
+     <None Include="Assets\ColorfulButtons\Credits.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

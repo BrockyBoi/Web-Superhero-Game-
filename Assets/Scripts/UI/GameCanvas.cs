@@ -53,7 +53,7 @@ public class GameCanvas : MonoBehaviour {
 			InitializeStrings ();
 			Activate (tutorialImage);
 			SetTutorialText (tutorialStrings [0]);
-			Player.playerSingleton.SetLevel (1);
+			XPController.controller.SetLevel (1);
 			EnemySpawner.controller.gameObject.SetActive (false);
 		} else
 			Disable (tutorialImage);
