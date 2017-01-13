@@ -4,6 +4,8 @@ using System.Collections;
 public class XPController : MonoBehaviour {
 	public static XPController controller;
 
+	bool buttonSpending;
+
 
 	int currentXp = 0;
 	[SerializeField]
@@ -37,17 +39,23 @@ public class XPController : MonoBehaviour {
 		}	
 	}
 
-	void SpendXP(int power)
+	IEnumerator SpendXP(int power)
 	{
-		if (currentXp <= 0)
-			return;
-		
-		currentXp -= 2;
+//		//if (currentXp <= 0)
+//		//	return;
+//
+//		currentXp -= 2;
+//		Debug.Log ("Spend XP");
+//
+//		if (currentXp < xpCaps [level - 1] && level > 1)
+//			level--;
+//
+//		UpgradeController.controller.SpendXP (power);
+	}
 
-		if (currentXp < xpCaps [level])
-			level--;
+	public void PressSpendXP(int power)
+	{
 
-		UpgradeController.controller.SpendXP (power);
 	}
 
 	public void SetLevel(int num)

@@ -759,7 +759,7 @@ public class Player : MonoBehaviour {
 
 	public void UpdatePowers(int damage, int maxHealth, float healthRegen, float powerRegen, float speed)
 	{
-		this.damage = damage;
+		this.damage = damage * 2;
 
 		this.maxHealth = Mathf.Max(starterHealth, starterHealth * (int)(maxHealth * .66f));
 		this.healthRegen = healthRegen;

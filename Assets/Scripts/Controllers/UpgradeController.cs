@@ -24,7 +24,7 @@ public class UpgradeController : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-		UpdatePowers ();
+		//UpdatePowers ();
 	}
 
 	public void SpendXP(int upgrade)
