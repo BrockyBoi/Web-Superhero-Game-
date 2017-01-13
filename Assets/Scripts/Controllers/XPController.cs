@@ -6,10 +6,12 @@ public class XPController : MonoBehaviour {
 
 	bool buttonSpending;
 
+    IEnumerator[] spenders = new IEnumerator[(int)UpgradeController.Upgrades.UPGRADE_COUNT];
+
 
 	int currentXp = 0;
 	[SerializeField]
-	[Range(1,10)]
+	[Range(1,4)]
 	int level;
 	public int[] xpCaps;
 
@@ -22,6 +24,7 @@ public class XPController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		GameCanvas.controller.LevelUp (xpCaps[1]);
+        //currentXp = 500;
 	}
 
 	public void AddXP(int enemyType)
@@ -33,36 +36,48 @@ public class XPController : MonoBehaviour {
 
 	void CheckXP()
 	{
-		if (currentXp >= xpCaps [level]) {
+		if (level < 4 && currentXp >= xpCaps [level]) {
 			//currentXp = 0;
 			GameCanvas.controller.LevelUp (xpCaps [level + 1]);
+            level++;
 		}	
 	}
 
-	IEnumerator SpendXP(int power)
-	{
-//		//if (currentXp <= 0)
-//		//	return;
-//
-//		currentXp -= 2;
-//		Debug.Log ("Spend XP");
-//
-//		if (currentXp < xpCaps [level - 1] && level > 1)
-//			level--;
-//
-//		UpgradeController.controller.SpendXP (power);
-	}
+    IEnumerator SpendXP(int power)
+    {
+        while (currentXp >= 0)
+        {
+            currentXp -= 2;
+            Debug.Log("Spend XP");
+
+            if (currentXp < xpCaps[level - 1] && level > 1)
+                level--;
+
+            UpgradeController.controller.SpendXP(power);
+            yield return null;
+        }
+    }
+
 
 	public void PressSpendXP(int power)
 	{
+       spenders[power] = SpendXP(power);
+       StartCoroutine(spenders[power]);
+    }
 
-	}
+    public void StopSpending(int power)
+    {
+        StopCoroutine(spenders[power]);
+    }
 
-	public void SetLevel(int num)
+    public void SetLevel(int num)
 	{
-		level = num;
-		currentXp = 0; 
-		GameCanvas.controller.LevelUp(xpCaps[num]);
+        if (GameCanvas.controller.GetTutorialMode())
+        {
+            level = num;
+            currentXp = 0;
+            GameCanvas.controller.LevelUp(xpCaps[num]);
+        }
 	}
 
 	public int GetLevel()

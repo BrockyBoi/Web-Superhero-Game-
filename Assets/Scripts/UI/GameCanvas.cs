@@ -145,9 +145,7 @@ public class GameCanvas : MonoBehaviour {
 	public void LevelUp(int max)
 	{
 		sliders [(int)SliderNumbers.XP].maxValue = max;
-		sliders [(int)SliderNumbers.XP].value = 0;
 		UpdateXPText ();
-		xpValue = 0;
 	}
 
 	IEnumerator UpdateXPSlider()
