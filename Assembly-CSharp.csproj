@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\RadialSliderUI\Scripts\RadialSlider.cs" />
      <Compile Include="Assets\Scripts\Controllers\EnemySpawner.cs" />
      <Compile Include="Assets\Scripts\Controllers\SoundController.cs" />
      <Compile Include="Assets\Scripts\Controllers\SuperPowerController.cs" />

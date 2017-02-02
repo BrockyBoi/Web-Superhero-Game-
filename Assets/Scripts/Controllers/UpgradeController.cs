@@ -27,11 +27,13 @@ public class UpgradeController : MonoBehaviour {
 		UpdatePowers ();
 	}
 
-	public void SpendXP(int upgrade)
+	public void SpendXP(int upgrade, int amount)
 	{
-		xpAmounts[upgrade] += 2;
+		xpAmounts[upgrade] += amount;
+		//Debug.Log (xpLevels [upgrade]);
 
-		if (xpAmounts [upgrade] >= xpNeeds [xpLevels[upgrade]]) {
+		if (xpAmounts [upgrade] >= xpNeeds [xpLevels[upgrade] - 1]) {
+		//	Debug.Log("Upgraded " + (int)Upgrades[upgrade]);
 			xpAmounts [upgrade] = 0;
 			xpLevels [upgrade]++;
 			UpdatePowers ();

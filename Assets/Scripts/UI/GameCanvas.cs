@@ -148,6 +148,11 @@ public class GameCanvas : MonoBehaviour {
 		UpdateXPText ();
 	}
 
+	public void AssignSliderMaxValues(int slider, float max)
+	{
+		sliders [slider].maxValue = max;
+	}
+
 	IEnumerator UpdateXPSlider()
 	{
 		while (true)
@@ -180,7 +185,7 @@ public class GameCanvas : MonoBehaviour {
 
 	void UpdateXPText()
 	{
-		xpText.text = ((int)xpValue).ToString() + " / " + sliders [(int)SliderNumbers.XP].maxValue;
+		xpText.text = ((int)xpValue).ToString (); //+ " / " + sliders [(int)SliderNumbers.XP].maxValue;
 	}
 
 	void Activate(Image i)
@@ -356,7 +361,6 @@ public class GameCanvas : MonoBehaviour {
 	{
 		PlayerInfo.controller.Save ();
 		SceneManager.LoadScene ("Main Menu");
-		//Application.Quit();
 	}
 
 	public void PressReturnToGame()

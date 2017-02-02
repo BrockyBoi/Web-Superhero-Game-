@@ -8,6 +8,8 @@ public class XPController : MonoBehaviour {
 
     IEnumerator[] spenders = new IEnumerator[(int)UpgradeController.Upgrades.UPGRADE_COUNT];
 
+	public bool startWithMaxXP;
+
 
 	int currentXp = 0;
 	[SerializeField]
@@ -24,7 +26,9 @@ public class XPController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		GameCanvas.controller.LevelUp (xpCaps[1]);
-        //currentXp = 500;
+
+		if(startWithMaxXP)
+        	currentXp = 5000;
 	}
 
 	public void AddXP(int enemyType)
@@ -38,22 +42,22 @@ public class XPController : MonoBehaviour {
 	{
 		if (level < 4 && currentXp >= xpCaps [level]) {
 			//currentXp = 0;
-			GameCanvas.controller.LevelUp (xpCaps [level + 1]);
+			GameCanvas.controller.LevelUp (xpCaps [level - 1]);
             level++;
 		}	
 	}
 
     IEnumerator SpendXP(int power)
     {
-        while (currentXp >= 0)
+        while (currentXp > 0)
         {
-            currentXp -= 2;
-            Debug.Log("Spend XP");
+			int amount = 2;
+			currentXp -= amount;
 
             if (currentXp < xpCaps[level - 1] && level > 1)
                 level--;
 
-            UpgradeController.controller.SpendXP(power);
+            UpgradeController.controller.SpendXP(power, amount);
             yield return null;
         }
     }

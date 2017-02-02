@@ -67,12 +67,12 @@ public class Player : MonoBehaviour {
         //Fire, Wave, RockThrow, Lightning,
         //ParagonMelee, FreezeBreath, HeatVision, Jump,
         //SpeedMelee, WindGust, DashAttack, MapDash,
-        //Pistol, Shotgun, Sniper, Grenades
+        //Bat, Shotgun, Sniper, Grenades
         attackRates = new float[20] { 2, 5, 10, 25,
                                      .2f, 3, 6, 10,
                                      1.5f, 4, 8, 30,
                                      .8f, 3.5f, 6, 20,
-                                     .5f, 3.5f, 7, 20
+                                     1, 3.5f, 7, 20
                                     };
 
 		healthRegen = 5;
@@ -184,6 +184,7 @@ public class Player : MonoBehaviour {
 	void IncreaseAttackTime(int num)
 	{
 		attackTimes [num] = Time.time + attackRates [availablePowers [num]];
+		Debug.Log("Increase time by: " + attackRates[availablePowers[num]]);
 	}
 
     void CheckForward(float h)
@@ -699,7 +700,9 @@ public class Player : MonoBehaviour {
 
 	void RegainHealth()
 	{
+		Debug.Log ("Goes off");
 		health = Mathf.Min (health + 5, maxHealth);
+
 
 		Invoke ("RegainHealth", healthRegen);
 	}
@@ -762,13 +765,14 @@ public class Player : MonoBehaviour {
 		this.damage = damage * 2;
 
 		this.maxHealth = Mathf.Max(starterHealth, starterHealth * (int)(maxHealth * .66f));
-		this.healthRegen = healthRegen;
+		this.healthRegen = 6 - healthRegen;
 
 		this.powerRegen = powerRegen;
 		for (int i = 0; i < 4; i++) {
-			attackRates [i] = (1.0f / powerRegen) * defaultAttackRates[i];
+			attackRates[availablePowers [i]] = ((5 - powerRegen + 1) / 5.0f) * defaultAttackRates[i];
+			GameCanvas.controller.AssignSliderMaxValues (i, attackRates [availablePowers[i]]);
 		}
 
-		this.hSpeed = 5 + speed;
+		this.hSpeed = 5 + speed * 2;
 	}
 }

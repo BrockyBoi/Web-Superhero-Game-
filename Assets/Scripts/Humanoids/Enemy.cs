@@ -146,7 +146,6 @@ public class Enemy : MonoBehaviour {
 		RaycastHit2D hit = Physics2D.Raycast(attackTransform.position, forwardDirection, attackDistance, LayerMask.GetMask("Player"));
 
 		if (hit) {
-			Debug.Log (hit.transform.name);
 			Player.playerSingleton.TakeDamage (damage);
 		}
 
