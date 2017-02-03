@@ -54,7 +54,6 @@ public class Player : MonoBehaviour {
 	int damage;
 	int maxHealth;
 	float healthRegen;
-	float powerRegen;
 	[SerializeField]
 	public float hSpeed = 5;
 
@@ -547,7 +546,7 @@ public class Player : MonoBehaviour {
     IEnumerator JumpAttack()
     {
 		canAttack = false;
-		int force = Mathf.Max (XPController.controller.GetLevel() * 55, 200);
+		int force = Mathf.Max (XPController.controller.GetLevel() * 55, 250);
 		rb2d.AddForce(new Vector2(0, force), ForceMode2D.Impulse);
 		PlaySound (SoundController.controller.capeWhoosh);
 
@@ -767,7 +766,6 @@ public class Player : MonoBehaviour {
 		this.maxHealth = Mathf.Max(starterHealth, starterHealth * (int)(maxHealth * .66f));
 		this.healthRegen = 6 - healthRegen;
 
-		this.powerRegen = powerRegen;
 		for (int i = 0; i < 4; i++) {
 			attackRates[availablePowers [i]] = ((5 - powerRegen + 1) / 5.0f) * defaultAttackRates[i];
 			GameCanvas.controller.AssignSliderMaxValues (i, attackRates [availablePowers[i]]);

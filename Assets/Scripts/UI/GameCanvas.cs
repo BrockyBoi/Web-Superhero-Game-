@@ -9,6 +9,11 @@ public class GameCanvas : MonoBehaviour {
 	public static GameCanvas controller;
 
 	public List<Slider> sliders;
+	float lastXPMax;
+	float currentXPMax;
+	float currentXPValue;
+
+	public List<Image> attackImages;
 
 	public Image ESCImage;
 	public Image Options;
@@ -51,25 +56,24 @@ public class GameCanvas : MonoBehaviour {
 
 		if (tutorialMode) {
 			InitializeStrings ();
-			Activate (tutorialImage);
+			Activate (tutorialImage.gameObject);
 			SetTutorialText (tutorialStrings [0]);
 			XPController.controller.SetLevel (1);
 			EnemySpawner.controller.gameObject.SetActive (false);
 		} else
-			Disable (tutorialImage);
+			Disable (tutorialImage.gameObject);
 
 		StartCoroutine (UpdateXPSlider ());
 		StartCoroutine (UpdateHealthSlider ());
 
-		Disable (ESCImage);
-		Disable (Options);
+		Disable (ESCImage.gameObject);
+		Disable (Options.gameObject);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		CheckTutorial ();
 		CheckESC ();
-			
 	}
 
 	void SpawnHero()
@@ -98,6 +102,13 @@ public class GameCanvas : MonoBehaviour {
 	{
 		sliders [whichSlider].maxValue = value;
 		sliders [whichSlider].value = value;
+	}
+
+	void InitializeAttackImages()
+	{
+		for (int i = 1; i < attackImages.Count; i++) {
+			attackImages [i].GetComponent<Image> ().color = new Color (.3f,.3f,.3f,1);
+		}
 	}
 
 	public void UpdateAttackSlider(int num)
@@ -140,11 +151,24 @@ public class GameCanvas : MonoBehaviour {
 	public int SliderToInt(SliderNumbers num)
 	{
 		return (int)num;
-	}
+	} 
 
-	public void LevelUp(int max)
+	public void NewLevel(int level)
 	{
-		sliders [(int)SliderNumbers.XP].maxValue = max;
+		currentXPValue = XPController.controller.GetCurrentXP();
+		if (level > 1 && level != 4)
+			lastXPMax = XPController.controller.GetCap (level - 1);
+		else
+			lastXPMax = 0;
+		if(level == 4)
+			currentXPMax = XPController.controller.GetCap (3);
+		else currentXPMax = XPController.controller.GetCap (level);
+
+		float newMax = currentXPMax - lastXPMax;
+
+		sliders [(int)SliderNumbers.XP].value = currentXPValue - lastXPMax;
+		sliders [(int)SliderNumbers.XP].maxValue = newMax;
+
 		UpdateXPText ();
 	}
 
@@ -155,12 +179,19 @@ public class GameCanvas : MonoBehaviour {
 
 	IEnumerator UpdateXPSlider()
 	{
-		while (true)
-		{
-			while (xpValue < XPController.controller.GetCurrentXP ()) {
-				xpValue += .3f;
+		while (true) {
+			float time = 0;
+			//while (Mathf.Abs (xpValue - XPController.controller.GetCurrentXP ()) > .05f) {
+			while (xpValue != XPController.controller.GetCurrentXP () - lastXPMax) {
+				xpValue = Mathf.Lerp (xpValue, XPController.controller.GetCurrentXP () - lastXPMax, time);
 				sliders [(int)SliderNumbers.XP].value = xpValue;
 				UpdateXPText ();
+
+				time += Time.deltaTime * .25f;
+				if (time >= 1) {
+					xpValue = XPController.controller.GetCurrentXP ();
+					UpdateXPText ();
+				}
 				yield return null;
 			}
 
@@ -174,9 +205,15 @@ public class GameCanvas : MonoBehaviour {
 		sliders [(int)SliderNumbers.Health].maxValue = health;
 		sliders [(int)SliderNumbers.Health].value = health;
 		while (true) {
-			while (Player.playerSingleton.GetHealth () < health) {
-				health -= .5f;
+			float time = 0;
+			while (Mathf.Abs(Player.playerSingleton.GetHealth() - health) > .05f) {
+				health = Mathf.Lerp(health, Player.playerSingleton.GetHealth(), time);
+				time += Time.deltaTime * .25f;
 				sliders [(int)SliderNumbers.Health].value = health;
+
+				if (time >= 1) {
+					health = Player.playerSingleton.GetHealth ();
+				}
 				yield return null;
 			}
 			yield return null;
@@ -185,33 +222,17 @@ public class GameCanvas : MonoBehaviour {
 
 	void UpdateXPText()
 	{
-		xpText.text = ((int)xpValue).ToString (); //+ " / " + sliders [(int)SliderNumbers.XP].maxValue;
+		xpText.text = (((int)(xpValue + lastXPMax)).ToString () + " / " + ((int)currentXPMax).ToString()); 
 	}
 
-	void Activate(Image i)
+	void Activate(GameObject i)
 	{
-		i.gameObject.SetActive (true);
+		i.SetActive (true);
 	}
-	void Activate(Text i)
+		
+	void Disable(GameObject i)
 	{
-		i.gameObject.SetActive (true);
-	}
-	void Activate(Canvas i)
-	{
-		i.gameObject.SetActive (true);
-	}
-
-	void Disable(Image i)
-	{
-		i.gameObject.SetActive (false);
-	}
-	void Disable(Canvas i)
-	{
-		i.gameObject.SetActive (false);
-	}	
-	void Disable(Text i)
-	{
-		i.gameObject.SetActive (false);
+		i.SetActive (false);
 	}
 
 	bool PressedNextPage()
@@ -309,7 +330,7 @@ public class GameCanvas : MonoBehaviour {
 		case((int)TutorialPosition.Lvl10AOE):
 			Player.playerSingleton.FinishRechargingAttack (3);
 			FinishSlider (3);
-			XPController.controller.SetLevel (10);
+			XPController.controller.SetLevel (4);
 			SpawnEnemy (Player.ShortAttackDistance ());
 			SpawnEnemy (-Player.ShortAttackDistance ());
 			break;
@@ -365,21 +386,21 @@ public class GameCanvas : MonoBehaviour {
 
 	public void PressReturnToGame()
 	{
-		Disable (ESCImage);
-		Disable (Options);
+		Disable (ESCImage.gameObject);
+		Disable (Options.gameObject);
 		Time.timeScale = 1;
 	}
 
 	public void PressOptions()
 	{
-		Activate (Options);
-		Disable (ESCImage);
+		Activate (Options.gameObject);
+		Disable (ESCImage.gameObject);
 	}
 
 	public void PressBack()
 	{
-		Disable (Options);
-		Activate (ESCImage);
+		Disable (Options.gameObject);
+		Activate (ESCImage.gameObject);
 	}
 
 	public void SetMusicVolume(float f)
@@ -395,7 +416,7 @@ public class GameCanvas : MonoBehaviour {
 	public void PressEsc()
 	{
 		if (!ESCImage.IsActive ()) {
-			Activate (ESCImage);
+			Activate (ESCImage.gameObject);
 			Time.timeScale = 0;
 		} else {
 			PressReturnToGame ();

@@ -10,7 +10,6 @@ public class XPController : MonoBehaviour {
 
 	public bool startWithMaxXP;
 
-
 	int currentXp = 0;
 	[SerializeField]
 	[Range(1,4)]
@@ -25,10 +24,18 @@ public class XPController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		GameCanvas.controller.LevelUp (xpCaps[1]);
+		GameCanvas.controller.NewLevel (1);
 
-		if(startWithMaxXP)
-        	currentXp = 5000;
+		if (startWithMaxXP) {
+			//currentXp = 505;
+			//GameCanvas.controller.NewLevel (4);
+		}
+	}
+
+	void Update()
+	{
+		currentXp += 1;
+		CheckXP ();
 	}
 
 	public void AddXP(int enemyType)
@@ -40,22 +47,23 @@ public class XPController : MonoBehaviour {
 
 	void CheckXP()
 	{
-		if (level < 4 && currentXp >= xpCaps [level]) {
-			//currentXp = 0;
-			GameCanvas.controller.LevelUp (xpCaps [level - 1]);
-            level++;
+		if (level < 4 && currentXp >= xpCaps [level - 1]) {
+			level++;
+			GameCanvas.controller.NewLevel (level);
 		}	
 	}
 
     IEnumerator SpendXP(int power)
     {
-        while (currentXp > 0)
+		int amount = 1;
+		while (currentXp - amount > 0)
         {
-			int amount = 2;
-			currentXp -= amount;
+			currentXp = Mathf.Max(0, currentXp - amount);
 
-            if (currentXp < xpCaps[level - 1] && level > 1)
-                level--;
+			if (level > 1 && currentXp < xpCaps [level - 2]) {
+				level--;
+				GameCanvas.controller.NewLevel (level);
+			}
 
             UpgradeController.controller.SpendXP(power, amount);
             yield return null;
@@ -80,13 +88,18 @@ public class XPController : MonoBehaviour {
         {
             level = num;
             currentXp = 0;
-            GameCanvas.controller.LevelUp(xpCaps[num]);
+            GameCanvas.controller.NewLevel(num);
         }
 	}
 
 	public int GetLevel()
 	{
 		return level;
+	}
+
+	public int GetCap(int level)
+	{
+		return xpCaps [level - 1];
 	}
 
 	int CheckEnemyType(int enemyType)
