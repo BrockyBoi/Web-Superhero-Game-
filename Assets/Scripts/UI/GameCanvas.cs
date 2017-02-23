@@ -17,6 +17,7 @@ public class GameCanvas : MonoBehaviour {
 
 	public Image ESCImage;
 	public Image Options;
+	public GameObject UpgradeUI;
 
 	public enum SliderNumbers{ShortAttack,MediumAttack,LargeAttack,AOEAttack,XP, Health}
 	float xpValue;
@@ -28,6 +29,8 @@ public class GameCanvas : MonoBehaviour {
 	public List<GameObject> heroPrefabs = new List<GameObject>();
 
 	public Transform startLocation;
+
+	public GameObject Enemies;
 
 
 	//Tutorial stuff
@@ -88,16 +91,6 @@ public class GameCanvas : MonoBehaviour {
 		}
 	}
 
-	public void PressSave()
-	{
-		PlayerInfo.controller.Save ();
-	}
-
-	public void PressLoad()
-	{
-		PlayerInfo.controller.Load ();
-	}
-
 	public void InitializeSlider(int whichSlider, float value)
 	{
 		sliders [whichSlider].maxValue = value;
@@ -106,9 +99,19 @@ public class GameCanvas : MonoBehaviour {
 
 	void InitializeAttackImages()
 	{
-		for (int i = 1; i < attackImages.Count; i++) {
-			attackImages [i].GetComponent<Image> ().color = new Color (.3f,.3f,.3f,1);
+		for (int i = 0; i < attackImages.Count; i++) {
+			attackImages [i].color = new Color (.3f,.3f,.3f,1);
 		}
+	}
+
+	void TurnOnAttackImage(int num)
+	{
+		attackImages [num].color = new Color (1, 1, 1, attackImages [num].color.a);
+	}
+
+	void TurnOffAttackImage(int num)
+	{
+		attackImages [num].color = new Color (.3f, .3f, .3f, attackImages [num].color.a);
 	}
 
 	public void UpdateAttackSlider(int num)
@@ -138,8 +141,33 @@ public class GameCanvas : MonoBehaviour {
 		}
 	}
 
+	public void UpdateAttackImage(int num)
+	{
+		StartCoroutine (ColorizeAttackImage (num));
+	}
+
+	IEnumerator ColorizeAttackImage(int num)
+	{
+		float time = 0;
+		float endTime = Player.playerSingleton.GetAttackTime (num);
+		attackImages[num].color = new Color(attackImages[num].color.r,attackImages[num].color.g,attackImages[num].color.b, 0);
+	
+		while (time < endTime) {
+			time += Time.deltaTime;
+			float a = time / endTime;
+			attackImages[num].color = new Color(attackImages[num].color.r,
+												attackImages[num].color.g,
+												attackImages[num].color.b, 
+																		a);
+			yield return null;
+		}
+	}
+
 	void FinishSlider(int num)
 	{
+		if (!tutorialMode)
+			return;
+		
 		StopAllCoroutines ();
 
 		for(int i =0; i < 4; i++)
@@ -158,13 +186,23 @@ public class GameCanvas : MonoBehaviour {
 		currentXPValue = XPController.controller.GetCurrentXP();
 		if (level > 1 && level != 4)
 			lastXPMax = XPController.controller.GetCap (level - 1);
-		else
+		else if(level == 1)
 			lastXPMax = 0;
+		else if(level == 4)
+			lastXPMax = XPController.controller.GetCap(level - 2);
+		
 		if(level == 4)
 			currentXPMax = XPController.controller.GetCap (3);
 		else currentXPMax = XPController.controller.GetCap (level);
 
 		float newMax = currentXPMax - lastXPMax;
+
+		for (int i = 1; i <= 4; i++) {
+			if (i <= level) {
+				TurnOnAttackImage (i - 1);
+			} else
+				TurnOffAttackImage (i - 1);
+		}
 
 		sliders [(int)SliderNumbers.XP].value = currentXPValue - lastXPMax;
 		sliders [(int)SliderNumbers.XP].maxValue = newMax;
@@ -183,13 +221,20 @@ public class GameCanvas : MonoBehaviour {
 			float time = 0;
 			//while (Mathf.Abs (xpValue - XPController.controller.GetCurrentXP ()) > .05f) {
 			while (xpValue != XPController.controller.GetCurrentXP () - lastXPMax) {
-				xpValue = Mathf.Lerp (xpValue, XPController.controller.GetCurrentXP () - lastXPMax, time);
-				sliders [(int)SliderNumbers.XP].value = xpValue;
-				UpdateXPText ();
+				if (Time.timeScale > 0) {
+					xpValue = Mathf.Lerp (xpValue, XPController.controller.GetCurrentXP () - lastXPMax, time);
+					sliders [(int)SliderNumbers.XP].value = xpValue;
+					UpdateXPText ();
 
-				time += Time.deltaTime * .25f;
-				if (time >= 1) {
+					time += Time.deltaTime * .25f;
+					if (time >= 1) {
+						xpValue = XPController.controller.GetCurrentXP ();
+						UpdateXPText ();
+						sliders [(int)SliderNumbers.XP].value = xpValue;
+					}
+				} else {
 					xpValue = XPController.controller.GetCurrentXP ();
+					sliders [(int)SliderNumbers.XP].value = xpValue;
 					UpdateXPText ();
 				}
 				yield return null;
@@ -378,6 +423,7 @@ public class GameCanvas : MonoBehaviour {
 		return false;
 	}
 
+	#region Press Buttons
 	public void PressSaveAndQuit()
 	{
 		PlayerInfo.controller.Save ();
@@ -403,15 +449,6 @@ public class GameCanvas : MonoBehaviour {
 		Activate (ESCImage.gameObject);
 	}
 
-	public void SetMusicVolume(float f)
-	{
-		SoundController.controller.SetMusic (f);
-	}
-
-	public void SetFXVolume(float f)
-	{
-		SoundController.controller.SetFX (f);
-	}
 
 	public void PressEsc()
 	{
@@ -422,4 +459,39 @@ public class GameCanvas : MonoBehaviour {
 			PressReturnToGame ();
 		}
 	}
+
+	public void PressSave()
+	{
+		PlayerInfo.controller.Save ();
+	}
+
+	public void PressLoad()
+	{
+		PlayerInfo.controller.Load ();
+	}
+
+	public void PressUpgradeButton()
+	{
+		Activate (UpgradeUI);
+		Time.timeScale = 0;
+	}
+
+	public void PressBackUpgrade()
+	{
+		Time.timeScale = 1;
+		Disable (UpgradeUI);
+	}
+	#endregion
+
+	#region Audio
+	public void SetMusicVolume(float f)
+	{
+		SoundController.controller.SetMusic (f);
+	}
+	
+	public void SetFXVolume(float f)
+	{
+		SoundController.controller.SetFX (f);
+	}
+	#endregion
 }

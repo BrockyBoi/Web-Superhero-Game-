@@ -183,7 +183,6 @@ public class Player : MonoBehaviour {
 	void IncreaseAttackTime(int num)
 	{
 		attackTimes [num] = Time.time + attackRates [availablePowers [num]];
-		Debug.Log("Increase time by: " + attackRates[availablePowers[num]]);
 	}
 
     void CheckForward(float h)
@@ -315,7 +314,7 @@ public class Player : MonoBehaviour {
 				PlaySound (SoundController.controller.flamethrower);
 				NormalAttack (0);
 				break;
-			case ((int)SuperPowerController.PowerNames.Pistol):
+			case ((int)SuperPowerController.PowerNames.Bat):
 				NormalAttack (0);
 				PlayThisSound (attackNum);
 				break;
@@ -407,7 +406,8 @@ public class Player : MonoBehaviour {
 		}
 
 		//currentlyAttacking = false;
-		GameCanvas.controller.UpdateAttackSlider (attackNum);
+		//GameCanvas.controller.UpdateAttackSlider (attackNum);
+		GameCanvas.controller.UpdateAttackImage(attackNum);
 	}
 
 	int NormalAttack(int powerNum)
@@ -417,7 +417,7 @@ public class Player : MonoBehaviour {
 		if (powerNum != 3)
 			hits = SuperPowerAttack (powerNum, attackDistances [powerNum]);
 		else {
-			float distance = Mathf.Max (ShortAttackDistance() + 2, XPController.controller.GetLevel() * 2.5f);
+			float distance = Mathf.Max (ShortAttackDistance() + 2, UpgradeController.controller.GetUpgradeLevel(UpgradeController.Upgrades.Damage) * 2.5f);
 			hits = SuperPowerAttackBothDirections (powerNum, distance);
 		}
 
@@ -546,7 +546,7 @@ public class Player : MonoBehaviour {
     IEnumerator JumpAttack()
     {
 		canAttack = false;
-		int force = Mathf.Max (XPController.controller.GetLevel() * 55, 250);
+		int force = Mathf.Max (UpgradeController.controller.GetUpgradeLevel(UpgradeController.Upgrades.Damage) * 85, 350);
 		rb2d.AddForce(new Vector2(0, force), ForceMode2D.Impulse);
 		PlaySound (SoundController.controller.capeWhoosh);
 
@@ -572,6 +572,7 @@ public class Player : MonoBehaviour {
 		canAttack = true;
 		GameCanvas.controller.UpdateAttackSlider (3);
 		NoLongerAttacking ();
+		GameCanvas.controller.UpdateAttackImage(3);
     }
 
     IEnumerator DashAttack()
@@ -596,6 +597,7 @@ public class Player : MonoBehaviour {
         canMove = true;
 
 		AchievementSystem.controller.CheckMaxHits (enemiesHit);
+		GameCanvas.controller.UpdateAttackImage(3);
     }
 
 	IEnumerator MapDash()
@@ -626,6 +628,7 @@ public class Player : MonoBehaviour {
 		canMove = true;
 
 		AchievementSystem.controller.CheckMaxHits (enemiesHit);
+		GameCanvas.controller.UpdateAttackImage(3);
 	}
 
     IEnumerator ShoulderCharge()
@@ -699,9 +702,7 @@ public class Player : MonoBehaviour {
 
 	void RegainHealth()
 	{
-		Debug.Log ("Goes off");
 		health = Mathf.Min (health + 5, maxHealth);
-
 
 		Invoke ("RegainHealth", healthRegen);
 	}
@@ -736,11 +737,6 @@ public class Player : MonoBehaviour {
         return alive;
     }
 
-	void UnlockLevel()
-	{
-
-	}
-
 	public int GetHealth()
 	{
 		return health;
@@ -759,9 +755,14 @@ public class Player : MonoBehaviour {
 		return false;
 	}
 
+	public float GetAttackTime(int num)
+	{
+		return attackRates[availablePowers[num]];
+	}
+
 	public void UpdatePowers(int damage, int maxHealth, float healthRegen, float powerRegen, float speed)
 	{
-		this.damage = damage * 2;
+		this.damage = 1 + damage * 2;
 
 		this.maxHealth = Mathf.Max(starterHealth, starterHealth * (int)(maxHealth * .66f));
 		this.healthRegen = 6 - healthRegen;

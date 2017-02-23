@@ -88,7 +88,7 @@ public class SoundController : MonoBehaviour {
 
 		AddSound (SuperPowerController.PowerNames.WindGust, whirlwind);
 		//Vigilante
-		AddSound (SuperPowerController.PowerNames.Pistol, pistolShot);
+		AddSound (SuperPowerController.PowerNames.Bat, pistolShot);
 		AddSound (SuperPowerController.PowerNames.Shotgun, shotgunShot);
 		AddSound (SuperPowerController.PowerNames.Sniper, sniperShot);
 		AddSound (SuperPowerController.PowerNames.Grenades, grenades);

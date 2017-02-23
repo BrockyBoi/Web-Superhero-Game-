@@ -14,7 +14,7 @@ public class SuperPowerController : MonoBehaviour {
                             Fire, Wave, RockThrow, Lightning,
                             ParagonMelee, FreezeBreath, HeatVision, Jump,
                             SpeedMelee, WindGust, DashAttack, MapDash,
-                            Pistol, Shotgun, Sniper, Grenades,
+                            Bat, Shotgun, Sniper, Grenades,
 							POWERS_COUNT
                            };
     public enum SuperHero { Tank, Elementalist, Paragon, Speedster, Vigilante, HERO_COUNT}

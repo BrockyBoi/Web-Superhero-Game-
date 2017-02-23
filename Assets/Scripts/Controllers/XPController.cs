@@ -14,6 +14,7 @@ public class XPController : MonoBehaviour {
 	[SerializeField]
 	[Range(1,4)]
 	int level;
+
 	public int[] xpCaps;
 
 	void Awake()
@@ -21,20 +22,20 @@ public class XPController : MonoBehaviour {
 		controller = this;
 		level = 1;
 	}
-
-	// Use this for initialization
+		
 	void Start () {
 		GameCanvas.controller.NewLevel (1);
 
 		if (startWithMaxXP) {
-			//currentXp = 505;
-			//GameCanvas.controller.NewLevel (4);
+			currentXp = 4505;
+			GameCanvas.controller.NewLevel (4);
+			level = 4;
 		}
 	}
 
 	void Update()
 	{
-		currentXp += 1;
+		//currentXp += 1;
 		CheckXP ();
 	}
 
@@ -55,8 +56,8 @@ public class XPController : MonoBehaviour {
 
     IEnumerator SpendXP(int power)
     {
-		int amount = 1;
-		while (currentXp - amount > 0)
+		int amount = 5;
+		while (currentXp - amount > 0 && UpgradeController.controller.GetUpgradeLevel(power) <= 5)
         {
 			currentXp = Mathf.Max(0, currentXp - amount);
 
@@ -69,8 +70,7 @@ public class XPController : MonoBehaviour {
             yield return null;
         }
     }
-
-
+		
 	public void PressSpendXP(int power)
 	{
        spenders[power] = SpendXP(power);
@@ -107,13 +107,13 @@ public class XPController : MonoBehaviour {
 		switch (enemyType)
 		{
 		case (0):
-			return 1;
-		case (1):
 			return 5;
-		case (2):
+		case (1):
 			return 10;
+		case (2):
+			return 25;
 		case (3):
-			return 50;
+			return 100;
 		default:
 			Debug.Log("You probably did something wrong");
 			return 0;

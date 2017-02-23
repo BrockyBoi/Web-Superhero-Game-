@@ -143,11 +143,20 @@ public class Enemy : MonoBehaviour {
 		if (tutorialMode || invulnerable || stunned)
 			return;
 
-		RaycastHit2D hit = Physics2D.Raycast(attackTransform.position, forwardDirection, attackDistance, LayerMask.GetMask("Player"));
+			if(enemyNumber < 3)
+			{
 
-		if (hit) {
+		
+		if(Physics2D.Raycast(attackTransform.position, forwardDirection, attackDistance, LayerMask.GetMask("Player"))){
 			Player.playerSingleton.TakeDamage (damage);
-		}
+		} 
+			}
+			else{
+				if(Physics2D.Raycast(attackTransform.position, forwardDirection, attackDistance / 2, LayerMask.GetMask("Player")) || Physics2D.Raycast(attackTransform.position, -forwardDirection, attackDistance / 2, LayerMask.GetMask("Player")))
+				{
+					Player.playerSingleton.TakeDamage(damage);
+				}
+			}
 
 		if (canAttack) {
 			anim.SetTrigger ("attack");
@@ -206,20 +215,20 @@ public class Enemy : MonoBehaviour {
 		case ((int)Player.Attacks.Short):
 			switch (Player.playerSingleton.GetPower (0)) {
 			case ((int)SuperPowerController.PowerNames.TankMelee):
-				GetHit (30, 50, 50, 75, dir);
+				GetHit (30, 50, 50, 75, dir, dmg);
 				break;
 			case ((int)SuperPowerController.PowerNames.ParagonMelee):
-				GetHit (50, 60, 10, 20, dir);
+				GetHit (50, 60, 10, 20, dir,dmg);
 				break;
 			case ((int)SuperPowerController.PowerNames.SpeedMelee):
-				GetHit (5, 10, 1, 2, dir);
+				GetHit (5, 10, 1, 2, dir,dmg);
 				break;
 			case ((int)SuperPowerController.PowerNames.Fire):
 				if(!onFire)
 					SetOnFire (dmg, 3);
 				break;
-			case ((int)SuperPowerController.PowerNames.Pistol):
-				GetHit (5, 10, 0, 0, dir);
+			case ((int)SuperPowerController.PowerNames.Bat):
+				GetHit (20, 25, 0, 0, dir,dmg);
 				break;
 			default:
 				break;
@@ -232,16 +241,16 @@ public class Enemy : MonoBehaviour {
 				StunEnemy (Color.yellow, 2);
 				break;
 			case ((int)SuperPowerController.PowerNames.Wave):
-				GetHit (25, 30, 25, 30, dir);
+				GetHit (25, 30, 25, 30, dir,dmg);
 				break;
 			case ((int)SuperPowerController.PowerNames.FreezeBreath):
 				StunEnemy (Color.blue, dmg);
 				break;
 			case ((int)SuperPowerController.PowerNames.WindGust):
-				GetHit (5, 10, 40, 50, dir);
+				GetHit (5, 10, 40, 50, dir,dmg);
 				break;
 			case ((int)SuperPowerController.PowerNames.Shotgun):
-				GetHit (25, 30, 1, 10, dir);
+				GetHit (25, 30, 1, 10, dir,dmg);
 				break;
 			default:
 				break;
@@ -250,19 +259,19 @@ public class Enemy : MonoBehaviour {
 		case ((int)Player.Attacks.Long):
 			switch (Player.playerSingleton.GetPower (2)) {
 			case ((int)SuperPowerController.PowerNames.ShoulderCharge):
-				GetHit (10, 20, 50, 50, dir);
+				GetHit (10, 20, 50, 50, dir,dmg);
 				break;
 			case ((int)SuperPowerController.PowerNames.RockThrow):
-				GetHit (30, 45, 10, 20, dir);
+				GetHit (75, 100, 10, 20, dir,dmg);
 				break;
 			case ((int)SuperPowerController.PowerNames.HeatVision):
-				GetHit (20, 30, 0, 0, dir);
+				GetHit (50, 60, 0, 0, dir,dmg);
 				break;
 			case ((int)SuperPowerController.PowerNames.DashAttack):
-				GetHit (30, 50, 10, 10, dir);
+				GetHit (30, 50, 10, 10, dir,dmg);
 				break;
 			case ((int)SuperPowerController.PowerNames.Sniper):
-				GetHit (40, 60, 0, 0, dir);
+				GetHit (100, 135, 0, 0, dir,dmg);
 				break;
 			default:
 				break;
@@ -271,19 +280,19 @@ public class Enemy : MonoBehaviour {
 		case ((int)Player.Attacks.AOE):
 			switch (Player.playerSingleton.GetPower (3)) {
 			case ((int)SuperPowerController.PowerNames.GroundSmash):
-				GetHit (15, 30, 25, 30, dir);
+				GetHit (35, 40, 35, 40, dir,dmg);
 				break;
 			case ((int)SuperPowerController.PowerNames.Lightning):
 				StunEnemy (Color.yellow, 8);
 				break;
 			case ((int)SuperPowerController.PowerNames.Jump):
-				GetHit (10, 25, 35, 60, dir);
+				GetHit (15, 35, 45, 70, dir,dmg);
 				break;
 			case ((int)SuperPowerController.PowerNames.MapDash):
-				GetHit (50, 75, 20, 30, dir);
+				GetHit (50, 75, 20, 30, dir,dmg);
 				break;
 			case ((int)SuperPowerController.PowerNames.Grenades):
-				GetHit (20, 25, 30, 35, dir);
+				GetHit (20, 25, 30, 35, dir,dmg);
 				break;
 			default:
 				break;
@@ -294,9 +303,8 @@ public class Enemy : MonoBehaviour {
 		}
     }
 
-	protected void GetHit(int x1, int x2, int y1, int y2, int direction)
+	protected void GetHit(int x1, int x2, int y1, int y2, int direction, float dmg)
 	{
-		int dmg = XPController.controller.GetLevel ();
 		rb2d.AddForce (new Vector2 (Random.Range (dmg * direction * x1, dmg * direction * x2), Random.Range (dmg * y1, dmg * y2)), ForceMode2D.Impulse);
 
 		if(health > 0)
@@ -395,21 +403,4 @@ public class Enemy : MonoBehaviour {
 	{
 		return invulnerable;
 	}
-
-//	void OnTriggerEnter2D(Collider2D other)
-//	{
-//		if(other.CompareTag("Player"))
-//			{
-//				canAttack = true;
-//				anim.SetTrigger ("attack");
-//			DisableCanMove ();
-//			}
-//	}
-//
-//	void OnTriggerExit2D(Collider2D other)
-//	{
-//		if (other.CompareTag ("Player")) {
-//			canAttack = false;
-//		}
-//	}
 }

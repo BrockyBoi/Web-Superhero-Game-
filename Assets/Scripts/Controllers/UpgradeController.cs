@@ -2,57 +2,77 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeController : MonoBehaviour {
-	public static UpgradeController controller;
-	public enum Upgrades{Damage, MaxHealth, HealthRegen, PowerRegen, Speed, NextHero, UPGRADE_COUNT};
+public class UpgradeController : MonoBehaviour
+{
+    public static UpgradeController controller;
+    public enum Upgrades { Damage, MaxHealth, HealthRegen, PowerRegen, Speed, NextHero, UPGRADE_COUNT };
 
-	int[] xpAmounts = new int[(int)Upgrades.UPGRADE_COUNT]; 
-	int[] xpLevels = new int[(int)Upgrades.UPGRADE_COUNT];
+    public bool maxLevel;
 
-	[SerializeField]
-	int[] xpNeeds;
+    int[] xpAmounts = new int[(int)Upgrades.UPGRADE_COUNT];
+    int[] xpLevels = new int[(int)Upgrades.UPGRADE_COUNT];
 
-	void Awake()
-	{
-		controller = this;
+    [SerializeField]
+    int[] xpNeeds;
 
-		xpNeeds = new int[5]{ 100, 500, 1500, 5000, 15000 };
+    void Awake()
+    {
+        controller = this;
 
-		for (int i = 0; i < (int)Upgrades.UPGRADE_COUNT; i++) {
-			xpLevels [i] = 1;
-		}
-	}
-	// Use this for initialization
-	void Start () {
-		UpdatePowers ();
-	}
+        xpNeeds = new int[5] { 100, 500, 1000, 2500, 5000 };
 
-	public void SpendXP(int upgrade, int amount)
-	{
-		xpAmounts[upgrade] += amount;
-		//Debug.Log (xpLevels [upgrade]);
+        if (!maxLevel)
+        {
+            for (int i = 0; i < (int)Upgrades.UPGRADE_COUNT; i++)
+            {
+                xpLevels[i] = 0;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < (int)Upgrades.UPGRADE_COUNT; i++)
+            {
+                xpLevels[i] = 5;
+            }
+        }
+    }
+    // Use this for initialization
+    void Start()
+    {
+        UpdatePowers();
+    }
 
-		if (xpAmounts [upgrade] >= xpNeeds [xpLevels[upgrade] - 1]) {
-		//	Debug.Log("Upgraded " + (int)Upgrades[upgrade]);
-			xpAmounts [upgrade] = 0;
-			xpLevels [upgrade]++;
-			UpdatePowers ();
-		}
-	}
+    public void SpendXP(int upgrade, int amount)
+    {
+        xpAmounts[upgrade] += amount;
 
-	public int UpgradeToInt(Upgrades upgrade)
-	{
-		return (int)upgrade;
-	}
+        if (xpAmounts[upgrade] >= xpNeeds[xpLevels[upgrade] - 1])
+        {
+            xpAmounts[upgrade] = 0;
+            xpLevels[upgrade]++;
+            UpdatePowers();
+            Debug.Log("Leveled up power: " + upgrade + " to level " + xpLevels[upgrade]);
+        }
+    }
 
-	public int GetUpgradeLevel(Upgrades upgrade)
-	{
-		return xpLevels [UpgradeToInt (upgrade)];
-	}
+    public int UpgradeToInt(Upgrades upgrade)
+    {
+        return (int)upgrade;
+    }
 
-	void UpdatePowers()
-	{
-		Player.playerSingleton.UpdatePowers (xpLevels [(int)Upgrades.Damage], xpLevels [(int)Upgrades.HealthRegen], 
-			xpLevels [(int)Upgrades.HealthRegen], xpLevels [(int)Upgrades.PowerRegen], xpLevels [(int)Upgrades.Speed]);
-	}
+    public int GetUpgradeLevel(Upgrades upgrade)
+    {
+        return xpLevels[UpgradeToInt(upgrade)];
+    }
+
+    public int GetUpgradeLevel(int upgrade)
+    {
+        return xpLevels[upgrade];
+    }
+
+    void UpdatePowers()
+    {
+        Player.playerSingleton.UpdatePowers(xpLevels[(int)Upgrades.Damage], xpLevels[(int)Upgrades.MaxHealth],
+            xpLevels[(int)Upgrades.HealthRegen], xpLevels[(int)Upgrades.PowerRegen], xpLevels[(int)Upgrades.Speed]);
+    }
 }
