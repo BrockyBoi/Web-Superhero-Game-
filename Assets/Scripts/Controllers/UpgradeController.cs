@@ -44,6 +44,8 @@ public class UpgradeController : MonoBehaviour
 
     public void SpendXP(int upgrade, int amount)
     {
+        if (xpLevels[upgrade] < 5)
+            return;
         xpAmounts[upgrade] += amount;
 
         if (xpAmounts[upgrade] >= xpNeeds[xpLevels[upgrade] - 1])

@@ -57,7 +57,7 @@ public class XPController : MonoBehaviour {
     IEnumerator SpendXP(int power)
     {
 		int amount = 5;
-		while (currentXp - amount > 0 && UpgradeController.controller.GetUpgradeLevel(power) <= 5)
+		while (currentXp - amount >= 0 && UpgradeController.controller.GetUpgradeLevel(power) < 5)
         {
 			currentXp = Mathf.Max(0, currentXp - amount);
 
@@ -66,6 +66,7 @@ public class XPController : MonoBehaviour {
 				GameCanvas.controller.NewLevel (level);
 			}
 
+			GameCanvas.controller.SetXP(currentXp);
             UpgradeController.controller.SpendXP(power, amount);
             yield return null;
         }

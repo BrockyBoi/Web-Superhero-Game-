@@ -74,8 +74,6 @@ public class Player : MonoBehaviour {
                                      1, 3.5f, 7, 20
                                     };
 
-		healthRegen = 5;
-
 		GetPowers ();
 
         attackTimes = new float[4] { 0, 0, 0, 0};
@@ -105,7 +103,7 @@ public class Player : MonoBehaviour {
 
 		defaultXScale = transform.localScale.x;
 
-		Invoke ("RegainHealth", healthRegen);
+		Invoke ("RegainHealth", 5);
     }
 
 	void Update () {
@@ -294,13 +292,19 @@ public class Player : MonoBehaviour {
 			switch (availablePowers [0]) {
 			case ((int)SuperPowerController.PowerNames.TankMelee):
 				if (NormalAttack (0) > 0)
+				{
+					StartCoroutine(BrieflySlowTime());
 					PlayThisSound (attackNum);
+				}
 				else
 					PlaySound (SoundController.controller.whoosh);
 				break;
 			case ((int)SuperPowerController.PowerNames.ParagonMelee):
 				if(NormalAttack (0) > 0)
+				{
+					//StartCoroutine(BrieflySlowTime());
 					PlaySound(SoundController.controller.punch);
+				}
 				else
 					PlaySound (SoundController.controller.whoosh);
 				break;
@@ -361,7 +365,11 @@ public class Player : MonoBehaviour {
 				PlaySound (SoundController.controller.rockSummon);
 				break;
 			case ((int)SuperPowerController.PowerNames.HeatVision):
-				NormalAttack (2);
+
+				if(NormalAttack (2) > 0)
+				{
+					//StartCoroutine(BrieflySlowTime());
+				}
 				PlaySound (SoundController.controller.heatVision);
 				//Turn on heat vision sprite
 				LaserVisionSprite(1);
@@ -421,7 +429,23 @@ public class Player : MonoBehaviour {
 			hits = SuperPowerAttackBothDirections (powerNum, distance);
 		}
 
+		//if(hits > 0)
+			//StartCoroutine(BrieflySlowTime());
 		return hits;
+	}
+
+	IEnumerator BrieflySlowTime()
+	{
+		Time.timeScale = .1f;
+		//float endTime = Time.realtimeSinceStartup + .25f;
+		//while(Time.realtimeSinceStartup < endTime)
+		//	yield return null;
+
+		while(Time.timeScale < 1)
+		{
+			Time.timeScale += Time.deltaTime * 5;
+			yield return null;
+		}
 	}
 
 	void NoLongerAttacking()
@@ -702,9 +726,9 @@ public class Player : MonoBehaviour {
 
 	void RegainHealth()
 	{
-		health = Mathf.Min (health + 5, maxHealth);
+		health = Mathf.Min (health + (int)healthRegen, maxHealth);
 
-		Invoke ("RegainHealth", healthRegen);
+		Invoke ("RegainHealth", 5);
 	}
 
     public static float ShortAttackDistance()
@@ -765,13 +789,14 @@ public class Player : MonoBehaviour {
 		this.damage = 1 + damage * 2;
 
 		this.maxHealth = Mathf.Max(starterHealth, starterHealth * (int)(maxHealth * .66f));
-		this.healthRegen = 6 - healthRegen;
+		GameCanvas.controller.AssignSliderMaxValues((int)GameCanvas.SliderNumbers.Health, this.maxHealth);
+		this.healthRegen = 1 + healthRegen;
 
 		for (int i = 0; i < 4; i++) {
 			attackRates[availablePowers [i]] = ((5 - powerRegen + 1) / 5.0f) * defaultAttackRates[i];
 			GameCanvas.controller.AssignSliderMaxValues (i, attackRates [availablePowers[i]]);
 		}
 
-		this.hSpeed = 5 + speed * 2;
+		this.hSpeed = 7 + speed * 2;
 	}
 }
